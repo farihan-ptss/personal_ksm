@@ -23,6 +23,7 @@
         /* Custom scrollbar for premium feel */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #F1ECE1;
@@ -158,13 +159,13 @@
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
                         
                         <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                            <!-- Profile Picture Frame using Github & Fallbacks -->
+                            <!-- Profile Picture Frame using GitHub Image -->
                             <div class="relative flex-shrink-0 group/profile">
                                 <div class="w-64 h-80 rounded-[2.5rem] border-8 border-[#D2C4A7] overflow-hidden shadow-xl bg-[#FAF8F5] flex items-center justify-center relative">
                                     <img id="profile-display-img" src="https://farihan-ptss.github.io/personal_ksm/uniform.png"
                                          alt="Pn Farihan Elyana"
                                          class="w-full h-full object-cover"
-                                         onerror="this.onerror=null; this.src='uniform.jpg';">
+                                         onerror="this.onerror=null; this.src='https://placehold.co/300x400/1a365d/ffffff?text=Pn+Farihan+Elyana';">
                                     
                                     <!-- Subtle Floating Info -->
                                     <div class="absolute bottom-0 inset-x-0 bg-slate-900/80 backdrop-blur py-2 text-center text-xs text-amber-300 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -179,7 +180,7 @@
                                 <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
 
                                 <!-- Reset Image Button -->
-                                <button onclick="resetProfileImage()" class="absolute top-2 left-2 bg-slate-900/90 hover:bg-rose-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 z-20" title="Set Semula Gambar Semulajadi">
+                                <button onclick="resetProfileImage()" class="absolute top-2 left-2 bg-slate-900/90 hover:bg-rose-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 z-20" title="Set Semula Gambar Asal">
                                     <i class="fa-solid fa-arrow-rotate-left text-sm"></i>
                                 </button>
 
@@ -246,7 +247,7 @@
                                     <span class="text-xs font-bold text-amber-800 uppercase tracking-widest block mb-1">2025 - TERKINI</span>
                                     <h4 class="text-lg font-bold text-slate-900">Penolong Pesuruhjaya Daerah KSM PTSS & Penolong Ketua Pesuruhjaya Negeri</h4>
                                     <p class="text-sm text-slate-600 mt-1 leading-relaxed">
-                                        Menguruskan hal-hal urus tadbir kepengakapan termasuk pendaftaran keahlian negeri, urusan penganugerahan pingat, serta pengurusan majlis-majlis rasmi kepengakapan peringkat negeri.
+                                        Mengguruskan hal-hal urus tadbir kepengakapan termasuk pendaftaran keahlian negeri, urusan penganugerahan pingat, serta pengurusan majlis-majlis rasmi kepengakapan peringkat negeri.
                                     </p>
                                 </div>
 
@@ -275,254 +276,56 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: Pengakap Udara Section -->
+                <!-- TAB 2: Pengakap Udara Section (UNDER CONSTRUCTION) -->
                 <div id="content-udara" class="tab-content hidden animate-fadeIn">
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-3 bg-sky-100 text-sky-800 rounded-xl">
-                                <i class="fa-solid fa-plane-departure text-2xl"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-2xl md:text-3xl font-extrabold text-blue-950">Mengenai Pengakap Udara</h2>
-                                <p class="text-sm text-slate-500">Mempelajari dan mendalami bidang aeroangkasa melalui kepengakapan</p>
-                            </div>
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
+                        <div class="w-20 h-20 rounded-full bg-amber-50 border-4 border-amber-200 flex items-center justify-center text-amber-600 mb-6 animate-bounce">
+                            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
                         </div>
-
-                        <div class="relative overflow-hidden rounded-xl h-48 md:h-64 mb-6">
-                            <img src="https://placehold.co/800x400/1a365d/ffffff?text=Latihan+Penerbangan+Pengakap+Udara" class="w-full h-full object-cover" alt="Pengakap Udara">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
-                                <p class="text-white text-sm md:text-base font-semibold italic">"The sky is not the limit, it's our playground." - Panduan Latihan Aeronautik Pengakap Udara</p>
-                            </div>
-                        </div>
-
-                        <div class="prose max-w-none text-slate-600 text-sm md:text-base leading-relaxed space-y-4">
-                            <p>
-                                <strong>Pengakap Udara</strong> merupakan satu unit cawangan khas di bawah Persekutuan Pengakap Malaysia yang memberi fokus kepada program latihan berasaskan aktiviti udara, penerbangan, meteorologi, keselamatan lapangan terbang, serta mekanik kapal terbang.
-                            </p>
-                            <p>
-                                Latihan ini bukan sahaja membina disiplin diri yang tinggi malah memberi peluang kepada ahli pengakap untuk merasai pengalaman penerbangan simulasi, penerbangan glider, paragliding, serta lawatan teknikal ke menara kawalan trafik udara (ATC).
-                            </p>
-                        </div>
-
-                        <h3 class="text-xl font-bold text-blue-950 mt-8 mb-4"><i class="fa-solid fa-circle-info mr-2 text-sky-600"></i>Lencana Utama Pengakap Udara</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
-                                <div class="w-12 h-12 rounded-full bg-sky-600 text-white flex items-center justify-center mb-3 text-lg font-bold">1</div>
-                                <h4 class="font-bold text-slate-800 text-sm">Lencana Ahli Udara</h4>
-                                <p class="text-[11px] text-slate-500 mt-1">Pengenalan asas aeroangkasa, kod fonetik penerbangan, dan bahagian kapal terbang.</p>
-                            </div>
-                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
-                                <div class="w-12 h-12 rounded-full bg-sky-700 text-white flex items-center justify-center mb-3 text-lg font-bold">2</div>
-                                <h4 class="font-bold text-slate-800 text-sm">Lencana Pemerhati Udara</h4>
-                                <p class="text-[11px] text-slate-500 mt-1">Mengkaji corak awan (meteorologi), membaca peta altitud, dan asas navigasi kompas udara.</p>
-                            </div>
-                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
-                                <div class="w-12 h-12 rounded-full bg-sky-900 text-white flex items-center justify-center mb-3 text-lg font-bold">3</div>
-                                <h4 class="font-bold text-slate-800 text-sm">Lencana Mekanik Udara</h4>
-                                <p class="text-[11px] text-slate-500 mt-1">Teori kuasa tujah enjin jet & omboh, aerodinamik sayap pesawat, dan aeromodelling.</p>
-                            </div>
+                        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Halaman Sedang Dalam Pembinaan</h3>
+                        <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto leading-relaxed">
+                            Bahagian **Pengakap Udara** sedang dikemas kini dengan kandungan modul aeronautik, teori penerbangan, dan rujukan lencana udara terbaru. Sila datang kembali tidak lama lagi!
+                        </p>
+                        <div class="mt-6">
+                            <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-person-digging"></i> Under Construction
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB 3: Aktiviti Kepengakapan -->
+                <!-- TAB 3: Aktiviti Kepengakapan (UNDER CONSTRUCTION) -->
                 <div id="content-aktiviti" class="tab-content hidden animate-fadeIn">
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                            <div class="flex items-center gap-3">
-                                <div class="p-3 bg-rose-100 text-rose-800 rounded-xl">
-                                    <i class="fa-solid fa-campground text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Aktiviti Kepengakapan</h2>
-                                    <p class="text-sm text-slate-500">Log pengembaraan dan aktiviti-aktiviti latihan luar daerah</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Search/Filter Controls -->
-                            <div class="flex items-center gap-2">
-                                <button onclick="filterActivities('semua')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-600 text-white">Semua</button>
-                                <button onclick="filterActivities('darat')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200">Darat</button>
-                                <button onclick="filterActivities('udara')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200">Udara</button>
-                            </div>
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
+                        <div class="w-20 h-20 rounded-full bg-amber-50 border-4 border-amber-200 flex items-center justify-center text-amber-600 mb-6 animate-bounce">
+                            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
                         </div>
-
-                        <!-- Activities Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="activities-grid">
-                            <!-- Act 1 -->
-                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="udara">
-                                <div class="h-44 relative bg-slate-100">
-                                    <img src="https://placehold.co/500x300/2b6cb0/ffffff?text=Latihan+Simulator+PTSS" class="w-full h-full object-cover" alt="Aktiviti 1">
-                                    <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Udara</span>
-                                </div>
-                                <div class="p-5">
-                                    <span class="text-xs font-bold text-rose-600 uppercase">MAC 2026</span>
-                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Latihan Penerbangan Simulator Boeing 737</h3>
-                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                                        Mendedahkan ahli Kelanasiswa kepada instrumen penerbangan simulasi bagi mempertingkatkan pengetahuan aeroangkasa mereka.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Act 2 -->
-                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="darat">
-                                <div class="h-44 relative bg-slate-100">
-                                    <img src="https://placehold.co/500x300/c53030/ffffff?text=Perkhemahan+Kelanasiswa" class="w-full h-full object-cover" alt="Aktiviti 2">
-                                    <span class="absolute top-3 right-3 bg-rose-600 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Darat</span>
-                                </div>
-                                <div class="p-5">
-                                    <span class="text-xs font-bold text-rose-600 uppercase">DIS 2025</span>
-                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Perkhemahan Integrasi Kelana Negeri</h3>
-                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                                        Mengendalikan latihan kepimpinan, ikhtiar hidup hutan, dan khidmat masyarakat secara bersemuka bersama komuniti kampung.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Act 3 -->
-                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="udara">
-                                <div class="h-44 relative bg-slate-100">
-                                    <img src="https://placehold.co/500x300/319795/ffffff?text=Aeromodelling+PTSS" class="w-full h-full object-cover" alt="Aktiviti 3">
-                                    <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Udara</span>
-                                </div>
-                                <div class="p-5">
-                                    <span class="text-xs font-bold text-rose-600 uppercase">OKT 2025</span>
-                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Bengkel Pembuatan Model Glider Balsa</h3>
-                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                                        Bengkel amali membina model glider bagi memahami empat daya utama aerodinamik aerofoil.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Act 4 -->
-                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="darat">
-                                <div class="h-44 relative bg-slate-100">
-                                    <img src="https://placehold.co/500x300/4a5568/ffffff?text=Khidmat+Komuniti" class="w-full h-full object-cover" alt="Aktiviti 4">
-                                    <span class="absolute top-3 right-3 bg-rose-600 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Darat</span>
-                                </div>
-                                <div class="p-5">
-                                    <span class="text-xs font-bold text-rose-600 uppercase">JULAI 2025</span>
-                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Projek Kelestarian Bakti Siswa PTSS</h3>
-                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                                        Projek khidmat masyarakat penanaman pokok serta pemeliharaan kawasan hijau bersama komuniti daerah.
-                                    </p>
-                                </div>
-                            </div>
+                        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Halaman Sedang Dalam Pembinaan</h3>
+                        <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto leading-relaxed">
+                            Log diari **Aktiviti Kepengakapan** sedang dikemaskini dengan gambar-gambar perkhemahan, latihan simulator, dan khidmat masyarakat terkini.
+                        </p>
+                        <div class="mt-6">
+                            <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-person-digging"></i> Under Construction
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB 4: Bahan Pengajaran -->
+                <!-- TAB 4: Bahan Pengajaran (UNDER CONSTRUCTION) -->
                 <div id="content-pengajaran" class="tab-content hidden animate-fadeIn">
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-8">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <div class="flex items-center gap-3">
-                                <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl">
-                                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Bahan Pengajaran</h2>
-                                    <p class="text-sm text-slate-500">Koleksi rujukan dan manual kepengakapan Kelanasiswa</p>
-                                </div>
-                            </div>
-
-                            <!-- Search Input for Materials -->
-                            <div class="relative w-full sm:w-64">
-                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                                <input type="text" id="search-materials" onkeyup="searchMaterials()" placeholder="Cari nota..." class="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            </div>
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
+                        <div class="w-20 h-20 rounded-full bg-amber-50 border-4 border-amber-200 flex items-center justify-center text-amber-600 mb-6 animate-bounce">
+                            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
                         </div>
-
-                        <!-- Materials List -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="materials-container">
-                            <!-- Material item 1 -->
-                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="manual asas kawalan trafik udara atc pengakap">
-                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
-                                    <i class="fa-regular fa-file-pdf text-xl"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">PDF MANUAL</span>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Manual Asas Kawalan Trafik Udara (ATC)</h4>
-                                    <p class="text-xs text-slate-500 mt-1">Modul panduan mempelajari tatacara perhubungan radio ATC dan kod fonetik ICAO.</p>
-                                    <button onclick="simulateDownload('Manual ATC.pdf')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
-                                        <i class="fa-solid fa-download"></i> Muat Turun (4.2 MB)
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Material item 2 -->
-                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="slaid persembahan prinsip asas aerodinamik lift drag">
-                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
-                                    <i class="fa-regular fa-file-powerpoint text-xl"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <span class="text-[10px] bg-sky-100 text-sky-800 font-extrabold px-2 py-0.5 rounded uppercase">POWERPOINT</span>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Slaid Prinsip Asas Aerodinamik</h4>
-                                    <p class="text-xs text-slate-500 mt-1">Pembentangan visual mengenai prinsip Bernoulli, empat daya penerbangan (Lift, Weight, Thrust, Drag).</p>
-                                    <button onclick="simulateDownload('Prinsip Aerodinamik.pptx')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
-                                        <i class="fa-solid fa-download"></i> Muat Turun (12.8 MB)
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Material item 3 -->
-                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="log book aktiviti kelana panduan penulisan">
-                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
-                                    <i class="fa-regular fa-file-word text-xl"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded uppercase">DOCX TEMPLATE</span>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Panduan Menulis Log Book Kelana</h4>
-                                    <p class="text-xs text-slate-500 mt-1">Templat tersusun bagi memudahkan ahli Kelanasiswa merekodkan log pengembaraan mereka secara bersistem.</p>
-                                    <button onclick="simulateDownload('Panduan LogBook Kelana.docx')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
-                                        <i class="fa-solid fa-download"></i> Muat Turun (1.5 MB)
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Material item 4 -->
-                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="nota panduan kompas dan peta orienteering darat">
-                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
-                                    <i class="fa-regular fa-file-pdf text-xl"></i>
-                                </div>
-                                <div class="flex-grow">
-                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">PDF PANDUAN</span>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Nota Panduan Kompas & Orienteering</h4>
-                                    <p class="text-xs text-slate-500 mt-1">Kaedah menentukan bearing, pembacaan peta topografi silva, dan memplot laluan kembara rimba.</p>
-                                    <button onclick="simulateDownload('Kompas Orienteering.pdf')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
-                                        <i class="fa-solid fa-download"></i> Muat Turun (5.1 MB)
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Interactive Quiz -->
-                        <div class="border border-emerald-100 rounded-2xl bg-[#F4FAF6] p-6">
-                            <h3 class="text-lg font-bold text-emerald-900 mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-gamepad text-emerald-600"></i> Uji Kefahaman: Kuiz Pintar Pengakap Udara!
-                            </h3>
-                            <p class="text-xs text-slate-600 mb-6">Jawab soalan cepat ini untuk menguji kemahiran aeroangkasa asas anda.</p>
-
-                            <div id="quiz-box" class="space-y-4">
-                                <p class="font-bold text-slate-800 text-sm">Apakah daya yang dihasilkan oleh sayap kapal terbang yang membolehkannya mengatasi tarikan graviti?</p>
-                                
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
-                                        <strong>A.</strong> Thrust (Daya Tujah)
-                                    </button>
-                                    <button onclick="checkAnswer(true, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
-                                        <strong>B.</strong> Lift (Daya Angkat)
-                                    </button>
-                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
-                                        <strong>C.</strong> Drag (Daya Rintangan)
-                                    </button>
-                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
-                                        <strong>D.</strong> Weight (Daya Berat)
-                                    </button>
-                                </div>
-                                
-                                <div id="quiz-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-semibold"></div>
-                            </div>
+                        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Halaman Sedang Dalam Pembinaan</h3>
+                        <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto leading-relaxed">
+                            Hab rujukan **Bahan Pengajaran** sedang mengumpulkan lembaran kerja, manual kod fonetik penerbangan, dan kuiz interaktif. Sila nantikan perkongsian fail pdf akan datang!
+                        </p>
+                        <div class="mt-6">
+                            <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-person-digging"></i> Under Construction
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -558,7 +361,7 @@
                         <div id="kelana-sub-skim" class="kelana-sub-content block space-y-6">
                             
                             <!-- Sejarah Panel (Expandable) -->
-                            <div class="border border-violet-100 rounded-2xl bg-violet-50/40 p-5 space-y-3">
+                            <div class="border border-violet-100 rounded-2xl bg-violet-50/40 p-5 space-y-3 shadow-sm hover:border-violet-200 transition">
                                 <div class="flex justify-between items-center cursor-pointer" onclick="toggleSejarahPanel()">
                                     <div class="flex items-center gap-3">
                                         <i class="fa-solid fa-book-bookmark text-violet-700 text-xl"></i>
@@ -628,7 +431,7 @@
                                     <!-- Kemahiran Badge -->
                                     <button onclick="selectSyllabusBadge('kemahiran')" id="badge-btn-kemahiran" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
                                         <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
-                                            <img src="https://farihan-ptss.github.io/personal_ksm/kemahiran.jpg" alt="Lencana Kemahiran" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/8b0000/ffffff?text=Kemahiran';">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/kemahiran.jpg" alt="Lencana Kemahiran" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Kemahiran';">
                                         </div>
                                         <div>
                                             <span class="block font-bold text-slate-900 text-xs">Lencana Kemahiran</span>
@@ -639,7 +442,7 @@
                                     <!-- Perkhidmatan Badge -->
                                     <button onclick="selectSyllabusBadge('perkhidmatan')" id="badge-btn-perkhidmatan" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
                                         <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
-                                            <img src="https://farihan-ptss.github.io/personal_ksm/khidmat.jpg" alt="Lencana Perkhidmatan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/006400/ffffff?text=Khidmat';">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/khidmat.jpg" alt="Lencana Perkhidmatan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Khidmat';">
                                         </div>
                                         <div>
                                             <span class="block font-bold text-slate-900 text-xs">Lencana Perkhidmatan</span>
@@ -650,7 +453,7 @@
                                     <!-- Pengembaraan Badge -->
                                     <button onclick="selectSyllabusBadge('pengembaraan')" id="badge-btn-pengembaraan" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
                                         <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
-                                            <img src="https://farihan-ptss.github.io/personal_ksm/kembara.jpg" alt="Lencana Pengembaraan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/d69e2e/ffffff?text=Kembara';">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/kembara.jpg" alt="Lencana Pengembaraan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Kembara';">
                                         </div>
                                         <div>
                                             <span class="block font-bold text-slate-900 text-xs">Lencana Pengembaraan</span>
@@ -819,56 +622,323 @@
                         </div>
 
                         <!-- SUB-TAB 3: Baden-Powell (B-P) Award -->
-                        <div id="kelana-sub-bp-award" class="kelana-sub-content hidden space-y-6">
+                        <div id="kelana-sub-bp-award" class="kelana-sub-content hidden space-y-8">
+                            <!-- Hero Section with bpa.jpg and official context -->
                             <div class="flex flex-col md:flex-row gap-6 items-center bg-slate-900 text-white rounded-2xl p-6 md:p-8 relative overflow-hidden">
-                                <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-violet-600 rounded-full blur-3xl opacity-20"></div>
-                                <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#FFD700] bg-violet-950 flex flex-shrink-0 items-center justify-center shadow-xl transform hover:scale-105 transition">
-                                    <div class="text-center">
-                                        <i class="fa-solid fa-star text-amber-400 text-xl md:text-2xl animate-pulse"></i>
-                                        <span class="block text-[9px] md:text-xs font-black text-[#FFD700] tracking-widest mt-1">ANUGERAH</span>
-                                        <span class="block text-[10px] md:text-sm font-extrabold text-white">B-P</span>
+                                <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-violet-600 rounded-full blur-3xl opacity-25"></div>
+                                
+                                <!-- Segi Empat Sama Image Container -->
+                                <div class="w-36 h-36 rounded-xl border-4 border-[#FFD700] bg-slate-800 overflow-hidden shadow-xl flex-shrink-0 relative group aspect-square">
+                                    <img src="https://farihan-ptss.github.io/personal_ksm/bpa.jpg" 
+                                         alt="Anugerah Baden-Powell" 
+                                         class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/300x300/1e293b/ffffff?text=B-P+Award';">
+                                    <div class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-center py-1 text-[10px] font-bold text-amber-300">
+                                        ANUGERAH B-P
                                     </div>
                                 </div>
-                                <div class="space-y-3 flex-grow">
-                                    <span class="text-xs font-bold text-amber-400 tracking-wider uppercase">Sijil Tertinggi Pengakap Kelana</span>
-                                    <h3 class="text-2xl font-bold">Anugerah Baden-Powell (B-P Award)</h3>
+                                
+                                <div class="space-y-3 flex-grow text-center md:text-left">
+                                    <span class="text-xs font-bold text-amber-400 tracking-wider uppercase bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+                                        Kemuncak Perjalanan Pengakap Kelana
+                                    </span>
+                                    <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight">Anugerah Baden-Powell (B-P Award)</h3>
                                     <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-2xl">
-                                        Anugerah Baden-Powell merupakan pengiktirafan dan anugerah tertinggi yang dianugerahkan oleh Persekutuan Pengakap Malaysia kepada ahli Pengakap Kelana yang telah melengkapkan kesemua skim lencana wajib dan pilihan serta menunjukkan ketokohan kepimpinan yang tinggi.
+                                        Anugerah Baden-Powell (B-P) merupakan penghormatan tertinggi yang dikurniakan kepada ahli Pengakap Kelana yang cemerlang. Ia menjadi simbol bahawa pemakainya adalah seorang individu yang berdikari, proaktif, dan sedia berbakti kepada negara.
                                     </p>
+                                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-1">
+                                        <div class="flex items-center gap-1.5 text-xs text-amber-300 font-bold bg-[#1a3026] px-3 py-1 rounded-lg border border-emerald-500/30">
+                                            <i class="fa-solid fa-heart"></i> MOTTO: "BERKHIDMAT" (SERVICE)
+                                        </div>
+                                        <a href="https://scoutmy.org/bpa/" target="_blank" rel="noopener" class="text-xs text-sky-400 hover:text-sky-300 font-semibold underline inline-flex items-center gap-1">
+                                            <i class="fa-solid fa-up-right-from-square"></i> Rujuk Rasmi ScoutMy
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- B-P Requirements Checklist -->
-                            <div class="border border-slate-100 rounded-2xl p-6 space-y-4">
-                                <h4 class="font-bold text-slate-900 text-sm mb-2"><i class="fa-solid fa-clipboard-check text-violet-600 mr-2"></i>Kriteria Kelayakan Penerimaan Anugerah B-P:</h4>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
-                                        <div>
-                                            <strong class="text-slate-800">Lulus Lencana Keahlian Kelana</strong>
-                                            <p class="text-slate-500 text-[10px] mt-1">Asas kepengakapan, simpanan, ikatan dan sejarah pengakap.</p>
+                            <!-- Interactive 3-Step Process Map -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Step 1: Syarat Kelayakan -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+                                    <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
+                                        <span class="w-8 h-8 rounded-full bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-sm">1</span>
+                                        <h4 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Syarat Kelayakan Ujian</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-xs text-slate-600">
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Ahli Berdaftar (Registered Member):</strong>
+                                                <p class="text-[11px] text-slate-500">Merupakan seorang Pengakap Kelana yang sah, berdaftar secara rasmi, dan aktif di dalam krew.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Lulus Skim Lencana:</strong>
+                                                <p class="text-[11px] text-slate-500">Telah lulus kesemua Lencana Wajib dan Lencana Pilihan yang ditetapkan.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Had Umur (Age Limit):</strong>
+                                                <p class="text-[11px] text-slate-500">Berada dalam lingkungan umur kelayakan yang sah (18 hingga maksimum 26 tahun).</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Folio / Log Lengkap:</strong>
+                                                <p class="text-[11px] text-slate-500">Mempunyai laporan log lengkap, dikemaskini, dan diakreditasi oleh kepimpinan daerah.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Step 2: Pencalonan & Semakan -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+                                    <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
+                                        <span class="w-8 h-8 rounded-full bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-sm">2</span>
+                                        <h4 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Pencalonan & Semakan</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-xs text-slate-600">
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-file-signature text-violet-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Kualiti Pelaporan Log:</strong>
+                                                <p class="text-[11px] text-slate-500">Buku log dinilai berdasarkan ketepatan format, dokumentasi foto, sijil, serta data lampiran.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-hands-helping text-violet-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Impak Projek Khidmat:</strong>
+                                                <p class="text-[11px] text-slate-500">Penilaian impak konkrit yang telah diberikan kepada masyarakat setempat melalui projek sukarela.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-user-check text-violet-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Pengesahan Pemimpin Krew:</strong>
+                                                <p class="text-[11px] text-slate-500">Pencalonan rasmi wajib ditandatangani dan disyorkan secara rasmi oleh Pemimpin Krew.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Step 3: Teras Penilaian -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+                                    <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
+                                        <span class="w-8 h-8 rounded-full bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-sm">3</span>
+                                        <h4 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Teras Penilaian Ujian</h4>
+                                    </div>
+                                    <ul class="space-y-3 text-xs text-slate-600">
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-chalkboard-user text-amber-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Pembentangan Folio:</strong>
+                                                <p class="text-[11px] text-slate-500">Calon membentangkan folio projek kemasyarakatan dan pencapaian lencana di hadapan panel.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-comments text-amber-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Temuduga Lisan (VIVA):</strong>
+                                                <p class="text-[11px] text-slate-500">Sesi soal jawab komprehensif bagi menguji kefahaman kepengakapan, kenegaraan, dan isu-isu semasa.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex gap-2">
+                                            <i class="fa-solid fa-gavel text-amber-600 mt-0.5"></i>
+                                            <div>
+                                                <strong class="text-slate-800">Penilaian Sikap & Kepemimpinan:</strong>
+                                                <p class="text-[11px] text-slate-500">Ujian praktikal, etika personaliti, ketrampilan, dan simulasi pengurusan bencana.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- GANTT CHART SECTION (ALIRAN UJIAN BPA) -->
+                            <div class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-sm space-y-6">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                                    <div>
+                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base flex items-center gap-2">
+                                            <i class="fa-solid fa-square-poll-horizontal text-violet-700"></i> Aliran Pelaksanaan Ujian B-P Award (Carta Gantt)
+                                        </h4>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Langkah demi langkah fasa penilaian dari mula hingga dianugerahkan.</p>
+                                    </div>
+                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded-full uppercase self-start">
+                                        Purata Tempoh: 12 Minggu
+                                    </span>
+                                </div>
+
+                                <!-- Desktop Gantt Chart Grid -->
+                                <div class="hidden md:block overflow-x-auto">
+                                    <div class="min-w-[650px] space-y-4">
+                                        <!-- Header Weeks Row -->
+                                        <div class="grid grid-cols-12 text-center text-[10px] font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-50">
+                                            <div class="col-span-4 text-left pl-2">Aktiviti / Fasa Penilaian</div>
+                                            <div class="col-span-1">M1-2</div>
+                                            <div class="col-span-1">M3-4</div>
+                                            <div class="col-span-1">M5-6</div>
+                                            <div class="col-span-1">M7-8</div>
+                                            <div class="col-span-1">M9-10</div>
+                                            <div class="col-span-1">M11-12</div>
+                                            <div class="col-span-2">Ulasan Fasa</div>
+                                        </div>
+
+                                        <!-- Gantt Row 1 -->
+                                        <div class="grid grid-cols-12 items-center group/g1 py-1 hover:bg-slate-50/50 rounded-lg transition">
+                                            <div class="col-span-4 text-xs font-semibold text-slate-700 flex items-center gap-2 pl-2">
+                                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Fasa 1: Pengumpulan Folio & Log Book
+                                            </div>
+                                            <!-- Gantt Bars (Spans columns 5-6 -> M1-4) -->
+                                            <div class="col-span-2 px-1">
+                                                <div class="bg-amber-500 h-6 rounded-full text-[9px] font-bold text-white flex items-center justify-center shadow-sm">
+                                                    Aktif
+                                                </div>
+                                            </div>
+                                            <div class="col-span-4"></div> <!-- Empty columns -->
+                                            <div class="col-span-2 text-[10px] text-slate-500 italic pr-2">Mengemaskini buku log & khidmat</div>
+                                        </div>
+
+                                        <!-- Gantt Row 2 -->
+                                        <div class="grid grid-cols-12 items-center group/g2 py-1 hover:bg-slate-50/50 rounded-lg transition">
+                                            <div class="col-span-4 text-xs font-semibold text-slate-700 flex items-center gap-2 pl-2">
+                                                <span class="w-2 h-2 rounded-full bg-sky-500"></span> Fasa 2: Semakan Daerah & Pencalonan
+                                            </div>
+                                            <div class="col-span-1"></div>
+                                            <div class="col-span-2 px-1">
+                                                <div class="bg-sky-500 h-6 rounded-full text-[9px] font-bold text-white flex items-center justify-center shadow-sm">
+                                                    Penilaian
+                                                </div>
+                                            </div>
+                                            <div class="col-span-3"></div>
+                                            <div class="col-span-2 text-[10px] text-slate-500 italic pr-2">Kelulusan & hantar ke Negeri</div>
+                                        </div>
+
+                                        <!-- Gantt Row 3 -->
+                                        <div class="grid grid-cols-12 items-center group/g3 py-1 hover:bg-slate-50/50 rounded-lg transition">
+                                            <div class="col-span-4 text-xs font-semibold text-slate-700 flex items-center gap-2 pl-2">
+                                                <span class="w-2 h-2 rounded-full bg-violet-600"></span> Fasa 3: Temuduga VIVA & Ujian Sikap
+                                            </div>
+                                            <div class="col-span-3"></div>
+                                            <div class="col-span-1 px-1">
+                                                <div class="bg-violet-600 h-6 rounded-full text-[9px] font-bold text-white flex items-center justify-center shadow-sm">
+                                                    Ujian
+                                                </div>
+                                            </div>
+                                            <div class="col-span-2"></div>
+                                            <div class="col-span-2 text-[10px] text-slate-500 italic pr-2">Ujian lisan & simulasi praktikal</div>
+                                        </div>
+
+                                        <!-- Gantt Row 4 -->
+                                        <div class="grid grid-cols-12 items-center group/g4 py-1 hover:bg-slate-50/50 rounded-lg transition">
+                                            <div class="col-span-4 text-xs font-semibold text-slate-700 flex items-center gap-2 pl-2">
+                                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Fasa 4: Perakuan PPM Kebangsaan
+                                            </div>
+                                            <div class="col-span-4"></div>
+                                            <div class="col-span-1 px-1">
+                                                <div class="bg-emerald-500 h-6 rounded-full text-[9px] font-bold text-white flex items-center justify-center shadow-sm">
+                                                    Syor
+                                                </div>
+                                            </div>
+                                            <div class="col-span-1"></div>
+                                            <div class="col-span-2 text-[10px] text-slate-500 italic pr-2">Kelulusan rasmi nama calon</div>
+                                        </div>
+
+                                        <!-- Gantt Row 5 -->
+                                        <div class="grid grid-cols-12 items-center group/g5 py-1 hover:bg-slate-50/50 rounded-lg transition">
+                                            <div class="col-span-4 text-xs font-semibold text-slate-700 flex items-center gap-2 pl-2">
+                                                <span class="w-2 h-2 rounded-full bg-yellow-500"></span> Fasa 5: Majlis Penganugerahan Rasmi
+                                            </div>
+                                            <div class="col-span-5"></div>
+                                            <div class="col-span-1 px-1">
+                                                <div class="bg-yellow-500 h-6 rounded-full text-[9px] font-bold text-slate-900 flex items-center justify-center shadow-sm">
+                                                    BPA 🎖️
+                                                </div>
+                                            </div>
+                                            <div class="col-span-2 text-[10px] text-slate-500 italic pr-2">Pemberian Rambu & Sijil Diraja</div>
                                         </div>
                                     </div>
-                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                </div>
+
+                                <!-- Mobile Gantt Accordion Flow -->
+                                <div class="block md:hidden space-y-3">
+                                    <p class="text-[10px] text-slate-400 italic">Klik fasa untuk ulasan terperinci mingguan:</p>
+                                    
+                                    <!-- Mobile Step 1 -->
+                                    <div class="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-bold text-amber-800 uppercase">Fasa 1 (Minggu 1-4)</span>
+                                            <span class="text-[9px] bg-amber-500 text-white px-2 py-0.5 rounded-full font-bold">Aktif</span>
+                                        </div>
+                                        <h5 class="text-xs font-bold text-slate-800 mt-1">Penyediaan Folio & Buku Log</h5>
+                                        <p class="text-[11px] text-slate-600 mt-1">Calon menyusun fail siri lencana wajib, pilihan, dan rekod impak khidmat komuniti.</p>
+                                    </div>
+
+                                    <!-- Mobile Step 2 -->
+                                    <div class="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-bold text-sky-800 uppercase">Fasa 2 (Minggu 3-6)</span>
+                                            <span class="text-[9px] bg-sky-500 text-white px-2 py-0.5 rounded-full font-bold">Penilaian</span>
+                                        </div>
+                                        <h5 class="text-xs font-bold text-slate-800 mt-1">Penilaian di Peringkat Daerah</h5>
+                                        <p class="text-[11px] text-slate-600 mt-1">Pesuruhjaya Daerah menyemak kesahihan log, merakam rekod fizikal, dan menolak pencalonan bermasalah.</p>
+                                    </div>
+
+                                    <!-- Mobile Step 3 -->
+                                    <div class="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-bold text-violet-800 uppercase">Fasa 3 (Minggu 7-8)</span>
+                                            <span class="text-[9px] bg-violet-600 text-white px-2 py-0.5 rounded-full font-bold">Temuduga</span>
+                                        </div>
+                                        <h5 class="text-xs font-bold text-slate-800 mt-1">Sesi Viva Voce & Amali Negeri</h5>
+                                        <p class="text-[11px] text-slate-600 mt-1">Ujian soal jawab secara lisan di hadapan panel penilai, pembentangan projek, dan simulasi fizikal.</p>
+                                    </div>
+
+                                    <!-- Mobile Step 4 -->
+                                    <div class="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-bold text-emerald-800 uppercase">Fasa 4 (Minggu 9-10)</span>
+                                            <span class="text-[9px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold">Syor</span>
+                                        </div>
+                                        <h5 class="text-xs font-bold text-slate-800 mt-1">Perakuan PPM Kebangsaan</h5>
+                                        <p class="text-[11px] text-slate-600 mt-1">Nama calon yang melepasi Viva diserahkan ke peringkat kebangsaan untuk semakan pendaftaran.</p>
+                                    </div>
+
+                                    <!-- Mobile Step 5 -->
+                                    <div class="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-bold text-yellow-800 uppercase">Fasa 5 (Minggu 11-12)</span>
+                                            <span class="text-[9px] bg-yellow-500 text-slate-900 px-2 py-0.5 rounded-full font-bold">🎖️ Majlis</span>
+                                        </div>
+                                        <h5 class="text-xs font-bold text-slate-800 mt-1">Majlis Penganugerahan Rasmi</h5>
+                                        <p class="text-[11px] text-slate-600 mt-1">Penerimaan Sijil Diraja BPA bersama pemakaian Rambu Kuning Jingga oleh ketua pesuruhjaya negeri.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Penganugerahan & Hak Istimewa -->
+                            <div class="bg-violet-50/50 border border-violet-100 rounded-2xl p-6">
+                                <h4 class="font-bold text-slate-900 text-sm mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-award text-violet-700"></i> Pengiktirafan & Hak Istimewa Penerima BPA
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex gap-3">
+                                        <span class="text-amber-500 text-xl"><i class="fa-solid fa-medal"></i></span>
                                         <div>
-                                            <strong class="text-slate-800">Melengkapkan Lencana Wajib</strong>
-                                            <p class="text-slate-500 text-[10px] mt-1">Lencana Khidmat Masyarakat (min 24 jam) dan Lencana Pengembaraan.</p>
+                                            <strong class="text-slate-800 block">Lencana Epolet B-P</strong>
+                                            <p class="text-slate-500 text-[11px] mt-1">Penghormatan eksklusif untuk memakai Lencana Anugerah B-P (jenis epolet), disemat megah pada bahu seragam rasmi Pengakap Kelana.</p>
                                         </div>
                                     </div>
-                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex gap-3">
+                                        <span class="text-amber-500 text-xl"><i class="fa-solid fa-ribbon"></i></span>
                                         <div>
-                                            <strong class="text-slate-800">Menggenggam Lencana Pilihan</strong>
-                                            <p class="text-slate-500 text-[10px] mt-1">Lulus sekurang-kurangnya 1 Lencana Pilihan (cth: Kepemimpinan / ICT / Ekstrem / Penyelamat / Keusahawanan).</p>
-                                        </div>
-                                    </div>
-                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
-                                        <div>
-                                            <strong class="text-slate-800">Penilaian Buku Log & Rambu Cemerlang</strong>
-                                            <p class="text-slate-500 text-[10px] mt-1">Lulus proses pengesahan log dan dianugerahkan Rambu Pengakap Kelana oleh Pesuruhjaya.</p>
+                                            <strong class="text-slate-800 block">Rambu Pengakap Kelana</strong>
+                                            <p class="text-slate-500 text-[11px] mt-1">Tanda Cemerlang Rambu Pengakap Kelana (berwarna kuning jingga di bahu kiri) dianugerahkan secara rasmi sebagai lambang ketokohan kepimpinan yang tinggi.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -915,42 +985,6 @@
                         <img src="https://placehold.co/150x150/c53030/ffffff?text=Rakit" alt="Galeri 4" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/c53030/ffffff?text=Pembinaan+Rakit+Buluh')">
                         <img src="https://placehold.co/150x150/6b46c1/ffffff?text=Award" alt="Galeri 5" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/6b46c1/ffffff?text=Anugerah+Baden-Powell+Kelana')">
                         <img src="https://placehold.co/150x150/d69e2e/ffffff?text=Ikatan" alt="Galeri 6" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/d69e2e/ffffff?text=Sesi+Latihan+Ikatan+Tali')">
-                    </div>
-                </div>
-
-                <!-- Feedback Form Box -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-                    <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-paper-plane text-amber-600"></i> Maklum Balas / Hubungi
-                    </h3>
-                    
-                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Nama Anda</label>
-                            <input type="text" id="contact-name" required placeholder="Sila masukkan nama" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Kumpulan / Kategori</label>
-                            <select id="contact-group" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white">
-                                <option value="Pengakap Udara">Pengakap Udara</option>
-                                <option value="Pengakap Kelana">Pengakap Kelana</option>
-                                <option value="Pemimpin">Pemimpin / Jurulatih</option>
-                                <option value="Lain-lain">Lain-lain</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Mesej Anda</label>
-                            <textarea id="contact-message" required rows="3" placeholder="Tuliskan pesanan atau soalan anda..." class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl text-xs transition duration-300 flex items-center justify-center gap-2">
-                            <i class="fa-regular fa-paper-plane"></i> Hantar Mesej
-                        </button>
-                    </form>
-
-                    <!-- Feedback responses container -->
-                    <div id="submissions-container" class="mt-4 space-y-2 hidden">
-                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide">Mesej Diterima Baru-baru Ini:</span>
-                        <div id="submissions-list" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
 
@@ -1420,96 +1454,6 @@
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 5550);
-        }
-
-        // Contact Form Submission
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('contact-name').value;
-            const group = document.getElementById('contact-group').value;
-            const message = document.getElementById('contact-message').value;
-
-            const subContainer = document.getElementById('submissions-container');
-            const subList = document.getElementById('submissions-list');
-
-            subContainer.classList.remove('hidden');
-
-            const item = document.createElement('div');
-            item.className = "bg-slate-50 border border-slate-100 p-2.5 rounded-lg text-[11px] leading-tight space-y-1";
-            item.innerHTML = `
-                <div class="flex justify-between font-bold text-slate-800">
-                    <span>${name} (${group})</span>
-                    <span class="text-slate-400">Baru Saja</span>
-                </div>
-                <p class="text-slate-600">${message}</p>
-            `;
-
-            subList.insertBefore(item, subList.firstChild);
-
-            document.getElementById('contact-form').reset();
-            showToast(`Terima kasih ${name}, pesanan anda disimpan dalam memori.`);
-        }
-
-        // Interactive Filtering for Scouting Activities
-        function filterActivities(category) {
-            const cards = document.querySelectorAll('.activity-card');
-            cards.forEach(card => {
-                if (category === 'semua' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            const filterBtns = document.querySelectorAll('.act-filter-btn');
-            filterBtns.forEach(btn => {
-                btn.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200";
-            });
-
-            event.currentTarget.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-600 text-white";
-        }
-
-        // Interactive Materials Search Filter
-        function searchMaterials() {
-            const query = document.getElementById('search-materials').value.toLowerCase();
-            const materialCards = document.querySelectorAll('.material-card');
-            
-            materialCards.forEach(card => {
-                const searchKeywords = card.getAttribute('data-title');
-                if (searchKeywords.includes(query)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Simulate Document Download Action
-        function simulateDownload(filename) {
-            showToast(`Memulakan muat turun: ${filename}...`);
-        }
-
-        // Interactive Scouting Mini-Quiz Answer Validator
-        function checkAnswer(isCorrect, element) {
-            const feedback = document.getElementById('quiz-feedback');
-            const options = document.querySelectorAll('.quiz-opt');
-
-            options.forEach(opt => {
-                opt.disabled = true;
-                opt.classList.add('opacity-50');
-            });
-
-            feedback.classList.remove('hidden');
-
-            if (isCorrect) {
-                element.className = "quiz-opt text-left text-xs bg-emerald-100 border-2 border-emerald-500 p-3 rounded-xl transition duration-200 opacity-100 font-bold text-emerald-800";
-                feedback.className = "mt-4 p-3 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-800";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> Tahniah! Jawapan betul. Daya Angkat (Lift) dihasilkan oleh bentuk sayap khas (aerofoil) bagi mengatasi berat kapal terbang.`;
-            } else {
-                element.className = "quiz-opt text-left text-xs bg-rose-100 border-2 border-rose-500 p-3 rounded-xl transition duration-200 opacity-100 font-bold text-rose-800";
-                feedback.className = "mt-4 p-3 rounded-xl text-xs font-semibold bg-amber-100 text-amber-900";
-                feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Kurang tepat. Jawapan yang betul adalah B: Lift (Daya Angkat). Cuba lagi pada masa hadapan!`;
-            }
         }
 
         // Lightbox Gallery Modal Actions
