@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jejak Kelana & Pengakap Udara - Portal Peribadi Pn Farihan Elyana</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Cabin for Scout Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Style Config -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F6F0; /* Warm organic scout beige paper background */
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Cabin', sans-serif;
+        }
+        /* Custom scrollbar for premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1ECE1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C4B59D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A09078;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Hero Banner -->
+    <header class="relative bg-[#F5F1E6] border-b-4 border-[#D2C4A7] shadow-sm overflow-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none bg-cover bg-center" style="background-image: url('https://placehold.co/1200x400/9b8054/ffffff?text=Kompas+Latar');"></div>
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-40"></div>
+        <div class="absolute left-10 -bottom-10 w-60 h-60 bg-amber-100 rounded-full blur-2xl opacity-40"></div>
+
+        <div class="max-w-7xl mx-auto px-4 py-6 md:py-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+                <!-- Scout Logo Badge -->
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-blue-900 border-4 border-amber-400 flex items-center justify-center text-white shadow-md transform hover:rotate-12 transition-transform duration-300">
+                    <i class="fa-solid fa-compass-drafting text-2xl md:text-3xl text-amber-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-bold text-blue-950 tracking-tight flex items-center justify-center md:justify-start gap-2">
+                        Jejak Kelana & Pengakap Udara
+                    </h1>
+                    <p class="text-sm md:text-base text-amber-800 font-semibold tracking-wider uppercase mt-1">
+                        <i class="fa-solid fa-plane-up text-sky-600 mr-1"></i> Usaha, Bakti & Angkasa • Portal Perkongsian Peribadi
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Quick Badge Stat -->
+            <div class="hidden lg:flex items-center gap-4 bg-white/80 backdrop-blur border border-amber-200 p-3 rounded-xl shadow-sm">
+                <div class="p-2 bg-amber-500 rounded-lg text-white">
+                    <i class="fa-solid fa-medal text-xl"></i>
+                </div>
+                <div class="text-xs">
+                    <span class="block font-bold text-slate-800">Pangkat Kepengakapan</span>
+                    <span class="text-slate-600">Pemimpin Pengakap Udara & Kelana KSM</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="sticky top-0 z-50 bg-slate-900 shadow-md">
+        <div class="max-w-7xl mx-auto px-2 md:px-4">
+            <!-- Mobile Menu Trigger -->
+            <div class="flex items-center justify-between md:hidden py-3 px-2 text-white">
+                <span class="font-bold text-sm text-amber-400"><i class="fa-solid fa-bars mr-2"></i> Menu Blog</span>
+                <span id="mobile-tab-indicator" class="text-xs font-semibold bg-sky-600 px-2 py-1 rounded">Profil & Pengalaman</span>
+            </div>
+            
+            <!-- Tabs Menu Grid -->
+            <div id="tabs-container" class="hidden md:grid grid-cols-5 gap-1 text-center font-semibold text-sm">
+                <!-- Tab 1: Profil (Beige/Brown Theme) -->
+                <button onclick="switchTab('profil')" id="btn-profil" class="tab-btn py-4 px-2 border-b-4 border-amber-500 bg-amber-100 text-amber-950 transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2">
+                    <i class="fa-solid fa-user-tie text-lg"></i>
+                    <span>Profil & Pengalaman</span>
+                </button>
+                <!-- Tab 2: Pengakap Udara (Blue Theme) -->
+                <button onclick="switchTab('udara')" id="btn-udara" class="tab-btn py-4 px-2 border-b-4 border-transparent hover:bg-sky-950 text-slate-300 hover:text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2">
+                    <i class="fa-solid fa-plane text-lg"></i>
+                    <span>Pengakap Udara</span>
+                </button>
+                <!-- Tab 3: Aktiviti (Red Theme) -->
+                <button onclick="switchTab('aktiviti')" id="btn-aktiviti" class="tab-btn py-4 px-2 border-b-4 border-transparent hover:bg-rose-950 text-slate-300 hover:text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2">
+                    <i class="fa-solid fa-campground text-lg"></i>
+                    <span>Aktiviti Kepengakapan</span>
+                </button>
+                <!-- Tab 4: Bahan Pengajaran (Green Theme) -->
+                <button onclick="switchTab('pengajaran')" id="btn-pengajaran" class="tab-btn py-4 px-2 border-b-4 border-transparent hover:bg-emerald-950 text-slate-300 hover:text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2">
+                    <i class="fa-solid fa-book-open text-lg"></i>
+                    <span>Bahan Pengajaran</span>
+                </button>
+                <!-- Tab 5: Pembangunan Kelana (Purple Theme) -->
+                <button onclick="switchTab('kelana')" id="btn-kelana" class="tab-btn py-4 px-2 border-b-4 border-transparent hover:bg-violet-950 text-slate-300 hover:text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2">
+                    <i class="fa-solid fa-route text-lg"></i>
+                    <span>Pembangunan Kelana</span>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Dropdown Box -->
+            <div id="mobile-nav-menu" class="md:hidden pb-3 px-2 flex flex-wrap gap-2 justify-center">
+                <button onclick="switchTab('profil')" id="mob-btn-profil" class="mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-amber-500 text-white flex items-center gap-1">
+                    <i class="fa-solid fa-user-tie"></i> Profil
+                </button>
+                <button onclick="switchTab('udara')" id="mob-btn-udara" class="mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-slate-800 text-slate-300 flex items-center gap-1">
+                    <i class="fa-solid fa-plane"></i> Udara
+                </button>
+                <button onclick="switchTab('aktiviti')" id="mob-btn-aktiviti" class="mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-slate-800 text-slate-300 flex items-center gap-1">
+                    <i class="fa-solid fa-campground"></i> Aktiviti
+                </button>
+                <button onclick="switchTab('pengajaran')" id="mob-btn-pengajaran" class="mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-slate-800 text-slate-300 flex items-center gap-1">
+                    <i class="fa-solid fa-book-open"></i> Pengajaran
+                </button>
+                <button onclick="switchTab('kelana')" id="mob-btn-kelana" class="mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-slate-800 text-slate-300 flex items-center gap-1">
+                    <i class="fa-solid fa-route"></i> Kelana
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white py-3 px-5 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
+        <span id="toast-icon" class="text-amber-400 text-lg"><i class="fa-solid fa-circle-check"></i></span>
+        <span id="toast-text" class="text-sm font-medium">Mesej berjaya dihantar!</span>
+    </div>
+
+    <!-- Main Content Area & Sidebar Grid Layout -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT AREA: Dynamic Main Content -->
+            <section class="lg:col-span-8 flex flex-col gap-6">
+                
+                <!-- TAB 1: Profil & Pengalaman (DEFAULT TAB) -->
+                <div id="content-profil" class="tab-content block animate-fadeIn">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
+                        
+                        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                            <!-- Profile Picture Frame using "uniform.jpg" -->
+                            <div class="relative flex-shrink-0">
+                                <div class="w-64 h-80 rounded-[2.5rem] border-8 border-[#D2C4A7] overflow-hidden shadow-xl bg-[#FAF8F5] flex items-center justify-center relative group">
+                                    <img src="uniform.jpg" alt="Pn Farihan Elyana" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/300x400/1a365d/ffffff?text=Pn+Farihan+Elyana';">
+                                    
+                                    <!-- Subtle Floating Info -->
+                                    <div class="absolute bottom-0 inset-x-0 bg-slate-900/80 backdrop-blur py-2 text-center text-xs text-amber-300 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        Pemimpin Unit Kelana
+                                    </div>
+                                </div>
+                                <!-- Emblem Wings Overlay at bottom of portrait -->
+                                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-900 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md flex items-center gap-1.5 whitespace-nowrap border-2 border-amber-400">
+                                    <i class="fa-solid fa-plane-up text-amber-300"></i> PENGAKAP KELANASISWA KSM
+                                </div>
+                            </div>
+
+                            <!-- Personal Details Text -->
+                            <div class="flex-grow space-y-6 text-center md:text-left">
+                                <div>
+                                    <h2 class="text-3xl font-extrabold text-slate-950 tracking-tight">Profil Peribadi & Kepimpinan</h2>
+                                    <p class="text-amber-800 font-semibold mt-1 flex items-center justify-center md:justify-start gap-1.5">
+                                        <i class="fa-solid fa-graduation-cap"></i> Politeknik Tuanku Syed Sirajuddin
+                                    </p>
+                                </div>
+
+                                <div class="bg-amber-50/70 border border-amber-200/50 rounded-xl p-4 text-sm leading-relaxed text-slate-700 italic">
+                                    "Berkhidmat demi pembangunan belia dan kemahiran tinggi melalui program Kelanasiswa di peringkat daerah dan negeri."
+                                </div>
+
+                                <!-- Personal Details Grid with updated info -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-sm">
+                                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <span class="block text-xs font-bold uppercase text-slate-400 tracking-wider">Nama Penuh</span>
+                                        <span class="font-semibold text-slate-800 text-base">Pn Farihan Elyana binti Zahari</span>
+                                    </div>
+                                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <span class="block text-xs font-bold uppercase text-slate-400 tracking-wider">Kumpulan Pengakap</span>
+                                        <span class="font-semibold text-slate-800 text-sm">Kelanasiswa Daerah Politeknik Taunku Syed Sirajuddin</span>
+                                    </div>
+                                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <span class="block text-xs font-bold uppercase text-slate-400 tracking-wider">Kelayakan Manikayu</span>
+                                        <span class="font-semibold text-slate-800 text-base">Manikayu 2 Manik Unit Kelana</span>
+                                    </div>
+                                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <span class="block text-xs font-bold uppercase text-slate-400 tracking-wider">Jawatan Kepengakapan</span>
+                                        <div class="font-semibold text-slate-800 text-xs mt-1 space-y-1">
+                                            <p class="flex items-center gap-1 text-blue-900"><i class="fa-solid fa-caret-right"></i> Penolong Ketua Pesuruhjaya Negeri KSM</p>
+                                            <p class="flex items-center gap-1 text-emerald-800"><i class="fa-solid fa-caret-right"></i> Penolong Pesuruhjaya Daerah KSM PTSS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Timeline Section -->
+                        <div class="mt-12 border-t border-slate-100 pt-8">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-briefcase text-amber-600"></i> Pengalaman & Sumbangan Kepengakapan
+                            </h3>
+                            
+                            <!-- Timeline with Custom User Details -->
+                            <div class="relative border-l-2 border-amber-300 ml-3 space-y-8">
+                                
+                                <!-- Experience Item 1 -->
+                                <div class="relative pl-8">
+                                    <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-amber-500 border-4 border-white shadow-sm flex items-center justify-center"></div>
+                                    <span class="text-xs font-bold text-amber-800 uppercase tracking-widest block mb-1">2025 - TERKINI</span>
+                                    <h4 class="text-lg font-bold text-slate-900">Penolong Pesuruhjaya Daerah KSM PTSS & Penolong Ketua Pesuruhjaya Negeri</h4>
+                                    <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                                        Menguruskan hal-hal urus tadbir kepengakapan termasuk pendaftaran keahlian negeri, urusan penganugerahan pingat, serta pengurusan majlis-majlis rasmi kepengakapan peringkat negeri.
+                                    </p>
+                                </div>
+
+                                <!-- Experience Item 2 -->
+                                <div class="relative pl-8">
+                                    <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow-sm flex items-center justify-center"></div>
+                                    <span class="text-xs font-bold text-blue-800 uppercase tracking-widest block mb-1">2021 - 2024</span>
+                                    <h4 class="text-lg font-bold text-slate-900">Pesuruhjaya Daerah KSM PTSS & Pesuruhjaya Ibu Pejabat</h4>
+                                    <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                                        Menerajui pengurusan daerah KSM PTSS serta memikul amanah menguruskan urusan berkaitan pendaftaran keahlian kepengakapan di peringkat negeri secara komprehensif.
+                                    </p>
+                                </div>
+
+                                <!-- Experience Item 3 -->
+                                <div class="relative pl-8">
+                                    <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-emerald-600 border-4 border-white shadow-sm flex items-center justify-center"></div>
+                                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-1">2018 - 2020</span>
+                                    <h4 class="text-lg font-bold text-slate-900">Penolong Pesuruhjaya Daerah KLKM PTSS</h4>
+                                    <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                                        Membantu merancang dan melaksanakan program-program kepengakapan bersepadu bagi ahli Kumpulan Latihan Kelanasiswa Malaysia (KLKM) di Politeknik Tuanku Syed Sirajuddin.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB 2: Pengakap Udara Section -->
+                <div id="content-udara" class="tab-content hidden animate-fadeIn">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 bg-sky-100 text-sky-800 rounded-xl">
+                                <i class="fa-solid fa-plane-departure text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-blue-950">Mengenai Pengakap Udara</h2>
+                                <p class="text-sm text-slate-500">Mempelajari dan mendalami bidang aeroangkasa melalui kepengakapan</p>
+                            </div>
+                        </div>
+
+                        <div class="relative overflow-hidden rounded-xl h-48 md:h-64 mb-6">
+                            <img src="https://placehold.co/800x400/1a365d/ffffff?text=Latihan+Penerbangan+Pengakap+Udara" class="w-full h-full object-cover" alt="Pengakap Udara">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
+                                <p class="text-white text-sm md:text-base font-semibold italic">"The sky is not the limit, it's our playground." - Panduan Latihan Aeronautik Pengakap Udara</p>
+                            </div>
+                        </div>
+
+                        <div class="prose max-w-none text-slate-600 text-sm md:text-base leading-relaxed space-y-4">
+                            <p>
+                                <strong>Pengakap Udara</strong> merupakan satu unit cawangan khas di bawah Persekutuan Pengakap Malaysia yang memberi fokus kepada program latihan berasaskan aktiviti udara, penerbangan, meteorologi, keselamatan lapangan terbang, serta mekanik kapal terbang.
+                            </p>
+                            <p>
+                                Latihan ini bukan sahaja membina disiplin diri yang tinggi malah memberi peluang kepada ahli pengakap untuk merasai pengalaman penerbangan simulasi, penerbangan glider, paragliding, serta lawatan teknikal ke menara kawalan trafik udara (ATC).
+                            </p>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-blue-950 mt-8 mb-4"><i class="fa-solid fa-circle-info mr-2 text-sky-600"></i>Lencana Utama Pengakap Udara</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-sky-600 text-white flex items-center justify-center mb-3 text-lg font-bold">1</div>
+                                <h4 class="font-bold text-slate-800 text-sm">Lencana Ahli Udara</h4>
+                                <p class="text-[11px] text-slate-500 mt-1">Pengenalan asas aeroangkasa, kod fonetik penerbangan, dan bahagian kapal terbang.</p>
+                            </div>
+                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-sky-700 text-white flex items-center justify-center mb-3 text-lg font-bold">2</div>
+                                <h4 class="font-bold text-slate-800 text-sm">Lencana Pemerhati Udara</h4>
+                                <p class="text-[11px] text-slate-500 mt-1">Mengkaji corak awan (meteorologi), membaca peta altitud, dan asas navigasi kompas udara.</p>
+                            </div>
+                            <div class="border border-sky-100 hover:border-sky-300 transition duration-300 p-4 rounded-xl bg-sky-50/50 flex flex-col items-center text-center">
+                                <div class="w-12 h-12 rounded-full bg-sky-900 text-white flex items-center justify-center mb-3 text-lg font-bold">3</div>
+                                <h4 class="font-bold text-slate-800 text-sm">Lencana Mekanik Udara</h4>
+                                <p class="text-[11px] text-slate-500 mt-1">Teori kuasa tujah enjin jet & omboh, aerodinamik sayap pesawat, dan aeromodelling.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Aktiviti Kepengakapan -->
+                <div id="content-aktiviti" class="tab-content hidden animate-fadeIn">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div class="flex items-center gap-3">
+                                <div class="p-3 bg-rose-100 text-rose-800 rounded-xl">
+                                    <i class="fa-solid fa-campground text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Aktiviti Kepengakapan</h2>
+                                    <p class="text-sm text-slate-500">Log pengembaraan dan aktiviti-aktiviti latihan luar daerah</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Search/Filter Controls -->
+                            <div class="flex items-center gap-2">
+                                <button onclick="filterActivities('semua')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-600 text-white">Semua</button>
+                                <button onclick="filterActivities('darat')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200">Darat</button>
+                                <button onclick="filterActivities('udara')" class="act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200">Udara</button>
+                            </div>
+                        </div>
+
+                        <!-- Activities Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="activities-grid">
+                            <!-- Act 1 -->
+                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="udara">
+                                <div class="h-44 relative bg-slate-100">
+                                    <img src="https://placehold.co/500x300/2b6cb0/ffffff?text=Latihan+Simulator+PTSS" class="w-full h-full object-cover" alt="Aktiviti 1">
+                                    <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Udara</span>
+                                </div>
+                                <div class="p-5">
+                                    <span class="text-xs font-bold text-rose-600 uppercase">MAC 2026</span>
+                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Latihan Penerbangan Simulator Boeing 737</h3>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                        Mendedahkan ahli Kelanasiswa kepada instrumen penerbangan simulasi bagi mempertingkatkan pengetahuan aeroangkasa mereka.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Act 2 -->
+                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="darat">
+                                <div class="h-44 relative bg-slate-100">
+                                    <img src="https://placehold.co/500x300/c53030/ffffff?text=Perkhemahan+Kelanasiswa" class="w-full h-full object-cover" alt="Aktiviti 2">
+                                    <span class="absolute top-3 right-3 bg-rose-600 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Darat</span>
+                                </div>
+                                <div class="p-5">
+                                    <span class="text-xs font-bold text-rose-600 uppercase">DIS 2025</span>
+                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Perkhemahan Integrasi Kelana Negeri</h3>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                        Mengendalikan latihan kepimpinan, ikhtiar hidup hutan, dan khidmat masyarakat secara bersemuka bersama komuniti kampung.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Act 3 -->
+                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="udara">
+                                <div class="h-44 relative bg-slate-100">
+                                    <img src="https://placehold.co/500x300/319795/ffffff?text=Aeromodelling+PTSS" class="w-full h-full object-cover" alt="Aktiviti 3">
+                                    <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Udara</span>
+                                </div>
+                                <div class="p-5">
+                                    <span class="text-xs font-bold text-rose-600 uppercase">OKT 2025</span>
+                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Bengkel Pembuatan Model Glider Balsa</h3>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                        Bengkel amali membina model glider bagi memahami empat daya utama aerodinamik aerofoil.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Act 4 -->
+                            <div class="activity-card border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300" data-category="darat">
+                                <div class="h-44 relative bg-slate-100">
+                                    <img src="https://placehold.co/500x300/4a5568/ffffff?text=Khidmat+Komuniti" class="w-full h-full object-cover" alt="Aktiviti 4">
+                                    <span class="absolute top-3 right-3 bg-rose-600 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Darat</span>
+                                </div>
+                                <div class="p-5">
+                                    <span class="text-xs font-bold text-rose-600 uppercase">JULAI 2025</span>
+                                    <h3 class="text-lg font-bold text-slate-950 mt-1">Projek Kelestarian Bakti Siswa PTSS</h3>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                                        Projek khidmat masyarakat penanaman pokok serta pemeliharaan kawasan hijau bersama komuniti daerah.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: Bahan Pengajaran -->
+                <div id="content-pengajaran" class="tab-content hidden animate-fadeIn">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-8">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl">
+                                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Bahan Pengajaran</h2>
+                                    <p class="text-sm text-slate-500">Koleksi rujukan dan manual kepengakapan Kelanasiswa</p>
+                                </div>
+                            </div>
+
+                            <!-- Search Input for Materials -->
+                            <div class="relative w-full sm:w-64">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="search-materials" onkeyup="searchMaterials()" placeholder="Cari nota..." class="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            </div>
+                        </div>
+
+                        <!-- Materials List -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="materials-container">
+                            <!-- Material item 1 -->
+                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="manual asas kawalan trafik udara atc pengakap">
+                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
+                                    <i class="fa-regular fa-file-pdf text-xl"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">PDF MANUAL</span>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Manual Asas Kawalan Trafik Udara (ATC)</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Modul panduan mempelajari tatacara perhubungan radio ATC dan kod fonetik ICAO.</p>
+                                    <button onclick="simulateDownload('Manual ATC.pdf')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
+                                        <i class="fa-solid fa-download"></i> Muat Turun (4.2 MB)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Material item 2 -->
+                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="slaid persembahan prinsip asas aerodinamik lift drag">
+                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
+                                    <i class="fa-regular fa-file-powerpoint text-xl"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <span class="text-[10px] bg-sky-100 text-sky-800 font-extrabold px-2 py-0.5 rounded uppercase">POWERPOINT</span>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Slaid Prinsip Asas Aerodinamik</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Pembentangan visual mengenai prinsip Bernoulli, empat daya penerbangan (Lift, Weight, Thrust, Drag).</p>
+                                    <button onclick="simulateDownload('Prinsip Aerodinamik.pptx')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
+                                        <i class="fa-solid fa-download"></i> Muat Turun (12.8 MB)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Material item 3 -->
+                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="log book aktiviti kelana panduan penulisan">
+                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
+                                    <i class="fa-regular fa-file-word text-xl"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded uppercase">DOCX TEMPLATE</span>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Panduan Menulis Log Book Kelana</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Templat tersusun bagi memudahkan ahli Kelanasiswa merekodkan log pengembaraan mereka secara bersistem.</p>
+                                    <button onclick="simulateDownload('Panduan LogBook Kelana.docx')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
+                                        <i class="fa-solid fa-download"></i> Muat Turun (1.5 MB)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Material item 4 -->
+                            <div class="material-card border border-slate-100 bg-emerald-50/20 hover:bg-emerald-50/50 p-4 rounded-xl flex items-start gap-4 transition duration-300" data-title="nota panduan kompas dan peta orienteering darat">
+                                <div class="p-3 bg-emerald-500 text-white rounded-lg">
+                                    <i class="fa-regular fa-file-pdf text-xl"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">PDF PANDUAN</span>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-1">Nota Panduan Kompas & Orienteering</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Kaedah menentukan bearing, pembacaan peta topografi silva, dan memplot laluan kembara rimba.</p>
+                                    <button onclick="simulateDownload('Kompas Orienteering.pdf')" class="text-xs text-emerald-700 font-semibold hover:underline mt-2 inline-flex items-center gap-1">
+                                        <i class="fa-solid fa-download"></i> Muat Turun (5.1 MB)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Scouting Mini-Quiz -->
+                        <div class="border border-emerald-100 rounded-2xl bg-[#F4FAF6] p-6">
+                            <h3 class="text-lg font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-gamepad text-emerald-600"></i> Uji Kefahaman: Kuiz Pintar Pengakap Udara!
+                            </h3>
+                            <p class="text-xs text-slate-600 mb-6">Jawab soalan cepat ini untuk menguji kemahiran aeroangkasa asas anda.</p>
+
+                            <div id="quiz-box" class="space-y-4">
+                                <p class="font-bold text-slate-800 text-sm">Apakah daya yang dihasilkan oleh sayap kapal terbang yang membolehkannya mengatasi tarikan graviti?</p>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
+                                        <strong>A.</strong> Thrust (Daya Tujah)
+                                    </button>
+                                    <button onclick="checkAnswer(true, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
+                                        <strong>B.</strong> Lift (Daya Angkat)
+                                    </button>
+                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
+                                        <strong>C.</strong> Drag (Daya Rintangan)
+                                    </button>
+                                    <button onclick="checkAnswer(false, this)" class="quiz-opt text-left text-xs bg-white border border-slate-200 hover:border-emerald-500 p-3 rounded-xl transition duration-200">
+                                        <strong>D.</strong> Weight (Daya Berat)
+                                    </button>
+                                </div>
+                                
+                                <div id="quiz-feedback" class="hidden mt-4 p-3 rounded-xl text-xs font-semibold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: Pembangunan Kelana Section -->
+                <div id="content-kelana" class="tab-content hidden animate-fadeIn">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-violet-100 text-violet-800 rounded-xl">
+                                <i class="fa-solid fa-route text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Pembangunan Pengakap Kelana</h2>
+                                <p class="text-sm text-slate-500">Laluan pembangunan modal insan menuju penganugerahan berprestij tertinggi Kelana</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm md:text-base leading-relaxed text-slate-600">
+                            Pengakap Kelana merupakan fasa kepengakapan bagi belia berumur 17 hingga 26 tahun. Puncak matlamat setiap ahli Kelanasiswa adalah untuk dianugerahkan **Anugerah Baden-Powell (B-P Award)** yang diiktiraf di peringkat kebangsaan.
+                        </p>
+
+                        <!-- Interactive Badge Roadmap Tracker -->
+                        <div class="bg-violet-50/50 border border-violet-100 rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-violet-950 mb-4 flex items-center justify-between flex-wrap gap-2">
+                                <span><i class="fa-solid fa-circle-nodes mr-2 text-violet-600"></i>Penjejak Progres Lencana Kelana</span>
+                                <span id="badge-progress-text" class="text-xs bg-violet-200 text-violet-900 font-bold px-3 py-1 rounded-full">0/4 Lencana Diselesaikan</span>
+                            </h3>
+                            
+                            <!-- Custom Interactive Roadmap Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
+                                <!-- Badge Step 1 -->
+                                <div onclick="toggleScoutBadge(0)" id="sc-badge-0" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
+                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-shield text-xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-xs text-slate-800">1. Lencana Keahlian Kelana</h4>
+                                    <p class="text-[10px] text-slate-500 mt-1">Ujian undang-undang pengakap dan sejarah kelana.</p>
+                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                </div>
+
+                                <!-- Badge Step 2 -->
+                                <div onclick="toggleScoutBadge(1)" id="sc-badge-1" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
+                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-handshake-angle text-xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-xs text-slate-800">2. Lencana Khidmat Masyarakat</h4>
+                                    <p class="text-[10px] text-slate-500 mt-1">Menjalankan 24 jam projek kebajikan / khidmat komuniti.</p>
+                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                </div>
+
+                                <!-- Badge Step 3 -->
+                                <div onclick="toggleScoutBadge(2)" id="sc-badge-2" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
+                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-compass text-xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-xs text-slate-800">3. Lencana Pengembaraan</h4>
+                                    <p class="text-[10px] text-slate-500 mt-1">Ekspedisi berjalan kaki / berbasikal sejauh 50-100km.</p>
+                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                </div>
+
+                                <!-- Badge Step 4 -->
+                                <div onclick="toggleScoutBadge(3)" id="sc-badge-3" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
+                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-star-of-david text-xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-xs text-slate-800">4. Lencana Kepemimpinan</h4>
+                                    <p class="text-[10px] text-slate-500 mt-1">Lulus Kursus Kepimpinan Manikayu Peringkat 1.</p>
+                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="mt-6">
+                                <div class="flex justify-between text-xs text-slate-600 mb-1 flex-wrap gap-1">
+                                    <span>Klik lencana di atas untuk menandakan bahagian yang telah diselesaikan</span>
+                                    <span id="progress-percent" class="font-bold">0% Selesai</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-3">
+                                    <div id="badge-progress-bar" class="bg-violet-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scout Law Card info -->
+                        <div class="border border-violet-100 rounded-xl p-5 flex flex-col sm:flex-row items-center gap-4 bg-violet-50/20">
+                            <div class="text-4xl text-violet-700">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Motto Kelana: "Sedia Berkhidmat"</h4>
+                                <p class="text-xs text-slate-600 mt-1">Sifat berkhidmat kepada komuniti, mengasihi bumi, dan sentiasa memikul tanggungjawab membela hak kemanusiaan sejagat adalah teras paling utama bagi setiap warga Pengakap Kelana.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- RIGHT AREA: Sidebar widgets -->
+            <aside class="lg:col-span-4 flex flex-col gap-6">
+                
+                <!-- About Sidebar Widget -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-amber-600"></i> Tentang Blog Ini
+                    </h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Selamat datang ke portal perkongsian peribadi Pn Farihan Elyana. Di sini saya mengumpulkan pelbagai aktiviti pengakap, fail bahan pengajaran rujukan untuk pengakap udara serta nota modul kelana untuk kegunaan bersama. Semoga bermanfaat kepada semua pemimpin dan ahli.
+                    </p>
+                </div>
+
+                <!-- Gallery Widget -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-images text-amber-600"></i> Galeri Aktiviti
+                    </h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <img src="https://placehold.co/150x150/1a365d/ffffff?text=Udara1" alt="Galeri 1" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/1a365d/ffffff?text=Udara+Penerbangan+Glider')">
+                        <img src="https://placehold.co/150x150/2b6cb0/ffffff?text=Camp" alt="Galeri 2" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/2b6cb0/ffffff?text=Tapak+Perkhemahan+Kelana')">
+                        <img src="https://placehold.co/150x150/2f855a/ffffff?text=CSR" alt="Galeri 3" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/2f855a/ffffff?text=Aktiviti+Kemasyarakatan+Pembersihan')">
+                        <img src="https://placehold.co/150x150/c53030/ffffff?text=Rakit" alt="Galeri 4" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/c53030/ffffff?text=Pembinaan+Rakit+Buluh')">
+                        <img src="https://placehold.co/150x150/6b46c1/ffffff?text=Award" alt="Galeri 5" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/6b46c1/ffffff?text=Anugerah+Baden-Powell+Kelana')">
+                        <img src="https://placehold.co/150x150/d69e2e/ffffff?text=Ikatan" alt="Galeri 6" class="rounded-lg cursor-pointer hover:opacity-80 transition duration-200" onclick="showGalleryModal('https://placehold.co/800x600/d69e2e/ffffff?text=Sesi+Latihan+Ikatan+Tali')">
+                    </div>
+                </div>
+
+                <!-- Feedback Form Box -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-amber-600"></i> Maklum Balas / Hubungi
+                    </h3>
+                    
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Nama Anda</label>
+                            <input type="text" id="contact-name" required placeholder="Sila masukkan nama" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Kumpulan / Kategori</label>
+                            <select id="contact-group" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+                                <option value="Pengakap Udara">Pengakap Udara</option>
+                                <option value="Pengakap Kelana">Pengakap Kelana</option>
+                                <option value="Pemimpin">Pemimpin / Jurulatih</option>
+                                <option value="Lain-lain">Lain-lain</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Mesej Anda</label>
+                            <textarea id="contact-message" required rows="3" placeholder="Tuliskan pesanan atau soalan anda..." class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl text-xs transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i> Hantar Mesej
+                        </button>
+                    </form>
+
+                    <!-- Feedback responses container -->
+                    <div id="submissions-container" class="mt-4 space-y-2 hidden">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide">Mesej Diterima Baru-baru Ini:</span>
+                        <div id="submissions-list" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
+                    </div>
+                </div>
+
+                <!-- Useful Links Widget -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-link text-amber-600"></i> Pautan Berguna
+                    </h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="https://www.scouts.org.my/" target="_blank" rel="noopener" class="flex items-center gap-2 p-2 hover:bg-slate-50 rounded-lg text-blue-900 hover:text-amber-700 transition duration-200 font-semibold">
+                                <i class="fa-solid fa-globe text-slate-400"></i> Persekutuan Pengakap Malaysia
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.scout.org/" target="_blank" rel="noopener" class="flex items-center gap-2 p-2 hover:bg-slate-50 rounded-lg text-blue-900 hover:text-amber-700 transition duration-200 font-semibold">
+                                <i class="fa-solid fa-globe text-slate-400"></i> WOSM World Scouting Official Website
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <!-- Image Gallery Overlay Modal -->
+    <div id="gallery-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur z-50 hidden items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+            <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-slate-800 bg-white/80 hover:bg-white w-10 h-10 rounded-full flex items-center justify-center shadow transition duration-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="gallery-modal-img" src="" class="w-full h-auto max-h-[80vh] object-contain bg-slate-900" alt="Pandangan Penuh">
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Pratonton Galeri Pengakap</span>
+                <button onclick="closeGalleryModal()" class="text-xs text-slate-600 hover:underline">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Area -->
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t-4 border-amber-500 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 text-white">
+                <div class="w-8 h-8 rounded-full bg-blue-900 border border-amber-400 flex items-center justify-center">
+                    <i class="fa-solid fa-compass-drafting text-xs text-amber-300"></i>
+                </div>
+                <span class="font-bold text-sm tracking-widest uppercase">PENGAKAP UDARA KELANA</span>
+            </div>
+            <p class="text-xs">
+                © 2026 Pn Farihan Elyana • Hak Cipta Terpelihara. Dibangunkan dengan penuh semangat kepengakapan.
+            </p>
+            <div class="flex justify-center gap-4 text-sm">
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab system navigation logic
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Show selected tab content
+            const activeContent = document.getElementById('content-' + tabId);
+            activeContent.classList.remove('hidden');
+            activeContent.classList.add('block');
+
+            // Reset all large navigation tab styles
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => {
+                btn.className = "tab-btn py-4 px-2 border-b-4 border-transparent hover:bg-slate-950 text-slate-300 hover:text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+            });
+
+            // Reset all mobile tab buttons styles
+            const mobButtons = document.querySelectorAll('.mob-tab-btn');
+            mobButtons.forEach(btn => {
+                btn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-slate-800 text-slate-300 flex items-center gap-1";
+            });
+
+            // Set active states based on section themes
+            const activeBtn = document.getElementById('btn-' + tabId);
+            const activeMobBtn = document.getElementById('mob-btn-' + tabId);
+            const mobileIndicator = document.getElementById('mobile-tab-indicator');
+
+            if (tabId === 'profil') {
+                activeBtn.className = "tab-btn py-4 px-2 border-b-4 border-amber-500 bg-amber-100 text-amber-950 transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+                activeMobBtn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-amber-500 text-white flex items-center gap-1";
+                mobileIndicator.innerText = "Profil & Pengalaman";
+                mobileIndicator.className = "text-xs font-semibold bg-amber-500 px-2 py-1 rounded";
+            } else if (tabId === 'udara') {
+                activeBtn.className = "tab-btn py-4 px-2 border-b-4 border-sky-500 bg-sky-950 text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+                activeMobBtn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-sky-600 text-white flex items-center gap-1";
+                mobileIndicator.innerText = "Pengakap Udara";
+                mobileIndicator.className = "text-xs font-semibold bg-sky-600 px-2 py-1 rounded";
+            } else if (tabId === 'aktiviti') {
+                activeBtn.className = "tab-btn py-4 px-2 border-b-4 border-rose-500 bg-rose-950 text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+                activeMobBtn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-rose-600 text-white flex items-center gap-1";
+                mobileIndicator.innerText = "Aktiviti";
+                mobileIndicator.className = "text-xs font-semibold bg-rose-600 px-2 py-1 rounded";
+            } else if (tabId === 'pengajaran') {
+                activeBtn.className = "tab-btn py-4 px-2 border-b-4 border-emerald-500 bg-emerald-950 text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+                activeMobBtn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-emerald-600 text-white flex items-center gap-1";
+                mobileIndicator.innerText = "Bahan Pengajaran";
+                mobileIndicator.className = "text-xs font-semibold bg-emerald-600 px-2 py-1 rounded";
+            } else if (tabId === 'kelana') {
+                activeBtn.className = "tab-btn py-4 px-2 border-b-4 border-violet-500 bg-violet-950 text-white transition duration-300 flex flex-col md:flex-row items-center justify-center gap-2";
+                activeMobBtn.className = "mob-tab-btn px-3 py-1.5 text-xs rounded-full font-semibold bg-violet-600 text-white flex items-center gap-1";
+                mobileIndicator.innerText = "Pembangunan Kelana";
+                mobileIndicator.className = "text-xs font-semibold bg-violet-600 px-2 py-1 rounded";
+            }
+        }
+
+        // Custom notification toast runner
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-text');
+
+            text.innerText = message;
+            if (isSuccess) {
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                icon.className = "text-emerald-400 text-lg";
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+                icon.className = "text-amber-400 text-lg";
+            }
+
+            // Slide in
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Slide out after 3.5 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Contact Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const group = document.getElementById('contact-group').value;
+            const message = document.getElementById('contact-message').value;
+
+            // Simple storage list
+            const subContainer = document.getElementById('submissions-container');
+            const subList = document.getElementById('submissions-list');
+
+            subContainer.classList.remove('hidden');
+
+            const item = document.createElement('div');
+            item.className = "bg-slate-50 border border-slate-100 p-2.5 rounded-lg text-[11px] leading-tight space-y-1";
+            item.innerHTML = `
+                <div class="flex justify-between font-bold text-slate-800">
+                    <span>${name} (${group})</span>
+                    <span class="text-slate-400">Baru Saja</span>
+                </div>
+                <p class="text-slate-600">${message}</p>
+            `;
+
+            subList.insertBefore(item, subList.firstChild);
+
+            // Clean inputs
+            document.getElementById('contact-form').reset();
+            showToast(`Terima kasih ${name}, pesanan anda disimpan dalam memori.`);
+        }
+
+        // Interactive Filtering for Scouting Activities
+        function filterActivities(category) {
+            const cards = document.querySelectorAll('.activity-card');
+            cards.forEach(card => {
+                if (category === 'semua' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Adjust active filter buttons
+            const filterBtns = document.querySelectorAll('.act-filter-btn');
+            filterBtns.forEach(btn => {
+                btn.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200";
+            });
+
+            // Select clicked button
+            event.currentTarget.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-600 text-white";
+        }
+
+        // Interactive Materials Search Filter
+        function searchMaterials() {
+            const query = document.getElementById('search-materials').value.toLowerCase();
+            const materialCards = document.querySelectorAll('.material-card');
+            
+            materialCards.forEach(card => {
+                const searchKeywords = card.getAttribute('data-title');
+                if (searchKeywords.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Simulate Document Download Action
+        function simulateDownload(filename) {
+            showToast(`Memulakan muat turun: ${filename}...`);
+        }
+
+        // Interactive Scouting Mini-Quiz Answer Validator
+        function checkAnswer(isCorrect, element) {
+            const feedback = document.getElementById('quiz-feedback');
+            const options = document.querySelectorAll('.quiz-opt');
+
+            // Disable further clicks
+            options.forEach(opt => {
+                opt.disabled = true;
+                opt.classList.add('opacity-50');
+            });
+
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                element.className = "quiz-opt text-left text-xs bg-emerald-100 border-2 border-emerald-500 p-3 rounded-xl transition duration-200 opacity-100 font-bold text-emerald-800";
+                feedback.className = "mt-4 p-3 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-800";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> Tahniah! Jawapan betul. Daya Angkat (Lift) dihasilkan oleh bentuk sayap khas (aerofoil) bagi mengatasi berat kapal terbang.`;
+            } else {
+                element.className = "quiz-opt text-left text-xs bg-rose-100 border-2 border-rose-500 p-3 rounded-xl transition duration-200 opacity-100 font-bold text-rose-800";
+                feedback.className = "mt-4 p-3 rounded-xl text-xs font-semibold bg-amber-100 text-amber-900";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Kurang tepat. Jawapan yang betul adalah B: Lift (Daya Angkat). Cuba lagi pada masa hadapan!`;
+            }
+        }
+
+        // Interactive Badge Progress Tracker (Rover Scout Roadmap)
+        let resolvedBadges = [false, false, false, false];
+        function toggleScoutBadge(index) {
+            const badgeBox = document.getElementById(`sc-badge-${index}`);
+            const checkIcon = badgeBox.querySelector('.check-indicator');
+            const iconBg = badgeBox.querySelector('.badge-icon-bg');
+
+            resolvedBadges[index] = !resolvedBadges[index];
+
+            if (resolvedBadges[index]) {
+                badgeBox.classList.add('border-violet-500', 'bg-violet-50/50');
+                checkIcon.classList.remove('hidden');
+                iconBg.className = "badge-icon-bg w-12 h-12 rounded-full bg-violet-600 text-white flex items-center justify-center mb-3";
+            } else {
+                badgeBox.classList.remove('border-violet-500', 'bg-violet-50/50');
+                checkIcon.classList.add('hidden');
+                iconBg.className = "badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3";
+            }
+
+            // Update progress calculation
+            const completedCount = resolvedBadges.filter(b => b).length;
+            const progressPercent = (completedCount / 4) * 100;
+
+            document.getElementById('badge-progress-text').innerText = `${completedCount}/4 Lencana Diselesaikan`;
+            document.getElementById('progress-percent').innerText = `${progressPercent}% Selesai`;
+            document.getElementById('badge-progress-bar').style.width = `${progressPercent}%`;
+
+            if (completedCount === 4) {
+                showToast("Syabas! Anda layak untuk Penarafan Anugerah Baden-Powell (B-P Award)!", true);
+            }
+        }
+
+        // Lightbox Gallery Modal Actions
+        function showGalleryModal(imgSrc) {
+            const modal = document.getElementById('gallery-modal');
+            const modalImg = document.getElementById('gallery-modal-img');
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
