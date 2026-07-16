@@ -34,6 +34,13 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #A09078;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
@@ -134,9 +141,9 @@
     </nav>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white py-3 px-5 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
-        <span id="toast-icon" class="text-amber-400 text-lg"><i class="fa-solid fa-circle-check"></i></span>
-        <span id="toast-text" class="text-sm font-medium">Mesej berjaya dihantar!</span>
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white py-3 px-5 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700 max-w-sm">
+        <span id="toast-icon" class="text-amber-400 text-lg flex-shrink-0"><i class="fa-solid fa-circle-check"></i></span>
+        <span id="toast-text" class="text-xs font-medium">Mesej berjaya dihantar!</span>
     </div>
 
     <!-- Main Content Area & Sidebar Grid Layout -->
@@ -151,19 +158,32 @@
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8">
                         
                         <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                            <!-- Profile Picture Frame using "uniform.jpg" -->
-                            <div class="relative flex-shrink-0">
-                                <div class="w-64 h-80 rounded-[2.5rem] border-8 border-[#D2C4A7] overflow-hidden shadow-xl bg-[#FAF8F5] flex items-center justify-center relative group">
-                                    <img src="https://farihan-ptss.github.io/personal_ksm/uniform.png"
-     alt="Pn Farihan Elyana"
-     class="w-full h-full object-cover"
-     onerror="this.onerror=null; this.src='https://placehold.co/300x400/1a365d/ffffff?text=Pn+Farihan+Elyana';">                                    
+                            <!-- Profile Picture Frame using Github & Fallbacks -->
+                            <div class="relative flex-shrink-0 group/profile">
+                                <div class="w-64 h-80 rounded-[2.5rem] border-8 border-[#D2C4A7] overflow-hidden shadow-xl bg-[#FAF8F5] flex items-center justify-center relative">
+                                    <img id="profile-display-img" src="https://farihan-ptss.github.io/personal_ksm/uniform.png"
+                                         alt="Pn Farihan Elyana"
+                                         class="w-full h-full object-cover"
+                                         onerror="this.onerror=null; this.src='uniform.jpg';">
+                                    
                                     <!-- Subtle Floating Info -->
                                     <div class="absolute bottom-0 inset-x-0 bg-slate-900/80 backdrop-blur py-2 text-center text-xs text-amber-300 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         Pemimpin Unit Kelana
                                     </div>
                                 </div>
-                                <!-- Emblem Wings Overlay at bottom of portrait -->
+
+                                <!-- Camera Sandbox Upload Support -->
+                                <label for="profile-upload" class="absolute top-2 right-2 bg-slate-900/90 hover:bg-amber-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all duration-200 z-20" title="Muat naik fail 'uniform.jpg' anda">
+                                    <i class="fa-solid fa-camera text-sm"></i>
+                                </label>
+                                <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+
+                                <!-- Reset Image Button -->
+                                <button onclick="resetProfileImage()" class="absolute top-2 left-2 bg-slate-900/90 hover:bg-rose-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 z-20" title="Set Semula Gambar Semulajadi">
+                                    <i class="fa-solid fa-arrow-rotate-left text-sm"></i>
+                                </button>
+
+                                <!-- Emblem Wings Overlay -->
                                 <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-900 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md flex items-center gap-1.5 whitespace-nowrap border-2 border-amber-400">
                                     <i class="fa-solid fa-plane-up text-amber-300"></i> PENGAKAP KELANASISWA KSM
                                 </div>
@@ -180,9 +200,13 @@
 
                                 <div class="bg-amber-50/70 border border-amber-200/50 rounded-xl p-4 text-sm leading-relaxed text-slate-700 italic">
                                     "Berkhidmat demi pembangunan belia dan kemahiran tinggi melalui program Kelanasiswa di peringkat daerah dan negeri."
+                                    <div class="text-[10px] text-slate-500 not-italic mt-2 flex items-center gap-1 justify-center md:justify-start">
+                                        <i class="fa-solid fa-circle-info text-amber-600"></i>
+                                        <span>Tip: Klik ikon kamera <i class="fa-solid fa-camera"></i> jika ingin menukar gambar profil secara langsung.</span>
+                                    </div>
                                 </div>
 
-                                <!-- Personal Details Grid with updated info -->
+                                <!-- Personal Details Grid -->
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-sm">
                                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
                                         <span class="block text-xs font-bold uppercase text-slate-400 tracking-wider">Nama Penuh</span>
@@ -472,7 +496,7 @@
                             </div>
                         </div>
 
-                        <!-- Interactive Scouting Mini-Quiz -->
+                        <!-- Interactive Quiz -->
                         <div class="border border-emerald-100 rounded-2xl bg-[#F4FAF6] p-6">
                             <h3 class="text-lg font-bold text-emerald-900 mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-gamepad text-emerald-600"></i> Uji Kefahaman: Kuiz Pintar Pengakap Udara!
@@ -505,79 +529,348 @@
 
                 <!-- TAB 5: Pembangunan Kelana Section -->
                 <div id="content-kelana" class="tab-content hidden animate-fadeIn">
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-6">
-                        <div class="flex items-center gap-3">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-8">
+                        <!-- Header Tab -->
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
                             <div class="p-3 bg-violet-100 text-violet-800 rounded-xl">
                                 <i class="fa-solid fa-route text-2xl"></i>
                             </div>
                             <div>
                                 <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Pembangunan Pengakap Kelana</h2>
-                                <p class="text-sm text-slate-500">Laluan pembangunan modal insan menuju penganugerahan berprestij tertinggi Kelana</p>
+                                <p class="text-sm text-slate-500">Laluan pembangunan modal insan, kecergasan, dan kepimpinan belia tertinggi.</p>
                             </div>
                         </div>
 
-                        <p class="text-sm md:text-base leading-relaxed text-slate-600">
-                            Pengakap Kelana merupakan fasa kepengakapan bagi belia berumur 17 hingga 26 tahun. Puncak matlamat setiap ahli Kelanasiswa adalah untuk dianugerahkan **Anugerah Baden-Powell (B-P Award)** yang diiktiraf di peringkat kebangsaan.
-                        </p>
+                        <!-- Sub-Tab Navigation for Kelana (3 Bahagian) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-1.5 bg-slate-100 rounded-xl">
+                            <button onclick="switchKelanaSubTab('skim-lencana')" id="sub-btn-skim" class="kelana-sub-btn py-2.5 px-4 text-xs font-bold rounded-lg transition duration-200 bg-white text-violet-950 shadow-sm">
+                                <i class="fa-solid fa-shield-halved mr-1.5"></i> 1. Skim Lencana Kelana
+                            </button>
+                            <button onclick="switchKelanaSubTab('arprm')" id="sub-btn-arprm" class="kelana-sub-btn py-2.5 px-4 text-xs font-semibold rounded-lg transition duration-200 hover:bg-white/50 text-slate-600 hover:text-slate-900">
+                                <i class="fa-solid fa-medal mr-1.5 text-[#D69E2E]"></i> 2. ARPRM Rakan Muda
+                            </button>
+                            <button onclick="switchKelanaSubTab('bp-award')" id="sub-btn-bp" class="kelana-sub-btn py-2.5 px-4 text-xs font-semibold rounded-lg transition duration-200 hover:bg-white/50 text-slate-600 hover:text-slate-900">
+                                <i class="fa-solid fa-award mr-1.5"></i> 3. Baden-Powell Award
+                            </button>
+                        </div>
 
-                        <!-- Interactive Badge Roadmap Tracker -->
-                        <div class="bg-violet-50/50 border border-violet-100 rounded-2xl p-6">
-                            <h3 class="text-lg font-bold text-violet-950 mb-4 flex items-center justify-between flex-wrap gap-2">
-                                <span><i class="fa-solid fa-circle-nodes mr-2 text-violet-600"></i>Penjejak Progres Lencana Kelana</span>
-                                <span id="badge-progress-text" class="text-xs bg-violet-200 text-violet-900 font-bold px-3 py-1 rounded-full">0/4 Lencana Diselesaikan</span>
-                            </h3>
+                        <!-- SUB-TAB 1: Skim Lencana Kelana -->
+                        <div id="kelana-sub-skim" class="kelana-sub-content block space-y-6">
                             
-                            <!-- Custom Interactive Roadmap Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
-                                <!-- Badge Step 1 -->
-                                <div onclick="toggleScoutBadge(0)" id="sc-badge-0" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
-                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
-                                        <i class="fa-solid fa-shield text-xl"></i>
+                            <!-- Sejarah Panel (Expandable) -->
+                            <div class="border border-violet-100 rounded-2xl bg-violet-50/40 p-5 space-y-3">
+                                <div class="flex justify-between items-center cursor-pointer" onclick="toggleSejarahPanel()">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-book-bookmark text-violet-700 text-xl"></i>
+                                        <div>
+                                            <h3 class="font-extrabold text-slate-900 text-sm md:text-base">Sejarah & Pendahuluan Pengakap Kelana</h3>
+                                            <p class="text-[11px] text-slate-500">Ditulis oleh Wong Kok Nian • Klik untuk baca sejarah penubuhan</p>
+                                        </div>
                                     </div>
-                                    <h4 class="font-bold text-xs text-slate-800">1. Lencana Keahlian Kelana</h4>
-                                    <p class="text-[10px] text-slate-500 mt-1">Ujian undang-undang pengakap dan sejarah kelana.</p>
-                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                    <i id="sejarah-chevron" class="fa-solid fa-chevron-down text-violet-700 transition-transform"></i>
                                 </div>
-
-                                <!-- Badge Step 2 -->
-                                <div onclick="toggleScoutBadge(1)" id="sc-badge-1" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
-                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
-                                        <i class="fa-solid fa-handshake-angle text-xl"></i>
-                                    </div>
-                                    <h4 class="font-bold text-xs text-slate-800">2. Lencana Khidmat Masyarakat</h4>
-                                    <p class="text-[10px] text-slate-500 mt-1">Menjalankan 24 jam projek kebajikan / khidmat komuniti.</p>
-                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
-                                </div>
-
-                                <!-- Badge Step 3 -->
-                                <div onclick="toggleScoutBadge(2)" id="sc-badge-2" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
-                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
-                                        <i class="fa-solid fa-compass text-xl"></i>
-                                    </div>
-                                    <h4 class="font-bold text-xs text-slate-800">3. Lencana Pengembaraan</h4>
-                                    <p class="text-[10px] text-slate-500 mt-1">Ekspedisi berjalan kaki / berbasikal sejauh 50-100km.</p>
-                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
-                                </div>
-
-                                <!-- Badge Step 4 -->
-                                <div onclick="toggleScoutBadge(3)" id="sc-badge-3" class="cursor-pointer border border-slate-200 bg-white hover:border-violet-400 transition duration-300 p-4 rounded-xl flex flex-col items-center text-center relative group">
-                                    <div class="badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
-                                        <i class="fa-solid fa-star-of-david text-xl"></i>
-                                    </div>
-                                    <h4 class="font-bold text-xs text-slate-800">4. Lencana Kepemimpinan</h4>
-                                    <p class="text-[10px] text-slate-500 mt-1">Lulus Kursus Kepimpinan Manikayu Peringkat 1.</p>
-                                    <div class="absolute top-2 right-2 check-indicator hidden text-emerald-500"><i class="fa-solid fa-circle-check"></i></div>
+                                
+                                <div id="sejarah-content" class="hidden text-xs text-slate-600 leading-relaxed space-y-3 pt-3 border-t border-violet-100/50">
+                                    <p>
+                                        <strong>PENGAKAP KELANA</strong> telah diwujudkan kerana terdapat permintaan untuk penubuhannya oleh para belia. Aktiviti Pengakap dimulakan oleh Lord Baden-Powell (BP) sebagai persediaan pengalaman dalam latihan kepimpinan dan sebagai inisiatif untuk Pengakap darat di India dan Afrika semasa zaman perang. Selepas melalui Perang Boer di Afrika Selatan, BP telah menulis semula buku panduan latihan melalui pengalamannya untuk kanak-kanak lelaki dan bercadang untuk menggunakannya dalam organisasi seperti Boys Brigade. Untuk menguji penyampaian idea di dalam buku tersebut, BP telah mengadakan satu perkhemahan percubaan bersama 20 orang kanak-kanak lelaki di Pulau Brownsea, England pada 31 Julai hingga 9 Ogos 1907. Perkhemahan tersebut telah membuahkan kejayaan dan dipertimbangkan untuk menjadi permulaan kepada kegiatan berpengakap.
+                                    </p>
+                                    <p>
+                                        Buku panduan yang bertajuk “Scouting for Boys” telah diterbitkan pertama kalinya pada bulan Januari 1908. Buku tersebut mendapat sambutan daripada sebahagian Kanak-kanak lelaki serta sebilangan kecil kanak-kanak perempuan dan dengan segera meletakkan idea BP sebagai sesuatu yang amat praktikal dan sangat wajar.
+                                    </p>
+                                    <p>
+                                        Oleh sebab kegiatan berpengakap semasa peringkat awal penubuhannya lebih tertumpu pada golongan kanak-kanak dan remaja, ahli-ahli Pengakap lama yang ingin terlibat semula dalam kegiatan-kegiatan Pengakap telah mencadangkan supaya ditubuhkan satu kumpulan bagi ahli dewasa yang bersesuaian dengan minat dan kebolehan mereka. Pada tahun 1917, Pengakap Kelana (Rover Scouts) dengan rasminya dilancarkan di United Kingdom dengan nama Pengakap Senior (Senior Scouts). Walau bagaimanapun, pada tahun 1918, nama ini telah ditukar menjadi Pengakap Kelana.
+                                    </p>
+                                    <p>
+                                        Pada tahun 1922, BP telah menulis sebuah buku <em>Rovering To Success</em> sebagai panduan untuk Pengakap Kelana. Di dalamnya, beliau membentangkan tujuan dan matlamat Pengakap Kelana dan menggambarkan jalan ke arah kehidupan yang dilihat beliau sebagai panduan untuk pemuda-pemuda mengikuti keadaan semasa.
+                                    </p>
+                                    <p>
+                                        Pada tahun 1931, Perkhemahan Kelana Sedunia (World Rover Scout Moot) yang pertama telah diadakan di Kandersteg, Switzerland. Perkhemahan ini telah dihadiri oleh 3000 ahli Pengakap Kelana dan keputusan untuk menerima Pengakap Kelana sebagai pergerakan seluruh dunia telah dicapai semasa perkhemahan ini.
+                                    </p>
+                                    <p>
+                                        Tahun 1975 memperlihatkan pembangunan yang pesat dalam Pengakap Kelana apabila keahlian dibuka kepada wanita muda di Malaysia.
+                                    </p>
                                 </div>
                             </div>
 
-                            <!-- Progress Bar -->
-                            <div class="mt-6">
-                                <div class="flex justify-between text-xs text-slate-600 mb-1 flex-wrap gap-1">
-                                    <span>Klik lencana di atas untuk menandakan bahagian yang telah diselesaikan</span>
-                                    <span id="progress-percent" class="font-bold">0% Selesai</span>
+                            <!-- Pengenalan Skim Latihan Section -->
+                            <div class="bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-sm">
+                                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-graduation-cap text-violet-700"></i> Pengenalan Skim Latihan Pengakap Kelana
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Latihan Pengakap Kelana diadakan untuk meningkatkan kemahiran pelbagai aspek daripada sesebuah Krew kepada Krew yang lain. Ia adalah tanggungjawab utama sesebuah Krew. Latihan formal ini termasuk masa untuk seseorang individu itu meningkatkan pemahaman peribadi melalui pemeriksaan sendiri.
+                                </p>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Apabila seseorang Pengakap Remaja memasuki Krew Pengakap Kelana, mereka selalunya akan mengadakan suatu istiadat yang dikenali sebagai <strong>Istiadat Meningkat Naik</strong>. Bakal Kelana adalah orang yang berkelayakan untuk menyertai pergerakan Pengakap dan mungkin juga layak untuk menyertai Kelana. 
+                                </p>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Bagi Ahli Baru, Ahli berkenaan mestilah terlebih dahulu menjalani ujian Lencana Keahlian yang dikhaskan untuk Pengakap Kelana. Ahli Baru yang <strong>LULUS</strong> ujian berkenaan akan dianugerahkan Lencana Keahlian. Majlis Penganugerahan adalah satu majlis yang ringkas. Ia hanya melibatkan penyampaian tanda nama ahli kumpulan dan Lencana Kelana serta pemakaian **Epolet Pengakap Kelana**.
+                                </p>
+                            </div>
+
+                            <!-- Interactive Roadmap Grid -->
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                                <!-- Left side: The Interactive Badges Grid -->
+                                <div class="lg:col-span-5 space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Klik Lencana Untuk Silibus Penuh:</span>
+                                    
+                                    <!-- Keahlian Badge -->
+                                    <button onclick="selectSyllabusBadge('keahlian')" id="badge-btn-keahlian" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-violet-600 bg-violet-50/50 hover:border-violet-600 transition flex items-center gap-3">
+                                        <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-amber-400 shadow-sm overflow-hidden">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/keahlian.bmp" alt="Lencana Keahlian" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Keahlian';">
+                                        </div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-xs">Lencana Keahlian</span>
+                                            <span class="text-[9px] bg-violet-200 text-violet-900 px-2 py-0.5 rounded font-bold uppercase mt-1 inline-block">Ahli Baru</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- Kemahiran Badge -->
+                                    <button onclick="selectSyllabusBadge('kemahiran')" id="badge-btn-kemahiran" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
+                                        <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/kemahiran.jpg" alt="Lencana Kemahiran" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/8b0000/ffffff?text=Kemahiran';">
+                                        </div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-xs">Lencana Kemahiran</span>
+                                            <span class="text-[9px] bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold uppercase mt-1 inline-block">Wajib 1</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- Perkhidmatan Badge -->
+                                    <button onclick="selectSyllabusBadge('perkhidmatan')" id="badge-btn-perkhidmatan" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
+                                        <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/khidmat.jpg" alt="Lencana Perkhidmatan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/006400/ffffff?text=Khidmat';">
+                                        </div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-xs">Lencana Perkhidmatan</span>
+                                            <span class="text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold uppercase mt-1 inline-block">Wajib 2</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- Pengembaraan Badge -->
+                                    <button onclick="selectSyllabusBadge('pengembaraan')" id="badge-btn-pengembaraan" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
+                                        <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/kembara.jpg" alt="Lencana Pengembaraan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/d69e2e/ffffff?text=Kembara';">
+                                        </div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-xs">Lencana Pengembaraan</span>
+                                            <span class="text-[9px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold uppercase mt-1 inline-block">Wajib 3</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- Lencana Pilihan -->
+                                    <button onclick="selectSyllabusBadge('pilihan')" id="badge-btn-pilihan" class="syllabus-badge-btn w-full text-left p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-violet-400 transition flex items-center gap-3">
+                                        <div class="w-12 h-12 flex-shrink-0 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-slate-300 shadow-sm overflow-hidden">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/kepimpinan.jpg" alt="Lencana Pilihan" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Pilihan';">
+                                        </div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-xs">Kategori Lencana Pilihan</span>
+                                            <span class="text-[9px] bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-bold uppercase mt-1 inline-block">Pilih 1 Lencana</span>
+                                        </div>
+                                    </button>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-3">
-                                    <div id="badge-progress-bar" class="bg-violet-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+
+                                <!-- Right side: The Detailed Syllabus Viewer -->
+                                <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 md:p-6 space-y-4 shadow-sm" id="syllabus-viewer">
+                                    <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                                        <div class="w-12 h-12 bg-[#F5F1E6] rounded-lg p-1 flex items-center justify-center border border-yellow-400 shadow-inner overflow-hidden" id="viewer-badge-icon">
+                                            <img src="https://farihan-ptss.github.io/personal_ksm/keahlian.bmp" alt="Lencana" class="w-full h-full object-contain">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-extrabold text-slate-900 text-sm" id="viewer-badge-title">Lencana Keahlian</h4>
+                                            <span class="text-[10px] text-violet-700 font-bold uppercase tracking-wider" id="viewer-badge-type">Syarat Pelantikan (Ahli Baru)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-xs text-slate-600 leading-relaxed space-y-3">
+                                        <p id="viewer-badge-desc" class="italic text-slate-500">
+                                            Sebelum dilantik menjadi Ahli Kelana dan dianugerahkan Lencana Keahlian...
+                                        </p>
+                                        
+                                        <!-- Dynamic Checklist Container -->
+                                        <div class="space-y-2 mt-4 shadow-inner max-h-96 overflow-y-auto p-2 border border-slate-50 rounded-lg" id="viewer-checklist-container">
+                                            <!-- Items will be injected dynamically via JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Integrated Progress Tracker -->
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mt-4">
+                                <div class="flex justify-between items-center flex-wrap gap-2 text-xs mb-2">
+                                    <span class="font-bold text-slate-700">Laporan Kemajuan Skim Kelana Peribadi:</span>
+                                    <span id="overall-badge-progress" class="bg-violet-600 text-white font-extrabold px-2.5 py-1 rounded-full">0% Lengkap</span>
+                                </div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5">
+                                    <div id="overall-progress-bar" class="bg-violet-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-2">
+                                    *Tandakan perkara yang telah anda selesaikan di dalam senarai semak di atas untuk mengemas kini laporan kemajuan anda secara masa nyata.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- SUB-TAB 2: Anugerah Remaja Perdana Rakan Muda (ARPRM) -->
+                        <div id="kelana-sub-arprm" class="kelana-sub-content hidden space-y-6">
+                            <div class="bg-amber-50/50 border border-amber-200 rounded-xl p-5 flex flex-col md:flex-row gap-5 items-center justify-between">
+                                <div class="space-y-2">
+                                    <h3 class="text-xl font-bold text-amber-950 flex items-center gap-2">
+                                        <i class="fa-solid fa-medal text-amber-600"></i> Anugerah Remaja Perdana Rakan Muda (ARPRM)
+                                    </h3>
+                                    <p class="text-xs text-slate-600 leading-relaxed max-w-2xl">
+                                        ARPRM ialah program anugerah belia bertaraf antarabangsa di Malaysia yang diadaptasi daripada <strong>The Duke of Edinburgh's International Award</strong>. Program ini memberi peluang kepada ahli Kelanasiswa mencabar diri, membina kecergasan fizikal, mengasah kemahiran, dan memberi khidmat bakti sukarela kepada masyarakat.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-auto flex-shrink-0">
+                                    <a href="https://sites.google.com/ptss.edu.my/ksmptss/arprm" target="_blank" rel="noopener" class="w-full block text-center px-4 py-2.5 bg-[#1A365D] text-white hover:bg-[#2B6CB0] rounded-xl text-xs font-bold transition shadow-sm">
+                                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Layari Laman Rasmi PTSS
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- ARPRM Level Selector and Info Cards -->
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                                <!-- Level Tabs on left / interactive list -->
+                                <div class="lg:col-span-4 flex flex-col gap-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Pilih Peringkat Anugerah:</span>
+                                    
+                                    <button onclick="setArprmLevel('gangsa')" id="arprm-tab-gangsa" class="arprm-lvl-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-amber-500 transition flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-[#CD7F32] text-white flex items-center justify-center font-bold">G</div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-sm">Tahap Gangsa (Bronze)</span>
+                                            <span class="text-[10px] text-slate-500">Umur 14+ • Minima 6 Bulan</span>
+                                        </div>
+                                    </button>
+
+                                    <button onclick="setArprmLevel('perak')" id="arprm-tab-perak" class="arprm-lvl-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-amber-500 transition flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-[#C0C0C0] text-slate-800 flex items-center justify-center font-bold">P</div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-sm">Tahap Perak (Silver)</span>
+                                            <span class="text-[10px] text-slate-500">Umur 15+ • Minima 6 - 12 Bulan</span>
+                                        </div>
+                                    </button>
+
+                                    <button onclick="setArprmLevel('emas')" id="arprm-tab-emas" class="arprm-lvl-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-amber-500 transition flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-[#FFD700] text-slate-900 flex items-center justify-center font-bold">E</div>
+                                        <div>
+                                            <span class="block font-bold text-slate-900 text-sm">Tahap Emas (Gold)</span>
+                                            <span class="text-[10px] text-slate-500">Umur 16+ • Minima 12 - 18 Bulan</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <!-- Dynamic Component Output Cards on right -->
+                                <div class="lg:col-span-8 bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-6">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <h4 class="font-bold text-slate-900 text-base" id="arprm-output-title">Komponen Keperluan Gangsa</h4>
+                                        <span class="text-xs bg-slate-200 text-slate-700 font-semibold px-2.5 py-1 rounded-full" id="arprm-output-duration">Tempoh: Minima 6 Bulan</span>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <!-- Component 1 -->
+                                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-start gap-3">
+                                            <div class="p-2.5 bg-rose-50 text-rose-600 rounded-lg"><i class="fa-solid fa-handshake-angle text-lg"></i></div>
+                                            <div>
+                                                <h5 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Khidmat Masyarakat</h5>
+                                                <p class="text-[11px] text-slate-600 mt-1" id="arprm-comp-khidmat">Minima 15 jam perkhidmatan dalam tempoh 3 bulan.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Component 2 -->
+                                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-start gap-3">
+                                            <div class="p-2.5 bg-sky-50 text-sky-600 rounded-lg"><i class="fa-solid fa-heart-pulse text-lg"></i></div>
+                                            <div>
+                                                <h5 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Rekreasi Fizikal</h5>
+                                                <p class="text-[11px] text-slate-600 mt-1" id="arprm-comp-rekreasi">Minima 15 jam latihan gaya hidup aktif fizikal / sukan.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Component 3 -->
+                                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-start gap-3">
+                                            <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-compass text-lg"></i></div>
+                                            <div>
+                                                <h5 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Kemahiran</h5>
+                                                <p class="text-[11px] text-slate-600 mt-1" id="arprm-comp-kemahiran">Minima 15 jam membina potensi hobi atau skil baru.</p>
+                                            </div>
+                                        </div>
+                                        <!-- Component 4 -->
+                                        <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-start gap-3">
+                                            <div class="p-2.5 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-person-hiking text-lg"></i></div>
+                                            <div>
+                                                <h5 class="font-bold text-xs text-slate-800 uppercase tracking-wider">Penjelajahan Lasak</h5>
+                                                <p class="text-[11px] text-slate-600 mt-1" id="arprm-comp-lasak">Ekspedisi berpasukan selama 2 hari 1 malam (minima 24km).</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Golden Component (Residential Project) -->
+                                    <div id="arprm-gold-project" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-start gap-3">
+                                        <div class="p-2.5 bg-yellow-100 text-yellow-800 rounded-lg"><i class="fa-solid fa-house-chimney-user text-lg"></i></div>
+                                        <div>
+                                            <h5 class="font-bold text-xs text-yellow-950 uppercase tracking-wider flex items-center gap-1.5">
+                                                <span>Projek Penempatan (Khas Tahap Emas)</span>
+                                                <span class="bg-yellow-200 text-yellow-900 text-[9px] px-1.5 py-0.5 rounded-full font-bold">Wajib</span>
+                                            </h5>
+                                            <p class="text-[11px] text-yellow-900 mt-1">
+                                                Tinggal dan berkhidmat bersama komuniti baru di luar kawasan tempat tinggal biasa selama sekurang-kurangnya 5 hari 4 malam berturut-turut.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SUB-TAB 3: Baden-Powell (B-P) Award -->
+                        <div id="kelana-sub-bp-award" class="kelana-sub-content hidden space-y-6">
+                            <div class="flex flex-col md:flex-row gap-6 items-center bg-slate-900 text-white rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                                <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-violet-600 rounded-full blur-3xl opacity-20"></div>
+                                <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#FFD700] bg-violet-950 flex flex-shrink-0 items-center justify-center shadow-xl transform hover:scale-105 transition">
+                                    <div class="text-center">
+                                        <i class="fa-solid fa-star text-amber-400 text-xl md:text-2xl animate-pulse"></i>
+                                        <span class="block text-[9px] md:text-xs font-black text-[#FFD700] tracking-widest mt-1">ANUGERAH</span>
+                                        <span class="block text-[10px] md:text-sm font-extrabold text-white">B-P</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 flex-grow">
+                                    <span class="text-xs font-bold text-amber-400 tracking-wider uppercase">Sijil Tertinggi Pengakap Kelana</span>
+                                    <h3 class="text-2xl font-bold">Anugerah Baden-Powell (B-P Award)</h3>
+                                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-2xl">
+                                        Anugerah Baden-Powell merupakan pengiktirafan dan anugerah tertinggi yang dianugerahkan oleh Persekutuan Pengakap Malaysia kepada ahli Pengakap Kelana yang telah melengkapkan kesemua skim lencana wajib dan pilihan serta menunjukkan ketokohan kepimpinan yang tinggi.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- B-P Requirements Checklist -->
+                            <div class="border border-slate-100 rounded-2xl p-6 space-y-4">
+                                <h4 class="font-bold text-slate-900 text-sm mb-2"><i class="fa-solid fa-clipboard-check text-violet-600 mr-2"></i>Kriteria Kelayakan Penerimaan Anugerah B-P:</h4>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
+                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <div>
+                                            <strong class="text-slate-800">Lulus Lencana Keahlian Kelana</strong>
+                                            <p class="text-slate-500 text-[10px] mt-1">Asas kepengakapan, simpanan, ikatan dan sejarah pengakap.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
+                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <div>
+                                            <strong class="text-slate-800">Melengkapkan Lencana Wajib</strong>
+                                            <p class="text-slate-500 text-[10px] mt-1">Lencana Khidmat Masyarakat (min 24 jam) dan Lencana Pengembaraan.</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
+                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <div>
+                                            <strong class="text-slate-800">Menggenggam Lencana Pilihan</strong>
+                                            <p class="text-slate-500 text-[10px] mt-1">Lulus sekurang-kurangnya 1 Lencana Pilihan (cth: Kepemimpinan / ICT / Ekstrem / Penyelamat / Keusahawanan).</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
+                                        <span class="text-emerald-500 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></span>
+                                        <div>
+                                            <strong class="text-slate-800">Penilaian Buku Log & Rambu Cemerlang</strong>
+                                            <p class="text-slate-500 text-[10px] mt-1">Lulus proses pengesahan log dan dianugerahkan Rambu Pengakap Kelana oleh Pesuruhjaya.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -719,6 +1012,331 @@
     </footer>
 
     <script>
+        // Check for cached profile image on window load
+        window.onload = function() {
+            const cachedImage = localStorage.getItem('scout_profile_img');
+            const profileImgElement = document.getElementById('profile-display-img');
+            
+            if (cachedImage && profileImgElement) {
+                profileImgElement.src = cachedImage;
+            }
+            // Initialize default ARPRM view
+            setArprmLevel('gangsa');
+            // Initialize Penang Scout Badge Syllabus
+            selectSyllabusBadge('keahlian');
+            calculateOverallProgress();
+        }
+
+        // Sejarah Expandable Panel Toggle
+        function toggleSejarahPanel() {
+            const content = document.getElementById('sejarah-content');
+            const chevron = document.getElementById('sejarah-chevron');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        }
+
+        // Penang & Wong Kok Nian Scout Syllabus Database
+        const penangScoutSyllabus = {
+            keahlian: {
+                title: "Lencana Keahlian Kelana",
+                type: "Syarat Pelantikan (Ahli Baru)",
+                desc: "Sebelum dilantik menjadi Ahli Kelana dan dianugerahkan Lencana Keahlian, seorang Bakal Kelana akan diuji dalam perkara-perkara berikut untuk memberi pengetahuan dan kemahiran asas dalam berpengakap:",
+                badgeImg: "https://farihan-ptss.github.io/personal_ksm/keahlian.bmp",
+                items: [
+                    "Memahami dan menerima Persetiaan & Undang-undang Pengakap.",
+                    "Dapat menerangkan tujuan Pergerakan Pengakap dan menyedari peranan Pengakap Kelana.",
+                    "Mengetahui sejarah Pergerakan Pengakap di Malaysia dan Pergerakan Pengakap Antarabangsa.",
+                    "Menjalankan kerja-kerja amal kepada masyarakat setempat bersama pasukan seminima 6 jam.",
+                    "Menguasai Ikatan: Buku Sila (Reef Knot) & Bunga Geti (Sheet Bend).",
+                    "Menguasai Ikatan: Simpul Manuk (Clove Hitch) & Tindih Kasih (Bowline).",
+                    "Menguasai Ikatan: Lilit Dua Simpul (Round Turn and Two Half Hitch) & Lilit Pemati Biasa (Common Whipping).",
+                    "Menguasai Ikatan: Ikatan Seraya (Square Lashing) & Ikatan Serong (Diagonal Lashing).",
+                    "Mengamalkan ajaran agama masing-masing."
+                ]
+            },
+            kemahiran: {
+                title: "Lencana Kemahiran Pengakap",
+                type: "Lencana Wajib 1",
+                desc: "Lencana ini dianugerahkan kepada Ahli Kelana, sebagai mengakui berbagai kemahiran, kegiatan dan aktiviti luar dengan memperlihatkan tahap tertinggi dalam melaksanakan program dan kegiatan luar:",
+                badgeImg: "https://farihan-ptss.github.io/personal_ksm/kemahiran.jpg",
+                items: [
+                    "A. Berkhemah (Teori): Menguasai pengurusan, pemilihan tapak, persediaan logistik, jenis dapur, gejet, kesihatan dan aturan penutupan kem.",
+                    "A. Berkhemah (Amali): Berkhemah seminima 10 malam di dalam siri-siri perkhemahan, menyediakan laporan bertulis, dan membina khemah kecil / pondok perlindungan.",
+                    "B. Projek Perintis: Mengambil bahagian secara berkumpulan membuat SATU projek perintis berskala penuh bagi kategori Jambatan, Menara, atau Lain-lain (pengangkutan/permainan).",
+                    "B. Model Projek: Menyediakan model fizikal berskala bagi semua projek perintis yang telah dibina.",
+                    "C. Kuartermaster: Memahami dan menjalankan peranan QM dalam menyusun, memeriksa, dan menjaga keselamatan peralatan dan bahan projek perintis.",
+                    "D. Kawad: Menguasai tatacara, hukuman kawad kaki, kawad tongkat, serta memenuhi semua syarat kelayakan menjadi Ketua Kawad.",
+                    "E. Orienteering: Mengetahui sistem asas orienteering dan mengaplikasikannya di dalam siri latihan luar.",
+                    "F. Ikhtiar Hidup: Mengetahui asas ikhtiar hidup (mencari makanan, membina jerat, masakan rimba) dan mengaplikasikannya.",
+                    "G. Penganggaran: Menguasai cara sistem penganggaran (tinggi pokok, lebar sungai, berat bahan) secara fizikal."
+                ]
+            },
+            perkhidmatan: {
+                title: "Lencana Perkhidmatan",
+                type: "Lencana Wajib 2",
+                desc: "Lencana ini dianugerahkan kepada Ahli Kelana, sebagai mengakui berbagai kemahiran, ilmu pengetahuan dan kecekapan dengan memperlihatkan tahap tertinggi dalam melaksanakan perkhidmatan kebajikan:",
+                badgeImg: "https://farihan-ptss.github.io/personal_ksm/khidmat.jpg",
+                items: [
+                    "A. Bantu Mula (Wajib): Mengikuti latihan/kursus pertolongan cemas diakui rasmi serta faham struktur tubuh, sistem pernapasan, rawatan luka, patah, anduhan dan CPR.",
+                    "A. Peti Pertolongan Cemas: Menguasai peralatan di dalam peti bantuan kecemasan dan bersiap sedia bertindak menyelamat dalam kecemasan.",
+                    "B. Kebajikan Am (Wajib): Menganjurkan suatu projek Perkhidmatan Masyarakat yang melibatkan komuniti/masyarakat setempat secara bersemuka.",
+                    "C. Pemelihara Alam Sekitar: Merancang dan menjalankan projek alam sekitar (Kitar Semula / Kempen Kebersihan / Kawasan Angkat) selama 3 bulan bersama daerah.",
+                    "D. Kebajikan (Khidmat): Menjalankan projek bantuan bencana, khidmat di Rumah Kebajikan, projek anak angkat krew, ATAU menderma darah seminimum 3 kali (rekod sah)."
+                ]
+            },
+            pengembaraan: {
+                title: "Lencana Pengembaraan",
+                type: "Lencana Wajib 3",
+                desc: "Lencana ini dianugerahkan kepada Ahli Kelana, sebagai mengakui berbagai kegiatan dan aktiviti pengembaraan dengan memperlihatkan tahap tertinggi dalam melaksanakan program pengembaraan lasak:",
+                badgeImg: "https://farihan-ptss.github.io/personal_ksm/kembara.jpg",
+                items: [
+                    "Menjalankan SATU pilihan: Jalan kaki 60km / Berdayung kayak 30km / Berbasikal 100km / Bermotosikal 500km / Berkereta 800km / Kenderaan awam 1000km (minima 2 malam, merangkumi 3 perjalanan kecil berbeza geografi).",
+                    "A. Laporan Pengembaraan: Menyediakan buku log pengembaraan lengkap dikemaskini berserta gambar, lakaran, peta, dan video dalam tempoh 15 hari selepas ekspedisi.",
+                    "B. Persediaan Perjalanan: Merancang destinasi (sejarah, rekreasi, cabaran) dipersetujui Ketua Kelana, serta tahu langkah keselamatan & pengurusan risiko.",
+                    "B. Struktur Buku Log: Memastikan log mengandungi tarikh, masa, peta perjalanan, rekod temu ramah/kajian, foto/video dan cetusan rasa.",
+                    "C. Kajicuaca: Mencatat pemerhatian cuaca (arah angin, bacaan suhu, altitud, jenis awan) sepanjang ekspedisi dijalankan."
+                ]
+            },
+            pilihan: {
+                title: "Kategori Lencana Pilihan",
+                type: "Pilih Satu Sahaja Daripada 5 Lencana",
+                desc: "Ahli Kelana dikehendaki melengkapkan salah satu daripada lencana pengkhususan di bawah untuk memperkembangkan hobi dan potensi profesional diri:",
+                badgeImg: "https://farihan-ptss.github.io/personal_ksm/kepimpinan.jpg",
+                items: [
+                    "Lencana Kepimpinan: Lulus Kursus Kepimpinan Manikayu Peringkat II, mengetuai acara penganjuran daerah, hadir kursus pemantapan diri, pentadbiran persatuan sah, atau terima Anugerah Kepimpinan. (Rujuk: kepimpinan.jpg)",
+                    "Lencana ICT (Teknologi/Perhubungan): Mengendalikan komputer, Microsoft Office, membina laman web, atau menguasai Kod Morse, Semaphore, dan lulus Lesen B Radio Amatur SKMM. (Rujuk: ict.jpg)",
+                    "Lencana Aktiviti Ekstrem: Melibatkan diri seminima TIGA kali di dalam aktiviti lasak seperti Mendaki Gunung, Scuba Diving, White Water Rafting, Kayaking, Caving, atau Climbing. (Rujuk: ekstrem.jpg)",
+                    "Lencana Penyelamat Nyawa: Memiliki salah satu daripada kelayakan penyelamat nyawa seperti Outdoor Survival, Advance First Aid, Bronze Cross, atau Risk Management. (Rujuk: penyelamat.jpg)",
+                    "Lencana Keusahawanan: Menjalankan aktiviti perniagaan/pertanian/penternakan sekurang-kurangnya 6 bulan berserta laporan penyata kewangan yang disahkan. (Rujuk: keusahawanan.jpg)"
+                ]
+            }
+        };
+
+        // User Checkbox Progress Database
+        let userSyllabusProgress = JSON.parse(localStorage.getItem('penang_scout_progress_v1')) || {
+            keahlian: [false, false, false, false, false, false, false, false, false],
+            kemahiran: [false, false, false, false, false, false, false, false, false],
+            perkhidmatan: [false, false, false, false, false],
+            pengembaraan: [false, false, false, false, false],
+            pilihan: [false, false, false, false, false]
+        };
+
+        let currentActiveBadge = 'keahlian';
+
+        // Switch and render syllabus badge details
+        function selectSyllabusBadge(badgeKey) {
+            currentActiveBadge = badgeKey;
+            const data = penangScoutSyllabus[badgeKey];
+
+            // Update Active Buttons
+            const buttons = document.querySelectorAll('.syllabus-badge-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-violet-600', 'bg-violet-50/50');
+                btn.classList.add('border-slate-200', 'bg-white');
+            });
+            const activeBtn = document.getElementById('badge-btn-' + badgeKey);
+            if (activeBtn) {
+                activeBtn.classList.add('border-violet-600', 'bg-violet-50/50');
+                activeBtn.classList.remove('border-slate-200', 'bg-white');
+            }
+
+            // Update Viewer UI Elements
+            document.getElementById('viewer-badge-title').innerText = data.title;
+            document.getElementById('viewer-badge-type').innerText = data.type;
+            document.getElementById('viewer-badge-desc').innerText = data.desc;
+
+            // Render Image with error handling in case of GitHub issues
+            const iconContainer = document.getElementById('viewer-badge-icon');
+            iconContainer.innerHTML = `<img src="${data.badgeImg}" alt="${data.title}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a365d/ffffff?text=Lencana';">`;
+
+            // Render interactive syllabus checklists
+            const checklistContainer = document.getElementById('viewer-checklist-container');
+            checklistContainer.innerHTML = '';
+
+            data.items.forEach((itemText, index) => {
+                const isChecked = userSyllabusProgress[badgeKey][index] || false;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `flex items-start gap-2.5 p-2 rounded-lg border transition ${isChecked ? 'bg-violet-50/30 border-violet-100' : 'bg-slate-50/50 border-slate-100'}`;
+                
+                // If it is the "pilihan" tab, let's show mini icons for each option
+                let optionBadgeHtml = '';
+                if (badgeKey === 'pilihan') {
+                    const choiceImages = [
+                        'https://farihan-ptss.github.io/personal_ksm/kepimpinan.jpg',
+                        'https://farihan-ptss.github.io/personal_ksm/ict.jpg',
+                        'https://farihan-ptss.github.io/personal_ksm/ekstrem.jpg',
+                        'https://farihan-ptss.github.io/personal_ksm/penyelamat.jpg',
+                        'https://farihan-ptss.github.io/personal_ksm/keusahawanan.jpg'
+                    ];
+                    optionBadgeHtml = `
+                        <div class="w-8 h-8 flex-shrink-0 bg-white rounded border border-slate-200 p-0.5 overflow-hidden mr-1">
+                            <img src="${choiceImages[index]}" class="w-full h-full object-contain" alt="Lencana Pilihan">
+                        </div>
+                    `;
+                }
+
+                itemDiv.innerHTML = `
+                    <input type="checkbox" id="chk-${badgeKey}-${index}" 
+                           onchange="toggleSyllabusRequirement('${badgeKey}', ${index})" 
+                           ${isChecked ? 'checked' : ''} 
+                           class="mt-0.5 h-4.5 w-4.5 rounded text-violet-600 focus:ring-violet-500 border-slate-300 cursor-pointer">
+                    ${optionBadgeHtml}
+                    <label for="chk-${badgeKey}-${index}" class="text-xs font-medium text-slate-700 cursor-pointer select-none leading-tight flex-grow">
+                        ${itemText}
+                    </label>
+                `;
+                checklistContainer.appendChild(itemDiv);
+            });
+        }
+
+        // Toggle specific requirements
+        function toggleSyllabusRequirement(badgeKey, index) {
+            const checkbox = document.getElementById(`chk-${badgeKey}-${index}`);
+            userSyllabusProgress[badgeKey][index] = checkbox.checked;
+            
+            // Save state
+            localStorage.setItem('penang_scout_progress_v1', JSON.stringify(userSyllabusProgress));
+            
+            // Refresh checklist style visually
+            selectSyllabusBadge(badgeKey);
+            
+            // Re-calculate progress
+            calculateOverallProgress();
+        }
+
+        // Calculate Global Progression Bar
+        function calculateOverallProgress() {
+            let totalRequirements = 0;
+            let totalCompleted = 0;
+
+            Object.keys(userSyllabusProgress).forEach(badgeKey => {
+                totalRequirements += userSyllabusProgress[badgeKey].length;
+                totalCompleted += userSyllabusProgress[badgeKey].filter(status => status).length;
+            });
+
+            const overallPercent = Math.round((totalCompleted / totalRequirements) * 100);
+
+            // Update UI elements
+            document.getElementById('overall-badge-progress').innerText = `${overallPercent}% Lengkap`;
+            document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
+
+            if (overallPercent === 100) {
+                showToast("Syabas! Anda telah melengkapkan kesemua modul pengajian standard Wong Kok Nian & Pulau Pinang!", true);
+            }
+        }
+
+        // Sub-tab navigation logic inside Pembangunan Kelana
+        function switchKelanaSubTab(subTabId) {
+            // Hide all sub tab contents
+            const contents = document.querySelectorAll('.kelana-sub-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Show selected sub tab content
+            const activeContent = document.getElementById('kelana-sub-' + subTabId);
+            activeContent.classList.remove('hidden');
+            activeContent.classList.add('block');
+
+            // Reset sub buttons styles
+            const buttons = document.querySelectorAll('.kelana-sub-btn');
+            buttons.forEach(btn => {
+                btn.className = "kelana-sub-btn py-2.5 px-4 text-xs font-semibold rounded-lg transition duration-200 hover:bg-white/50 text-slate-600 hover:text-slate-900";
+            });
+
+            // Set active state for the clicked sub tab button
+            const activeBtnMap = {
+                'skim-lencana': 'sub-btn-skim',
+                'arprm': 'sub-btn-arprm',
+                'bp-award': 'sub-btn-bp'
+            };
+            const activeBtn = document.getElementById(activeBtnMap[subTabId]);
+            if (activeBtn) {
+                activeBtn.className = "kelana-sub-btn py-2.5 px-4 text-xs font-bold rounded-lg transition duration-200 bg-white text-violet-950 shadow-sm";
+            }
+        }
+
+        // ARPRM Dynamic Content Switcher
+        function setArprmLevel(level) {
+            // Reset active button border styles
+            const buttons = document.querySelectorAll('.arprm-lvl-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-amber-500', 'bg-amber-50/20');
+                btn.classList.add('border-slate-200', 'bg-white');
+            });
+
+            // Set active style for selected button
+            const activeBtn = document.getElementById('arprm-tab-' + level);
+            if (activeBtn) {
+                activeBtn.classList.add('border-amber-500', 'bg-amber-50/20');
+                activeBtn.classList.remove('border-slate-200', 'bg-white');
+            }
+
+            // Reference Output Dom Elements
+            const outputTitle = document.getElementById('arprm-output-title');
+            const outputDuration = document.getElementById('arprm-output-duration');
+            const compKhidmat = document.getElementById('arprm-comp-khidmat');
+            const compRekreasi = document.getElementById('arprm-comp-rekreasi');
+            const compKemahiran = document.getElementById('arprm-comp-kemahiran');
+            const compLasak = document.getElementById('arprm-comp-lasak');
+            const goldProjectSection = document.getElementById('arprm-gold-project');
+
+            if (level === 'gangsa') {
+                outputTitle.innerText = "Komponen Keperluan Gangsa";
+                outputDuration.innerText = "Tempoh: Minima 6 Bulan";
+                compKhidmat.innerText = "Minima 15 jam perkhidmatan dalam tempoh 3 bulan.";
+                compRekreasi.innerText = "Minima 15 jam latihan gaya hidup aktif fizikal / sukan.";
+                compKemahiran.innerText = "Minima 15 jam membina potensi hobi atau skil baru.";
+                compLasak.innerText = "Ekspedisi berpasukan selama 2 hari 1 malam (minima 24km jalan darat).";
+                goldProjectSection.classList.add('hidden');
+            } else if (level === 'perak') {
+                outputTitle.innerText = "Komponen Keperluan Perak";
+                outputDuration.innerText = "Tempoh: Minima 6 - 12 Bulan";
+                compKhidmat.innerText = "Minima 30 jam perkhidmatan sukarela dalam tempoh 6 bulan.";
+                compRekreasi.innerText = "Minima 30 jam penglibatan aktif dalam sukan atau kecergasan fizikal.";
+                compKemahiran.innerText = "Minima 30 jam membina kemahiran khusus baru.";
+                compLasak.innerText = "Ekspedisi berpasukan selama 3 hari 2 malam (minima 48km jalan darat).";
+                goldProjectSection.classList.add('hidden');
+            } else if (level === 'emas') {
+                outputTitle.innerText = "Komponen Keperluan Emas";
+                outputDuration.innerText = "Tempoh: Minima 12 - 18 Bulan";
+                compKhidmat.innerText = "Minima 60 jam perkhidmatan sukarela komuniti dalam tempoh 12 bulan.";
+                compRekreasi.innerText = "Minima 60 jam penglibatan aktif gaya hidup cergas/sukan luar.";
+                compKemahiran.innerText = "Minima 60 jam menguasai kemahiran tinggi profesional atau teknikal.";
+                compLasak.innerText = "Ekspedisi berpasukan selama 4 hari 3 malam (minima 80km jalan darat).";
+                goldProjectSection.classList.remove('hidden');
+            }
+        }
+
+        // Preview and save the profile image in local storage
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Url = e.target.result;
+                    document.getElementById('profile-display-img').src = base64Url;
+                    localStorage.setItem('scout_profile_img', base64Url);
+                    showToast("Gambar profil berjaya dimuat naik & disimpan dalam memori pelayar anda!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Reset the image to default
+        function resetProfileImage() {
+            localStorage.removeItem('scout_profile_img');
+            document.getElementById('profile-display-img').src = 'https://farihan-ptss.github.io/personal_ksm/uniform.png';
+            showToast("Memori imej dikosongkan. Gambar asal dimuatkan.", true);
+        }
+
         // Tab system navigation logic
         function switchTab(tabId) {
             // Hide all tab contents
@@ -787,21 +1405,21 @@
             text.innerText = message;
             if (isSuccess) {
                 icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-                icon.className = "text-emerald-400 text-lg";
+                icon.className = "text-emerald-400 text-lg flex-shrink-0";
             } else {
-                icon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
-                icon.className = "text-amber-400 text-lg";
+                icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                icon.className = "text-amber-400 text-lg flex-shrink-0";
             }
 
             // Slide in
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
-            // Slide out after 3.5 seconds
+            // Slide out after 5.5 seconds
             setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3500);
+            }, 5550);
         }
 
         // Contact Form Submission
@@ -811,7 +1429,6 @@
             const group = document.getElementById('contact-group').value;
             const message = document.getElementById('contact-message').value;
 
-            // Simple storage list
             const subContainer = document.getElementById('submissions-container');
             const subList = document.getElementById('submissions-list');
 
@@ -829,7 +1446,6 @@
 
             subList.insertBefore(item, subList.firstChild);
 
-            // Clean inputs
             document.getElementById('contact-form').reset();
             showToast(`Terima kasih ${name}, pesanan anda disimpan dalam memori.`);
         }
@@ -845,13 +1461,11 @@
                 }
             });
 
-            // Adjust active filter buttons
             const filterBtns = document.querySelectorAll('.act-filter-btn');
             filterBtns.forEach(btn => {
                 btn.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200";
             });
 
-            // Select clicked button
             event.currentTarget.className = "act-filter-btn px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-600 text-white";
         }
 
@@ -880,7 +1494,6 @@
             const feedback = document.getElementById('quiz-feedback');
             const options = document.querySelectorAll('.quiz-opt');
 
-            // Disable further clicks
             options.forEach(opt => {
                 opt.disabled = true;
                 opt.classList.add('opacity-50');
@@ -896,38 +1509,6 @@
                 element.className = "quiz-opt text-left text-xs bg-rose-100 border-2 border-rose-500 p-3 rounded-xl transition duration-200 opacity-100 font-bold text-rose-800";
                 feedback.className = "mt-4 p-3 rounded-xl text-xs font-semibold bg-amber-100 text-amber-900";
                 feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Kurang tepat. Jawapan yang betul adalah B: Lift (Daya Angkat). Cuba lagi pada masa hadapan!`;
-            }
-        }
-
-        // Interactive Badge Progress Tracker (Rover Scout Roadmap)
-        let resolvedBadges = [false, false, false, false];
-        function toggleScoutBadge(index) {
-            const badgeBox = document.getElementById(`sc-badge-${index}`);
-            const checkIcon = badgeBox.querySelector('.check-indicator');
-            const iconBg = badgeBox.querySelector('.badge-icon-bg');
-
-            resolvedBadges[index] = !resolvedBadges[index];
-
-            if (resolvedBadges[index]) {
-                badgeBox.classList.add('border-violet-500', 'bg-violet-50/50');
-                checkIcon.classList.remove('hidden');
-                iconBg.className = "badge-icon-bg w-12 h-12 rounded-full bg-violet-600 text-white flex items-center justify-center mb-3";
-            } else {
-                badgeBox.classList.remove('border-violet-500', 'bg-violet-50/50');
-                checkIcon.classList.add('hidden');
-                iconBg.className = "badge-icon-bg w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3";
-            }
-
-            // Update progress calculation
-            const completedCount = resolvedBadges.filter(b => b).length;
-            const progressPercent = (completedCount / 4) * 100;
-
-            document.getElementById('badge-progress-text').innerText = `${completedCount}/4 Lencana Diselesaikan`;
-            document.getElementById('progress-percent').innerText = `${progressPercent}% Selesai`;
-            document.getElementById('badge-progress-bar').style.width = `${progressPercent}%`;
-
-            if (completedCount === 4) {
-                showToast("Syabas! Anda layak untuk Penarafan Anugerah Baden-Powell (B-P Award)!", true);
             }
         }
 
