@@ -342,18 +342,79 @@
 
                 <!-- TAB 4: Bahan Pengajaran (UNDER CONSTRUCTION) -->
                 <div id="content-pengajaran" class="tab-content hidden animate-fadeIn">
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-                        <div class="w-20 h-20 rounded-full bg-amber-50 border-4 border-amber-200 flex items-center justify-center text-amber-600 mb-6 animate-bounce">
-                            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 space-y-6">
+                        <!-- Header Tab -->
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                            <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl">
+                                <i class="fa-solid fa-book-open text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Bahan Pengajaran & Alat Pengurusan</h2>
+                                <p class="text-sm text-slate-500">Koleksi kalkulator pengurusan latihan, modul rujukan kepengakapan, dan dokumen panduan.</p>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Halaman Sedang Dalam Pembinaan</h3>
-                        <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto leading-relaxed">
-                            Hab rujukan **Bahan Pengajaran** sedang mengumpulkan lembaran kerja, manual kod fonetik penerbangan, dan kuiz interaktif. Sila nantikan perkongsian fail pdf akan datang!
-                        </p>
-                        <div class="mt-6">
-                            <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">
-                                <i class="fa-solid fa-person-digging"></i> Under Construction
-                            </span>
+
+                        <!-- Menu Senarai Bahan Pengajaran Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            
+                            <!-- Item 1: Pengiraan Kos Kursus (Featured Card) -->
+                            <div class="bg-gradient-to-br from-emerald-50 via-teal-50/50 to-white border-2 border-emerald-300 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform">
+                                            <i class="fa-solid fa-calculator"></i>
+                                        </div>
+                                        <span class="text-[10px] bg-emerald-200 text-emerald-900 font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                            Sistem Aktif
+                                        </span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
+                                        Kalkulator Pengiraan Kos Kursus
+                                    </h3>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Aplikasi pintar untuk merancang dan membuat anggaran belanjawan program, kursus manikayu, makanan peserta, logistik, peralatan, dan kos penganjuran kepengakapan.
+                                    </p>
+                                    <div class="bg-white/80 border border-emerald-200 rounded-lg p-2.5 text-[11px] font-mono text-emerald-900 truncate">
+                                        <i class="fa-solid fa-link mr-1 text-emerald-600"></i>
+                                        kos_kursus.html
+                                    </div>
+                                </div>
+                                <div class="pt-5 mt-4 border-t border-emerald-100">
+                                    <a href="https://farihan-ptss.github.io/personal_ksm/kos_kursus.html" 
+                                       target="_blank" 
+                                       rel="noopener noreferrer" 
+                                       class="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold py-3 px-4 rounded-xl shadow transition duration-200 group-hover:shadow-md">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        <span>Buka Sistem Pengiraan Kos Kursus</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Modul & Silibus Latihan (Placeholder Rujukan Masa Depan) -->
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="w-12 h-12 rounded-xl bg-slate-700 text-white flex items-center justify-center text-xl shadow-md">
+                                            <i class="fa-solid fa-file-lines"></i>
+                                        </div>
+                                        <span class="text-[10px] bg-slate-200 text-slate-700 font-bold px-2.5 py-1 rounded-full uppercase">
+                                            Akan Datang
+                                        </span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-slate-900">
+                                        Modul Latihan & Lembaran Kerja
+                                    </h3>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Bahan edaran silibus kursus kepengakapan, lembaran kerja amali ikatan, serta panduan pengurusan krew kelana sedang dikemaskini ke dalam arkib digital.
+                                    </p>
+                                </div>
+                                <div class="pt-5 mt-4 border-t border-slate-200">
+                                    <button disabled class="w-full py-2.5 px-4 rounded-xl bg-slate-200 text-slate-400 text-xs font-semibold cursor-not-allowed">
+                                        Sedang Disiapkan
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
