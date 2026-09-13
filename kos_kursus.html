@@ -58,17 +58,23 @@
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-                <button id="btnResetDefault" onclick="resetToSampleData()" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-400/30 text-emerald-100 transition-all flex items-center gap-1.5 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    Data Contoh
+                <button id="btnFetchSheet" onclick="loadDataFromGoogleSheet(true)" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-400/30 text-emerald-100 transition-all flex items-center gap-1.5 shadow-sm" title="Muat turun data terkini dari Google Sheets">
+                    <svg id="syncIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Muat dari Sheet
                 </button>
                 <button onclick="window.print()" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all flex items-center gap-1.5 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
                     Cetak / Simpan PDF
                 </button>
-                <button onclick="exportSummaryModal()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 hover:bg-emerald-400 text-emerald-950 transition-all shadow-md flex items-center gap-1.5">
+                <button onclick="exportSummaryModal()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white transition-all shadow-md flex items-center gap-1.5 border border-emerald-400/30">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                     Senarai Belian
+                </button>
+                <button onclick="syncDataToGoogleSheet()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 hover:bg-emerald-400 text-emerald-950 transition-all shadow-md flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                    </svg>
+                    Simpan ke Google Sheet
                 </button>
             </div>
         </div>
@@ -610,6 +616,7 @@
         let pantryData = [];
 
         function initApp() {
+            // Muat paparan awal daripada simpanan cache tempatan sementara memuat dari Google Sheet
             const savedSessions = localStorage.getItem("kursus3k_sessions_v2");
             const savedPantry = localStorage.getItem("kursus3k_pantry");
             const savedCourse = localStorage.getItem("kursus3k_courseName");
@@ -642,6 +649,9 @@
             renderSessions();
             renderPantry();
             calculateAll();
+
+            // Muat turun data terkini terus dari Google Sheet setiap kali web dibuka
+            loadDataFromGoogleSheet(false);
         }
 
         function saveData() {
@@ -653,22 +663,6 @@
             localStorage.setItem("kursus3k_pemimpin", document.getElementById("paxPemimpin").value);
             localStorage.setItem("kursus3k_budget", document.getElementById("targetBudget").value);
             localStorage.setItem("kursus3k_duration", document.getElementById("courseDuration").value);
-        }
-
-        function resetToSampleData() {
-            sessionsData = JSON.parse(JSON.stringify(DEFAULT_SESSIONS));
-            pantryData = JSON.parse(JSON.stringify(DEFAULT_PANTRY));
-            document.getElementById("courseName").value = "KURSUS KEPIMPINAN & MOTIVASI 3K";
-            document.getElementById("paxPeserta").value = 30;
-            document.getElementById("paxUrusetia").value = 6;
-            document.getElementById("paxPemimpin").value = 4;
-            document.getElementById("targetBudget").value = 3200;
-            document.getElementById("courseDuration").value = "3 Hari 2 Malam (8 Sesi)";
-            saveData();
-            renderSessions();
-            renderPantry();
-            calculateAll();
-            showToast("Aturan 8 sesi (Day 1 - Day 3) dan pecahan orang telah dimuatkan!");
         }
 
         function adjustGroupPax(group, delta) {
@@ -1231,6 +1225,130 @@
                 showToast("Gagal menyalin, sila salin secara manual.");
             }
             document.body.removeChild(tempTextArea);
+        }
+
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzvy65StNjn9He1npLnzgBKLmRgBlXiYjORJFdqG_daYB1nuapNI1gTpn1_QMXnP_WPw/exec";
+
+        function loadDataFromGoogleSheet(isManual = false) {
+            const syncIcon = document.getElementById("syncIcon");
+            if (syncIcon) syncIcon.classList.add("animate-spin");
+            
+            showToast("Sedang mengambil data terkini dari Google Sheet...");
+
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(res => {
+                if (syncIcon) syncIcon.classList.remove("animate-spin");
+                
+                // Mengesan struktur respon sama ada terus objek atau berbalut dalam res.data / res.payload
+                let data = null;
+                if (res && res.status === "success" && res.data) {
+                    data = res.data;
+                } else if (res && (res.sessionsData || res.pantryData || res.courseName)) {
+                    data = res;
+                } else if (res && res.data) {
+                    data = res.data;
+                }
+
+                if (data) {
+                    applyDataFromSheet(data);
+                    showToast("✅ Data terkini berjaya dimuat dari Google Sheet!");
+                } else {
+                    if (isManual) {
+                        showToast("⚠️ Tiada data baharu atau format respon Google Sheet berbeza.");
+                    }
+                }
+            })
+            .catch(err => {
+                if (syncIcon) syncIcon.classList.remove("animate-spin");
+                console.warn("Gagal memuat data dari Google Sheets (mungkin doGet belum diset):", err);
+                if (isManual) {
+                    showToast("⚠️ Tidak dapat mengambil data dari Google Sheet. Menggunakan cache semasa.");
+                }
+            });
+        }
+
+        function applyDataFromSheet(data) {
+            try {
+                if (data.courseName) document.getElementById("courseName").value = data.courseName;
+                if (data.courseDuration) document.getElementById("courseDuration").value = data.courseDuration;
+                if (data.targetBudget !== undefined) document.getElementById("targetBudget").value = data.targetBudget;
+                if (data.paxPeserta !== undefined) document.getElementById("paxPeserta").value = data.paxPeserta;
+                if (data.paxUrusetia !== undefined) document.getElementById("paxUrusetia").value = data.paxUrusetia;
+                if (data.paxPemimpin !== undefined) document.getElementById("paxPemimpin").value = data.paxPemimpin;
+
+                // Parse jika data dihantar sebagai string JSON
+                if (data.sessionsData) {
+                    sessionsData = typeof data.sessionsData === "string" ? JSON.parse(data.sessionsData) : data.sessionsData;
+                }
+                if (data.pantryData) {
+                    pantryData = typeof data.pantryData === "string" ? JSON.parse(data.pantryData) : data.pantryData;
+                }
+
+                saveData();
+                renderSessions();
+                renderPantry();
+                calculateAll();
+            } catch (err) {
+                console.error("Ralat memproses data dari Google Sheet:", err);
+            }
+        }
+
+        function syncDataToGoogleSheet() {
+            const paxInfo = getTotalPax();
+            const targetBudget = Number(document.getElementById("targetBudget").value) || 0;
+
+            // Kira Subtotal Sajian & Bahan Dapur
+            let mealsTotal = 0;
+            sessionsData.forEach(session => {
+                mealsTotal += session.items.reduce((sum, item) => sum + (Number(item.qty || 0) * Number(item.price || 0)), 0);
+            });
+
+            const pantryTotal = pantryData.reduce((sum, item) => sum + (Number(item.qty || 0) * Number(item.price || 0)), 0);
+            const grandTotal = mealsTotal + pantryTotal;
+            const costPerHead = grandTotal / paxInfo.total;
+            const remainingBudget = targetBudget - grandTotal;
+
+            // Sediakan payload JSON untuk dihantar
+            const payload = {
+                courseName: document.getElementById("courseName").value,
+                courseDuration: document.getElementById("courseDuration").value,
+                targetBudget: targetBudget,
+                paxPeserta: paxInfo.peserta,
+                paxUrusetia: paxInfo.urusetia,
+                paxPemimpin: paxInfo.pemimpin,
+                totalPax: paxInfo.total,
+                grandTotal: grandTotal.toFixed(2),
+                remainingBudget: remainingBudget.toFixed(2),
+                costPerHead: costPerHead.toFixed(2),
+                pantryData: pantryData,
+                sessionsData: sessionsData
+            };
+
+            showToast("Sedang menyimpan data ke Google Sheets...");
+
+            // Hantar data menggunakan Fetch API
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8" // Mengelakkan masalah CORS preflight
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(res => {
+                if (res.status === "success") {
+                    showToast("✅ " + res.message);
+                } else {
+                    showToast("❌ Ralat Backend: " + res.message);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showToast("❌ Ralat Sambungan ke Google Sheets.");
+            });
         }
 
         // Helper Toast & Escape
