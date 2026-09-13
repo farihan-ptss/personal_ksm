@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub Pengiraan Kos Aktiviti Kursus 3K</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom scrollbar for better UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-800 to-cyan-900 text-white shadow-lg sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-400/20 border border-emerald-300/30 flex items-center justify-center text-emerald-300 text-xl font-black shadow-inner">
+                    3K
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        Kalkulator Kos Sajian Kursus
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30">Versi 3K</span>
+                    </h1>
+                    <p class="text-xs text-emerald-200/80">Pengurusan Bajet Makanan, Bahan Basah, Kering & Rempah Dapur</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <button id="btnResetDefault" onclick="resetToSampleData()" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-400/30 text-emerald-100 transition-all flex items-center gap-1.5 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Data Contoh
+                </button>
+                <button onclick="window.print()" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all flex items-center gap-1.5 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    Cetak / Simpan PDF
+                </button>
+                <button onclick="exportSummaryModal()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 hover:bg-emerald-400 text-emerald-950 transition-all shadow-md flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Senarai Belian
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+        <!-- Maklumat Asas Peserta & Sasaran Bajet -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sm:p-5 mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                <!-- Nama Program & Tempoh (4 cols) -->
+                <div class="lg:col-span-4 space-y-3">
+                    <div class="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Nama Kursus / Program</label>
+                        <input type="text" id="courseName" value="KURSUS KEPIMPINAN & MOTIVASI 3K" oninput="saveData()" class="w-full text-sm font-bold text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:border-emerald-600 focus:outline-none py-1">
+                    </div>
+                    <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 flex items-center justify-between gap-3">
+                        <div class="flex-1">
+                            <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Peruntukan / Bajet Makanan</label>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="text-xs font-bold text-slate-500">RM</span>
+                                <input type="number" id="targetBudget" value="3200" min="0" step="50" oninput="calculateAll()" class="w-full text-sm font-bold text-emerald-700 bg-transparent border-b border-dashed border-slate-300 focus:border-emerald-600 focus:outline-none py-0.5">
+                            </div>
+                        </div>
+                        <div class="flex-1 border-l border-slate-200 pl-3">
+                            <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Tempoh Kursus</label>
+                            <input type="text" id="courseDuration" value="3 Hari 2 Malam (8 Sesi)" oninput="saveData()" class="w-full text-xs font-medium text-slate-700 bg-transparent border-b border-dashed border-slate-300 focus:border-emerald-600 focus:outline-none py-0.5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pengasingan Bilangan Orang: Peserta, Urusetia, Pemimpin (8 cols) -->
+                <div class="lg:col-span-8 bg-gradient-to-br from-emerald-50/90 via-teal-50/60 to-slate-50/80 p-3.5 sm:p-4 rounded-xl border border-emerald-200 shadow-xs flex flex-col justify-between">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2 border-b border-emerald-200/70">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base">👥</span>
+                            <span class="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">Pecahan Bilangan Orang (Pax)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-600 font-medium">Jumlah Keseluruhan:</span>
+                            <span class="text-sm sm:text-base font-black px-2.5 py-0.5 rounded-lg bg-emerald-600 text-white shadow-xs" id="totalPaxBadge">40 Orang</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <!-- Ruangan Peserta -->
+                        <div class="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label class="text-xs font-bold text-emerald-900 flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    Peserta
+                                </label>
+                                <span class="text-[10px] text-emerald-700 font-medium">Utama</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="adjustGroupPax('peserta', -1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-emerald-900 font-bold text-sm flex items-center justify-center transition active:scale-95">-</button>
+                                <input type="number" id="paxPeserta" value="30" min="0" oninput="calculateAll()" class="w-full text-center text-sm sm:text-base font-extrabold text-slate-800 bg-emerald-50/40 border border-emerald-200 rounded-lg focus:border-emerald-600 focus:outline-none py-1">
+                                <button type="button" onclick="adjustGroupPax('peserta', 1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-emerald-100 text-emerald-900 font-bold text-sm flex items-center justify-center transition active:scale-95">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Ruangan Urus Setia -->
+                        <div class="bg-white/90 p-2.5 rounded-xl border border-teal-200 shadow-2xs">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label class="text-xs font-bold text-teal-900 flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                                    Urus Setia
+                                </label>
+                                <span class="text-[10px] text-teal-700 font-medium">Fasi / AJK</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="adjustGroupPax('urusetia', -1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-teal-100 text-teal-900 font-bold text-sm flex items-center justify-center transition active:scale-95">-</button>
+                                <input type="number" id="paxUrusetia" value="6" min="0" oninput="calculateAll()" class="w-full text-center text-sm sm:text-base font-extrabold text-slate-800 bg-teal-50/40 border border-teal-200 rounded-lg focus:border-teal-600 focus:outline-none py-1">
+                                <button type="button" onclick="adjustGroupPax('urusetia', 1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-teal-100 text-teal-900 font-bold text-sm flex items-center justify-center transition active:scale-95">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Ruangan Pemimpin -->
+                        <div class="bg-white/90 p-2.5 rounded-xl border border-cyan-200 shadow-2xs">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label class="text-xs font-bold text-cyan-900 flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-cyan-600"></span>
+                                    Pemimpin
+                                </label>
+                                <span class="text-[10px] text-cyan-700 font-medium">VIP / Penceramah</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="adjustGroupPax('pemimpin', -1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-cyan-100 text-cyan-900 font-bold text-sm flex items-center justify-center transition active:scale-95">-</button>
+                                <input type="number" id="paxPemimpin" value="4" min="0" oninput="calculateAll()" class="w-full text-center text-sm sm:text-base font-extrabold text-slate-800 bg-cyan-50/40 border border-cyan-200 rounded-lg focus:border-cyan-600 focus:outline-none py-1">
+                                <button type="button" onclick="adjustGroupPax('pemimpin', 1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-cyan-100 text-cyan-900 font-bold text-sm flex items-center justify-center transition active:scale-95">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-emerald-800 mt-2 font-medium text-center sm:text-right">
+                        *Kos per head dikira automatik: <span class="font-bold text-emerald-950" id="paxSummaryFormula">30 Peserta + 6 Urus Setia + 4 Pemimpin = 40 Orang</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+            <!-- Kad Khas 1: KOS PER HEAD (SEORANG) -->
+            <div class="bg-gradient-to-br from-teal-600 via-emerald-600 to-emerald-800 rounded-2xl p-4 sm:p-5 text-white shadow-md relative overflow-hidden flex flex-col justify-between sm:col-span-2 lg:col-span-1 border-2 border-emerald-300/40">
+                <div class="absolute -right-3 -top-3 w-20 h-20 bg-white/10 rounded-full blur-lg pointer-events-none"></div>
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-100 flex items-center gap-1">
+                            <span>🏷️ KOS PER HEAD</span>
+                        </span>
+                        <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-white/20 text-white" id="headCountBadge">40 Orang</span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-black tracking-tight" id="costPerHeadDisplay">RM 0.00</div>
+                    <div class="text-[11px] text-emerald-100/90 mt-0.5">Satu orang (Semua 8 sesi + Dapur)</div>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-emerald-400/30 flex items-center justify-between text-[11px] text-emerald-100">
+                    <span>Menu: <strong id="perHeadMealsDisplay">RM 0.00</strong></span>
+                    <span>Dapur: <strong id="perHeadPantryDisplay">RM 0.00</strong></span>
+                </div>
+            </div>
+
+            <!-- Kad 2: Jumlah Anggaran Kos Keseluruhan -->
+            <div class="bg-slate-900 rounded-2xl p-4 sm:p-5 text-white shadow-md relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="text-xs font-medium uppercase tracking-wider text-slate-300 mb-1">Jumlah Kos Anggaran</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400" id="grandTotalDisplay">RM 0.00</div>
+                </div>
+                <div class="mt-2 text-xs text-slate-400 flex items-center justify-between">
+                    <span>Sasaran: RM <span id="targetBudgetIndicator">3,200</span></span>
+                    <span id="budgetStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Dalam Bajet</span>
+                </div>
+            </div>
+
+            <!-- Kad 3: Baki Bajet / Status -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Baki Peruntukan</span>
+                        <span id="budgetPercentDisplay" class="text-[11px] font-bold text-slate-600">0%</span>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-800" id="remainingBudgetDisplay">RM 0.00</div>
+                </div>
+                <div class="mt-2">
+                    <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                        <div id="budgetProgressBar" class="bg-emerald-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <div class="text-[11px] text-slate-500 mt-1 flex justify-between">
+                        <span>Status Peruntukan</span>
+                        <span id="budgetDiffIndicator">Baki Selamat</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kad 4: Subtotal Menu Sesi (8x Sajian) -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">8 Sesi Sajian</span>
+                    <span class="p-1 rounded-lg bg-cyan-50 text-cyan-700">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </span>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-slate-800" id="mealsTotalDisplay">RM 0.00</div>
+                    <div class="text-xs text-slate-500 mt-1" id="mealsCountDisplay">8 sesi berdaftar</div>
+                </div>
+            </div>
+
+            <!-- Kad 5: Subtotal Bahan Asas Dapur (Bawang, Cili, Rempah, Minyak, Sos, Garam) -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-amber-200/70 bg-amber-50/20 shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        Bahan Asas Dapur
+                    </span>
+                    <span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Kongsi</span>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-amber-800" id="pantryTotalDisplay">RM 0.00</div>
+                    <div class="text-xs text-amber-700/80 mt-1" id="pantryItemCountDisplay">Bawang, Cili, Rempah & Minyak</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="border-b border-slate-200 bg-slate-50/70 p-2 sm:p-3 overflow-x-auto flex items-center gap-2 no-print">
+                <button onclick="switchTab('sessions')" id="tabBtnSessions" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-emerald-600 text-white shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                    Sesi Menu Makanan (Kronologi 8 Sesi)
+                </button>
+                <button onclick="switchTab('pantry')" id="tabBtnPantry" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 hover:bg-slate-200/70">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    Bahan Asas Dapur & Rempah Ratus
+                    <span id="pantryBadgeCount" class="ml-1 px-1.5 py-0.2 text-[11px] rounded-full bg-amber-100 text-amber-800 font-bold">0</span>
+                </button>
+                <button onclick="switchTab('breakdown')" id="tabBtnBreakdown" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 hover:bg-slate-200/70">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    Pecahan Analisis Bajet
+                </button>
+            </div>
+
+            <div id="tabContentSessions" class="p-4 sm:p-6 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                    <div>
+                        <h2 class="text-base font-bold text-emerald-950 flex items-center gap-2">
+                            <span>📋 Aturan Kronologi 8 Sesi Jamuan Kursus</span>
+                        </h2>
+                        <p class="text-xs text-emerald-800 mt-0.5">
+                            Susunan jadual sajian: <strong>1. Dinner Day 1</strong> → <strong>2. Minum Malam Day 1</strong> → <strong>3. Sarapan Day 2</strong> → <strong>4. Lunch Day 2</strong> → <strong>5. Minum Petang Day 2</strong> → <strong>6. Dinner Day 2</strong> → <strong>7. Minum Malam Day 2</strong> → <strong>8. Sarapan Day 3</strong>.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="expandAllSessions(true)" class="text-xs font-semibold px-2.5 py-1.5 bg-white border border-emerald-200 rounded-lg text-emerald-800 hover:bg-emerald-50">Buka Semua</button>
+                        <button onclick="expandAllSessions(false)" class="text-xs font-semibold px-2.5 py-1.5 bg-white border border-emerald-200 rounded-lg text-emerald-800 hover:bg-emerald-50">Tutup Semua</button>
+                    </div>
+                </div>
+
+                <!-- Kontena Senarai 8 Sesi -->
+                <div id="sessionsContainer" class="space-y-4">
+                    <!-- Sesi-sesi akan dijana secara dinamik oleh JavaScript -->
+                </div>
+            </div>
+
+            <div id="tabContentPantry" class="p-4 sm:p-6 hidden">
+                <div class="bg-amber-50 rounded-2xl p-5 border border-amber-200 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="max-w-2xl">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-200/70 text-amber-900 mb-2">
+                                🧂 Keperluan Wajib Masakan 3K
+                            </span>
+                            <h3 class="text-base sm:text-lg font-extrabold text-amber-950">Bahan Asas Dapur, Rempah Ratus & Tumisan</h3>
+                            <p class="text-xs sm:text-sm text-amber-800 mt-1">
+                                Bahagian ini mengumpul perbelanjaan bahan kongsi seperti <strong>Bawang (Merah/Putih/Besar), Cili (Kisar/Kering/Giling), Rempah (Kari/Kurma), Minyak Masak, Sos (Cili/Tiram/Kicap), dan Garam/Gula/Perasa</strong> supaya tidak tertinggal dalam pengiraan kos keseluruhan.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button onclick="addPantryItem()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Tambah Bahan Asas
+                            </button>
+                            <button onclick="loadPantryPresets()" class="px-3.5 py-2 bg-white hover:bg-amber-100/50 text-amber-900 border border-amber-300 rounded-xl text-xs sm:text-sm font-semibold transition">
+                                Reset Keperluan Asas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jadual Bahan Asas Dapur -->
+                <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-100 text-slate-700 uppercase font-bold text-[11px] border-b border-slate-200">
+                            <tr>
+                                <th class="py-3 px-4">Nama Bahan / Rempah</th>
+                                <th class="py-3 px-3">Kategori</th>
+                                <th class="py-3 px-3 w-28">Kuantiti</th>
+                                <th class="py-3 px-3 w-24">Unit</th>
+                                <th class="py-3 px-3 w-32">Harga / Unit (RM)</th>
+                                <th class="py-3 px-3 w-32 text-right">Jumlah (RM)</th>
+                                <th class="py-3 px-3 w-16 text-center">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pantryTableBody" class="divide-y divide-slate-100 font-medium text-slate-700">
+                            <!-- Senarai bahan dapur akan dijana -->
+                        </tbody>
+                        <tfoot class="bg-amber-50/70 border-t-2 border-amber-200 font-bold text-amber-950">
+                            <tr>
+                                <td colspan="5" class="py-3 px-4 text-right">JUMLAH KOS BAHAN ASAS DAPUR:</td>
+                                <td class="py-3 px-3 text-right text-base text-amber-800" id="pantryFooterTotal">RM 0.00</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tabContentBreakdown" class="p-4 sm:p-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Pecahan Jadual Ringkasan -->
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Ringkasan Kos Mengikut Kategori Sesi
+                        </h3>
+                        <div class="space-y-3" id="sessionCategorySummary">
+                            <!-- Ringkasan akan dipaparkan -->
+                        </div>
+                    </div>
+
+                    <!-- Kad Bajet & Cadangan Penjimatan -->
+                    <div class="space-y-5">
+                        <div class="bg-white rounded-2xl p-5 border border-slate-200">
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">Analisis Kos Per Peserta</h3>
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                                    <div class="text-[11px] text-emerald-800 font-semibold uppercase">Kos Purata / Peserta</div>
+                                    <div class="text-xl font-black text-emerald-700 mt-1" id="analysisPerPax">RM 0.00</div>
+                                </div>
+                                <div class="p-3 bg-teal-50 rounded-xl border border-teal-100">
+                                    <div class="text-[11px] text-teal-800 font-semibold uppercase">Kos Purata / Hidangan</div>
+                                    <div class="text-xl font-black text-teal-700 mt-1" id="analysisPerMeal">RM 0.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50/70 rounded-2xl p-5 border border-blue-200/80">
+                            <h4 class="text-xs font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                Tip Pengurusan Bajet 3K
+                            </h4>
+                            <ul class="text-xs text-blue-900/90 space-y-1.5 list-disc pl-4 leading-relaxed">
+                                <li><strong>Beli Borong:</strong> Bawang besar, cili kering, minyak masak peket/tong dan beras lebih jimat dibeli secara pukal daripada kedai borong.</li>
+                                <li><strong>Penggunaan Bahan Asas:</strong> Kuantiti bawang dan cili di tab <em>Bahan Asas</em> telah dikira untuk menampung masakan bagi kesemua 8 sesi.</li>
+                                <li><strong>Penyesuaian Menu:</strong> Sekiranya bajet melebihi sasaran, pertimbangkan hidangan satu lauk utama semasa Makan Tengahari atau pelbagaikan kuih tradisi bajet untuk Minum Petang.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="checklistModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div class="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <div>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-800">Senarai Semak Pembelian Bahan Pasar (3K)</h3>
+                    <p class="text-xs text-slate-500">Ringkasan gabungan semua bahan bagi sajian dan rempah ratus dapur</p>
+                </div>
+                <button onclick="closeChecklistModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-slate-700 bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+                    <div>Program: <br><strong id="modalCourseNameDisplay" class="text-slate-900">-</strong></div>
+                    <div>Bilangan Orang: <br><strong id="modalPaxDisplay" class="text-emerald-800 text-sm">-</strong></div>
+                    <div>Kos Per Head: <br><strong id="modalPerHeadDisplay" class="text-teal-800 text-sm">-</strong></div>
+                    <div>Jumlah Kos: <br><strong id="modalTotalDisplay" class="text-emerald-900 text-sm">-</strong></div>
+                </div>
+                
+                <div id="checklistContent" class="space-y-4 text-xs sm:text-sm">
+                    <!-- Kandungan checklist dijana JS -->
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-3">
+                <button onclick="copyChecklistText()" id="btnCopyText" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-white hover:bg-slate-700 transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                    Salin Teks WhatsApp
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                        Cetak Senarai
+                    </button>
+                    <button onclick="closeChecklistModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-medium transition-all transform translate-y-20 opacity-0 z-50 flex items-center gap-2">
+        <span id="toastMsg">Tindakan berjaya!</span>
+    </div>
+
+    <script>
+        // Data Struktur Asas 8 Sesi Mengikut Kronologi Jadual Kursus:
+        // 1) Dinner Day 1
+        // 2) Minum Malam Day 1
+        // 3) Sarapan Day 2
+        // 4) Lunch 1 Day 2
+        // 5) Minum Petang Day 2
+        // 6) Dinner Day 2
+        // 7) Minum Malam Day 2
+        // 8) Sarapan Day 3
+        const DEFAULT_SESSIONS = [
+            {
+                id: "dinner_day1",
+                category: "dinner",
+                title: "1. Dinner Day 1",
+                dayTag: "Day 1 (Malam)",
+                menuName: "Nasi Minyak, Daging Masak Hitam & Acar Rampai",
+                timeTag: "08:00 Malam",
+                isOpen: true,
+                items: [
+                    { name: "Beras Basmathi / Wangi", qty: 7, unit: "kg", price: 8.50 },
+                    { name: "Daging Pejal / Potong Segar", qty: 6, unit: "kg", price: 34.00 },
+                    { name: "Minyak Sapi", qty: 1, unit: "tin", price: 9.50 },
+                    { name: "Lobak Merah & Timun (Acar)", qty: 3, unit: "kg", price: 4.50 },
+                    { name: "Cuka Buatan & Biji Sawi", qty: 1, unit: "set", price: 3.50 },
+                    { name: "Kordial Mangga / Air Buah", qty: 2, unit: "botol", price: 5.50 }
+                ]
+            },
+            {
+                id: "supper_day1",
+                category: "supper",
+                title: "2. Minum Malam Day 1",
+                dayTag: "Day 1 (Lewat Malam)",
+                menuName: "Bubur Kacang Hijau Bersantan & Biskut Kering",
+                timeTag: "10:30 Malam",
+                isOpen: false,
+                items: [
+                    { name: "Kacang Hijau", qty: 2, unit: "kg", price: 8.00 },
+                    { name: "Gula Melaka Asli", qty: 3, unit: "buku", price: 4.00 },
+                    { name: "Santan Kelapa", qty: 3, unit: "kotak", price: 3.50 },
+                    { name: "Daun Pandan Segar", qty: 1, unit: "ikat", price: 2.00 },
+                    { name: "Biskut Krim Kering (Hup Seng)", qty: 2, unit: "tin", price: 15.00 }
+                ]
+            },
+            {
+                id: "sarapan_day2",
+                category: "sarapan",
+                title: "3. Sarapan Day 2",
+                dayTag: "Day 2 (Pagi)",
+                menuName: "Nasi Lemak Sambal Telur Rebus & Teh Tarik",
+                timeTag: "07:30 Pagi",
+                isOpen: false,
+                items: [
+                    { name: "Beras Wangi / Super Tempatan", qty: 5, unit: "kg", price: 3.80 },
+                    { name: "Santan Segar / Kotak", qty: 4, unit: "kotak", price: 3.50 },
+                    { name: "Telur Ayam (Gred B)", qty: 45, unit: "biji", price: 0.45 },
+                    { name: "Ikan Bilis Kopek", qty: 0.8, unit: "kg", price: 32.00 },
+                    { name: "Kacang Tanah", qty: 0.8, unit: "kg", price: 9.00 },
+                    { name: "Timun Batang", qty: 3, unit: "kg", price: 3.00 },
+                    { name: "Serbuk Teh Wangi", qty: 1, unit: "peket", price: 6.50 },
+                    { name: "Susu Pekat Manis", qty: 5, unit: "tin", price: 3.80 }
+                ]
+            },
+            {
+                id: "lunch_day2",
+                category: "lunch",
+                title: "4. Lunch 1 Day 2",
+                dayTag: "Day 2 (Tengahari)",
+                menuName: "Nasi Putih, Ayam Goreng Berempah, Gulai Kari Kentang & Ulam Sambal Belacan",
+                timeTag: "12:45 Tengahari",
+                isOpen: true,
+                items: [
+                    { name: "Beras Putih Tempatan", qty: 7, unit: "kg", price: 3.80 },
+                    { name: "Ayam Segar Potong (40-45 ketul)", qty: 7, unit: "kg", price: 10.50 },
+                    { name: "Ubi Kentang", qty: 3, unit: "kg", price: 4.00 },
+                    { name: "Santan Kotak", qty: 4, unit: "kotak", price: 3.50 },
+                    { name: "Ulam Raja / Pegaga / Kacang Botol", qty: 1.5, unit: "kg", price: 8.00 },
+                    { name: "Belacan Melaka", qty: 1, unit: "keping", price: 3.00 },
+                    { name: "Buah Tembikai Merah", qty: 8, unit: "kg", price: 3.20 },
+                    { name: "Kordial Sirap Ros", qty: 2, unit: "botol", price: 4.50 }
+                ]
+            },
+            {
+                id: "petang_day2",
+                category: "petang",
+                title: "5. Petang Day 2",
+                dayTag: "Day 2 (Petang)",
+                menuName: "Karipap Pusing / Cucur Pisang & Teh O Panas",
+                timeTag: "04:30 Petang",
+                isOpen: false,
+                items: [
+                    { name: "Kuih Karipap Kentang (Frozen/Tempahan)", qty: 50, unit: "biji", price: 0.70 },
+                    { name: "Pisang Emas / Abu (Cucur)", qty: 3, unit: "sikat", price: 6.00 },
+                    { name: "Tepung Gandum", qty: 1.5, unit: "kg", price: 3.20 },
+                    { name: "Gula & Teh Uncang", qty: 1, unit: "set", price: 5.00 }
+                ]
+            },
+            {
+                id: "dinner_day2",
+                category: "dinner",
+                title: "6. Dinner Day 2",
+                dayTag: "Day 2 (Malam)",
+                menuName: "Nasi Putih, Tomyam Campur Ayam & Sotong, Telur Dadar",
+                timeTag: "08:00 Malam",
+                isOpen: false,
+                items: [
+                    { name: "Beras Putih", qty: 7, unit: "kg", price: 3.80 },
+                    { name: "Isi Ayam & Kaki Ayam (Sup)", qty: 4, unit: "kg", price: 11.00 },
+                    { name: "Sotong Segar / Udang Basah", qty: 2.5, unit: "kg", price: 26.00 },
+                    { name: "Pes Tomyam Asli Thailand", qty: 2, unit: "botol", price: 7.50 },
+                    { name: "Serai, Daun Limau Purut & Lengkuas", qty: 1, unit: "set", price: 5.00 },
+                    { name: "Cendawan Tiram / Butang", qty: 1.5, unit: "kg", price: 8.00 },
+                    { name: "Telur Dadar (40 pax)", qty: 40, unit: "biji", price: 0.45 }
+                ]
+            },
+            {
+                id: "supper_day2",
+                category: "supper",
+                title: "7. Minum Malam Day 2",
+                dayTag: "Day 2 (Lewat Malam)",
+                menuName: "Roti Bakar Kaya Butter & Milo Panas",
+                timeTag: "10:30 Malam",
+                isOpen: false,
+                items: [
+                    { name: "Roti Sandwic Putih", qty: 5, unit: "buku", price: 4.80 },
+                    { name: "Kaya Pandan & Marjerin/Butter", qty: 2, unit: "bekas", price: 6.50 },
+                    { name: "Serbuk Milo Campuran", qty: 1, unit: "peket 1kg", price: 21.00 },
+                    { name: "Susu Pekat Manis", qty: 3, unit: "tin", price: 3.80 }
+                ]
+            },
+            {
+                id: "sarapan_day3",
+                category: "sarapan",
+                title: "8. Sarapan Day 3",
+                dayTag: "Day 3 (Pagi Penutup)",
+                menuName: "Mee Hun Goreng Kampung & Kopi O Panas",
+                timeTag: "07:30 Pagi",
+                isOpen: false,
+                items: [
+                    { name: "Bihun Kering", qty: 8, unit: "bungkus", price: 3.20 },
+                    { name: "Isi Ayam Cincang", qty: 2.5, unit: "kg", price: 13.50 },
+                    { name: "Fishcake / Bebola Ikan", qty: 4, unit: "peket", price: 3.50 },
+                    { name: "Sayur Taugeh & Kucai", qty: 2, unit: "kg", price: 4.50 },
+                    { name: "Serbuk Kopi Campuran", qty: 1, unit: "peket", price: 7.50 },
+                    { name: "Gula Pasir", qty: 2, unit: "kg", price: 2.85 }
+                ]
+            }
+        ];
+
+        const DEFAULT_PANTRY = [
+            { name: "Bawang Merah Kecil (Kupas/Kisar)", category: "Bawang", qty: 4, unit: "kg", price: 7.50 },
+            { name: "Bawang Besar Holand / Rose", category: "Bawang", qty: 5, unit: "kg", price: 4.80 },
+            { name: "Bawang Putih", category: "Bawang", qty: 2.5, unit: "kg", price: 8.50 },
+            { name: "Cili Giling / Cili Kisar Halus", category: "Cili", qty: 4, unit: "kg", price: 8.00 },
+            { name: "Cili Kering Keriting (Gred Pedas)", category: "Cili", qty: 1, unit: "kg", price: 22.00 },
+            { name: "Cili Padi Hijau & Merah", category: "Cili", qty: 1, unit: "kg", price: 14.00 },
+            { name: "Rempah Kari Daging & Ayam (Babaw)", category: "Rempah", qty: 4, unit: "peket", price: 3.60 },
+            { name: "Rempah Kurma / Kas-kas", category: "Rempah", qty: 2, unit: "peket", price: 3.50 },
+            { name: "Rempah 4 Sekawan (Bunga Lawang, Kayu Manis, Cengkih, Pelaga)", category: "Rempah", qty: 1, unit: "set", price: 6.50 },
+            { name: "Minyak Masak Sawit (Botol 5kg)", category: "Minyak", qty: 3, unit: "tong", price: 30.50 },
+            { name: "Sos Cili Pedas", category: "Sos", qty: 4, unit: "botol", price: 3.80 },
+            { name: "Sos Tomato", category: "Sos", qty: 2, unit: "botol", price: 3.80 },
+            { name: "Sos Tiram Pekat", category: "Sos", qty: 3, unit: "botol", price: 5.20 },
+            { name: "Kicap Manis & Kicap Masin", category: "Sos", qty: 4, unit: "botol", price: 6.00 },
+            { name: "Garam Halus Beryodin", category: "Perasa", qty: 3, unit: "peket", price: 1.20 },
+            { name: "Gula Pasir Kasar (Tambahan Dapur)", category: "Perasa", qty: 4, unit: "kg", price: 2.85 },
+            { name: "Serbuk Perasa / Kiub Pati Ayam", category: "Perasa", qty: 4, unit: "kotak", price: 4.50 },
+            { name: "Asam Keping & Asam Jawa", category: "Perasa", qty: 2, unit: "peket", price: 2.80 }
+        ];
+
+        // State Global
+        let sessionsData = [];
+        let pantryData = [];
+
+        function initApp() {
+            const savedSessions = localStorage.getItem("kursus3k_sessions_v2");
+            const savedPantry = localStorage.getItem("kursus3k_pantry");
+            const savedCourse = localStorage.getItem("kursus3k_courseName");
+            const savedPeserta = localStorage.getItem("kursus3k_peserta");
+            const savedUrusetia = localStorage.getItem("kursus3k_urusetia");
+            const savedPemimpin = localStorage.getItem("kursus3k_pemimpin");
+            const savedBudget = localStorage.getItem("kursus3k_budget");
+            const savedDuration = localStorage.getItem("kursus3k_duration");
+
+            if (savedSessions && savedPantry) {
+                try {
+                    sessionsData = JSON.parse(savedSessions);
+                    pantryData = JSON.parse(savedPantry);
+                } catch (e) {
+                    sessionsData = JSON.parse(JSON.stringify(DEFAULT_SESSIONS));
+                    pantryData = JSON.parse(JSON.stringify(DEFAULT_PANTRY));
+                }
+            } else {
+                sessionsData = JSON.parse(JSON.stringify(DEFAULT_SESSIONS));
+                pantryData = JSON.parse(JSON.stringify(DEFAULT_PANTRY));
+            }
+
+            if (savedCourse) document.getElementById("courseName").value = savedCourse;
+            if (savedPeserta !== null) document.getElementById("paxPeserta").value = savedPeserta;
+            if (savedUrusetia !== null) document.getElementById("paxUrusetia").value = savedUrusetia;
+            if (savedPemimpin !== null) document.getElementById("paxPemimpin").value = savedPemimpin;
+            if (savedBudget) document.getElementById("targetBudget").value = savedBudget;
+            if (savedDuration) document.getElementById("courseDuration").value = savedDuration;
+
+            renderSessions();
+            renderPantry();
+            calculateAll();
+        }
+
+        function saveData() {
+            localStorage.setItem("kursus3k_sessions_v2", JSON.stringify(sessionsData));
+            localStorage.setItem("kursus3k_pantry", JSON.stringify(pantryData));
+            localStorage.setItem("kursus3k_courseName", document.getElementById("courseName").value);
+            localStorage.setItem("kursus3k_peserta", document.getElementById("paxPeserta").value);
+            localStorage.setItem("kursus3k_urusetia", document.getElementById("paxUrusetia").value);
+            localStorage.setItem("kursus3k_pemimpin", document.getElementById("paxPemimpin").value);
+            localStorage.setItem("kursus3k_budget", document.getElementById("targetBudget").value);
+            localStorage.setItem("kursus3k_duration", document.getElementById("courseDuration").value);
+        }
+
+        function resetToSampleData() {
+            sessionsData = JSON.parse(JSON.stringify(DEFAULT_SESSIONS));
+            pantryData = JSON.parse(JSON.stringify(DEFAULT_PANTRY));
+            document.getElementById("courseName").value = "KURSUS KEPIMPINAN & MOTIVASI 3K";
+            document.getElementById("paxPeserta").value = 30;
+            document.getElementById("paxUrusetia").value = 6;
+            document.getElementById("paxPemimpin").value = 4;
+            document.getElementById("targetBudget").value = 3200;
+            document.getElementById("courseDuration").value = "3 Hari 2 Malam (8 Sesi)";
+            saveData();
+            renderSessions();
+            renderPantry();
+            calculateAll();
+            showToast("Aturan 8 sesi (Day 1 - Day 3) dan pecahan orang telah dimuatkan!");
+        }
+
+        function adjustGroupPax(group, delta) {
+            let elId = 'paxPeserta';
+            if (group === 'urusetia') elId = 'paxUrusetia';
+            if (group === 'pemimpin') elId = 'paxPemimpin';
+            
+            const el = document.getElementById(elId);
+            let current = parseInt(el.value, 10) || 0;
+            current = Math.max(0, current + delta);
+            el.value = current;
+            calculateAll();
+        }
+
+        function getTotalPax() {
+            const peserta = parseInt(document.getElementById("paxPeserta").value, 10) || 0;
+            const urusetia = parseInt(document.getElementById("paxUrusetia").value, 10) || 0;
+            const pemimpin = parseInt(document.getElementById("paxPemimpin").value, 10) || 0;
+            return {
+                peserta,
+                urusetia,
+                pemimpin,
+                total: Math.max(1, peserta + urusetia + pemimpin)
+            };
+        }
+
+        function renderSessions() {
+            const container = document.getElementById("sessionsContainer");
+            container.innerHTML = "";
+
+            sessionsData.forEach((session, sessionIdx) => {
+                const sessionTotal = session.items.reduce((sum, item) => sum + (Number(item.qty || 0) * Number(item.price || 0)), 0);
+
+                let badgeColor = "bg-blue-100 text-blue-800 border-blue-200";
+                if (session.category === "sarapan") badgeColor = "bg-amber-100 text-amber-800 border-amber-200";
+                if (session.category === "lunch") badgeColor = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                if (session.category === "petang") badgeColor = "bg-orange-100 text-orange-800 border-orange-200";
+                if (session.category === "dinner") badgeColor = "bg-indigo-100 text-indigo-800 border-indigo-200";
+                if (session.category === "supper") badgeColor = "bg-purple-100 text-purple-800 border-purple-200";
+
+                const sessionCard = document.createElement("div");
+                sessionCard.className = "bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all";
+                sessionCard.id = `card_${session.id}`;
+
+                sessionCard.innerHTML = `
+                    <div class="p-3.5 sm:p-4 bg-slate-50/70 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 cursor-pointer select-none" onclick="toggleSessionCollapse('${session.id}')">
+                        <div class="flex items-center gap-2.5 flex-1 min-w-[220px]">
+                            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border ${badgeColor}">
+                                ${session.dayTag || session.timeTag || "Sesi"}
+                            </span>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-800">${session.title}</h3>
+                                <p class="text-xs text-slate-500 font-medium">Menu: <span class="text-slate-700 font-semibold">${session.menuName || "Belum Dinyatakan"}</span></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="text-right">
+                                <div class="flex items-center gap-2 justify-end">
+                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-teal-50 border border-teal-200 text-teal-800 session-perhead" id="perhead_${session.id}">
+                                        RM 0.00 / org
+                                    </span>
+                                    <span class="text-sm sm:text-base font-extrabold text-emerald-700 session-subtotal" id="subtotal_${session.id}">
+                                        RM ${sessionTotal.toFixed(2)}
+                                    </span>
+                                </div>
+                                <span class="text-[10px] uppercase font-semibold text-slate-400 block text-right">Subtotal Sesi</span>
+                            </div>
+                            <button type="button" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 focus:outline-none">
+                                <svg class="w-5 h-5 transform transition-transform duration-200 ${session.isOpen ? 'rotate-180' : ''}" id="icon_${session.id}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Panel Kandungan Boleh Laras -->
+                    <div id="body_${session.id}" class="${session.isOpen ? 'block' : 'hidden'} p-4 sm:p-5">
+                        <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center gap-3">
+                            <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Cadangan Nama Menu:</label>
+                            <input type="text" value="${escapeHtml(session.menuName)}" onchange="updateMenuName('${session.id}', this.value)" class="w-full text-xs sm:text-sm font-semibold text-slate-800 bg-white border border-slate-300 rounded-lg px-3 py-1.5 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none" placeholder="Contoh: Nasi Minyak & Daging Masak Hitam">
+                        </div>
+
+                        <!-- Jadual Barang & Kos Bagi Sesi Ini -->
+                        <div class="overflow-x-auto rounded-xl border border-slate-200">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="bg-slate-100 text-slate-600 font-bold uppercase text-[10px] sm:text-[11px] border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-2.5 px-3">Barang / Ramuan Sajian</th>
+                                        <th class="py-2.5 px-2 w-24">Kuantiti</th>
+                                        <th class="py-2.5 px-2 w-24">Unit</th>
+                                        <th class="py-2.5 px-2 w-28">Harga / Unit (RM)</th>
+                                        <th class="py-2.5 px-3 w-28 text-right">Anggaran (RM)</th>
+                                        <th class="py-2.5 px-2 w-12 text-center no-print"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100" id="itemsTable_${session.id}">
+                                    ${renderItemsRows(session, sessionIdx)}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+                            <button onclick="addItemToSession('${session.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Tambah Barang Sesi Ini
+                            </button>
+                            <span class="text-xs text-slate-500">
+                                Jumlah item sesi: <strong>${session.items.length} jenis</strong>
+                            </span>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(sessionCard);
+            });
+        }
+
+        function renderItemsRows(session, sessionIdx) {
+            return session.items.map((item, itemIdx) => {
+                const sub = (Number(item.qty || 0) * Number(item.price || 0)).toFixed(2);
+                return `
+                    <tr class="hover:bg-slate-50/60 transition-colors">
+                        <td class="py-2 px-3">
+                            <input type="text" value="${escapeHtml(item.name)}" oninput="updateItemField('${session.id}', ${itemIdx}, 'name', this.value)" class="w-full text-xs sm:text-sm font-medium text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-emerald-600 focus:outline-none py-0.5" placeholder="Nama barang">
+                        </td>
+                        <td class="py-2 px-2">
+                            <input type="number" step="any" min="0" value="${item.qty}" oninput="updateItemField('${session.id}', ${itemIdx}, 'qty', this.value)" class="w-full text-xs sm:text-sm text-slate-800 font-semibold bg-white border border-slate-200 rounded px-1.5 py-0.5 focus:border-emerald-600 focus:outline-none">
+                        </td>
+                        <td class="py-2 px-2">
+                            <input type="text" value="${escapeHtml(item.unit)}" oninput="updateItemField('${session.id}', ${itemIdx}, 'unit', this.value)" class="w-full text-xs sm:text-sm text-slate-600 bg-white border border-slate-200 rounded px-1.5 py-0.5 focus:border-emerald-600 focus:outline-none" placeholder="kg/tin/biji">
+                        </td>
+                        <td class="py-2 px-2">
+                            <input type="number" step="0.05" min="0" value="${item.price}" oninput="updateItemField('${session.id}', ${itemIdx}, 'price', this.value)" class="w-full text-xs sm:text-sm text-slate-800 font-semibold bg-white border border-slate-200 rounded px-1.5 py-0.5 focus:border-emerald-600 focus:outline-none">
+                        </td>
+                        <td class="py-2 px-3 text-right font-bold text-slate-800 item-subtotal">
+                            RM ${sub}
+                        </td>
+                        <td class="py-2 px-2 text-center no-print">
+                            <button onclick="removeItemFromSession('${session.id}', ${itemIdx})" class="p-1 rounded text-slate-400 hover:text-red-600 transition" title="Padam barang">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function renderPantry() {
+            const tbody = document.getElementById("pantryTableBody");
+            tbody.innerHTML = "";
+
+            pantryData.forEach((item, idx) => {
+                const rowTotal = (Number(item.qty || 0) * Number(item.price || 0)).toFixed(2);
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-amber-50/40 transition-colors";
+
+                let catBadge = "bg-amber-100 text-amber-800";
+                if (item.category === "Cili") catBadge = "bg-red-100 text-red-800";
+                if (item.category === "Minyak") catBadge = "bg-yellow-100 text-yellow-800";
+                if (item.category === "Rempah") catBadge = "bg-orange-100 text-orange-800";
+                if (item.category === "Sos") catBadge = "bg-rose-100 text-rose-800";
+                if (item.category === "Perasa") catBadge = "bg-slate-100 text-slate-800";
+
+                tr.innerHTML = `
+                    <td class="py-2.5 px-4 font-semibold text-slate-800">
+                        <input type="text" value="${escapeHtml(item.name)}" oninput="updatePantryField(${idx}, 'name', this.value)" class="w-full text-xs sm:text-sm bg-transparent border-b border-transparent hover:border-slate-300 focus:border-amber-600 focus:outline-none py-0.5">
+                    </td>
+                    <td class="py-2.5 px-3">
+                        <select onchange="updatePantryField(${idx}, 'category', this.value)" class="text-xs font-semibold px-2 py-1 rounded-lg border border-slate-200 bg-white focus:outline-none">
+                            <option value="Bawang" ${item.category === 'Bawang' ? 'selected' : ''}>Bawang</option>
+                            <option value="Cili" ${item.category === 'Cili' ? 'selected' : ''}>Cili</option>
+                            <option value="Rempah" ${item.category === 'Rempah' ? 'selected' : ''}>Rempah</option>
+                            <option value="Minyak" ${item.category === 'Minyak' ? 'selected' : ''}>Minyak</option>
+                            <option value="Sos" ${item.category === 'Sos' ? 'selected' : ''}>Sos</option>
+                            <option value="Perasa" ${item.category === 'Perasa' ? 'selected' : ''}>Perasa/Garam</option>
+                            <option value="Lain-lain" ${item.category === 'Lain-lain' ? 'selected' : ''}>Lain-lain</option>
+                        </select>
+                    </td>
+                    <td class="py-2.5 px-3">
+                        <input type="number" step="any" min="0" value="${item.qty}" oninput="updatePantryField(${idx}, 'qty', this.value)" class="w-full text-xs sm:text-sm text-slate-800 font-semibold bg-white border border-slate-200 rounded px-2 py-1 focus:border-amber-600 focus:outline-none">
+                    </td>
+                    <td class="py-2.5 px-3">
+                        <input type="text" value="${escapeHtml(item.unit)}" oninput="updatePantryField(${idx}, 'unit', this.value)" class="w-full text-xs sm:text-sm text-slate-600 bg-white border border-slate-200 rounded px-2 py-1 focus:border-amber-600 focus:outline-none" placeholder="kg/botol">
+                    </td>
+                    <td class="py-2.5 px-3">
+                        <input type="number" step="0.1" min="0" value="${item.price}" oninput="updatePantryField(${idx}, 'price', this.value)" class="w-full text-xs sm:text-sm text-slate-800 font-semibold bg-white border border-slate-200 rounded px-2 py-1 focus:border-amber-600 focus:outline-none">
+                    </td>
+                    <td class="py-2.5 px-3 text-right font-bold text-amber-900">
+                        RM ${rowTotal}
+                    </td>
+                    <td class="py-2.5 px-3 text-center no-print">
+                        <button onclick="removePantryItem(${idx})" class="p-1 rounded text-slate-400 hover:text-red-600 transition" title="Padam">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById("pantryBadgeCount").innerText = pantryData.length;
+        }
+
+        function adjustPax(delta) {
+            const paxInput = document.getElementById("paxCount");
+            let current = parseInt(paxInput.value, 10) || 0;
+            current = Math.max(1, current + delta);
+            paxInput.value = current;
+            calculateAll();
+        }
+
+        function calculateAll() {
+            const paxInfo = getTotalPax();
+            const pax = paxInfo.total;
+
+            // Kemaskini label rumusan bilangan orang
+            const formulaEl = document.getElementById("paxSummaryFormula");
+            if (formulaEl) {
+                formulaEl.innerText = `${paxInfo.peserta} Peserta + ${paxInfo.urusetia} Urus Setia + ${paxInfo.pemimpin} Pemimpin = ${pax} Orang`;
+            }
+            const totalPaxBadge = document.getElementById("totalPaxBadge");
+            if (totalPaxBadge) {
+                totalPaxBadge.innerText = `${pax} Orang`;
+            }
+
+            let mealsTotal = 0;
+
+            // Kira subtotal setiap sesi sajian dan kos sesi per head
+            sessionsData.forEach(session => {
+                const sub = session.items.reduce((s, it) => s + (Number(it.qty || 0) * Number(it.price || 0)), 0);
+                mealsTotal += sub;
+                
+                const subEl = document.getElementById(`subtotal_${session.id}`);
+                if (subEl) {
+                    subEl.innerText = `RM ${sub.toFixed(2)}`;
+                }
+                const perHeadSessionEl = document.getElementById(`perhead_${session.id}`);
+                if (perHeadSessionEl) {
+                    const sessionPerPax = sub / pax;
+                    perHeadSessionEl.innerText = `RM ${sessionPerPax.toFixed(2)} / org`;
+                }
+            });
+
+            // Kira subtotal bahan asas dapur
+            const pantryTotal = pantryData.reduce((s, it) => s + (Number(it.qty || 0) * Number(it.price || 0)), 0);
+
+            // Jumlah besar
+            const grandTotal = mealsTotal + pantryTotal;
+
+            // Pengiraan Kos Per Head & Peruntukan
+            const costPerPax = grandTotal / pax;
+            const perHeadMeals = mealsTotal / pax;
+            const perHeadPantry = pantryTotal / pax;
+
+            const targetBudget = Number(document.getElementById("targetBudget").value) || 0;
+            const remaining = targetBudget - grandTotal;
+            const percentUsed = targetBudget > 0 ? (grandTotal / targetBudget) * 100 : 0;
+
+            // Kemaskini Paparan Dashboard & Kad Khas Per Head
+            document.getElementById("costPerHeadDisplay").innerText = `RM ${costPerPax.toFixed(2)}`;
+            document.getElementById("headCountBadge").innerText = `${pax} Orang`;
+            document.getElementById("perHeadMealsDisplay").innerText = `RM ${perHeadMeals.toFixed(2)}`;
+            document.getElementById("perHeadPantryDisplay").innerText = `RM ${perHeadPantry.toFixed(2)}`;
+
+            document.getElementById("grandTotalDisplay").innerText = `RM ${grandTotal.toLocaleString('ms-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById("mealsTotalDisplay").innerText = `RM ${mealsTotal.toFixed(2)}`;
+            document.getElementById("pantryTotalDisplay").innerText = `RM ${pantryTotal.toFixed(2)}`;
+            document.getElementById("pantryFooterTotal").innerText = `RM ${pantryTotal.toFixed(2)}`;
+
+            document.getElementById("targetBudgetIndicator").innerText = targetBudget.toLocaleString('ms-MY');
+            document.getElementById("remainingBudgetDisplay").innerText = `RM ${Math.abs(remaining).toFixed(2)} ${remaining < 0 ? '(LEBIHAN)' : ''}`;
+            
+            const badgeEl = document.getElementById("budgetStatusBadge");
+            const progressBar = document.getElementById("budgetProgressBar");
+            const percentDisplay = document.getElementById("budgetPercentDisplay");
+            const budgetDiffIndicator = document.getElementById("budgetDiffIndicator");
+
+            percentDisplay.innerText = `${percentUsed.toFixed(1)}% Digunakan`;
+            progressBar.style.width = `${Math.min(100, percentUsed)}%`;
+
+            if (remaining >= 0) {
+                badgeEl.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300";
+                badgeEl.innerText = "Dalam Bajet";
+                progressBar.className = "bg-emerald-500 h-2 rounded-full transition-all duration-300";
+                if (budgetDiffIndicator) budgetDiffIndicator.innerText = `Baki RM ${remaining.toFixed(2)}`;
+            } else {
+                badgeEl.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300";
+                badgeEl.innerText = "Lebih Bajet!";
+                progressBar.className = "bg-rose-500 h-2 rounded-full transition-all duration-300";
+                if (budgetDiffIndicator) budgetDiffIndicator.innerText = `Melebihi RM ${Math.abs(remaining).toFixed(2)}`;
+            }
+
+            // Kemaskini Tab Ringkasan Analisis
+            updateBreakdownTab(mealsTotal, pantryTotal, grandTotal, pax);
+            saveData();
+        }
+
+        function updateBreakdownTab(mealsTotal, pantryTotal, grandTotal, pax) {
+            const container = document.getElementById("sessionCategorySummary");
+            if (!container) return;
+
+            // Papar mengikut sesi kronologi dan bahan dapur
+            let html = "";
+            sessionsData.forEach((sess, idx) => {
+                const sessTotal = sess.items.reduce((acc, it) => acc + (Number(it.qty || 0) * Number(it.price || 0)), 0);
+                const pct = grandTotal > 0 ? ((sessTotal / grandTotal) * 100).toFixed(1) : 0;
+                const perPaxSess = (sessTotal / pax).toFixed(2);
+
+                html += `
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <strong>${escapeHtml(sess.title)}</strong> (${escapeHtml(sess.menuName.substring(0, 24))}...)
+                            </span>
+                            <span class="font-bold text-slate-800">RM ${sessTotal.toFixed(2)} (${pct}%) • <span class="text-teal-700 font-semibold">RM ${perPaxSess}/pax</span></span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                            <div class="bg-emerald-600 h-1.5 rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Tambah baris Bahan Asas Dapur
+            const pantryPct = grandTotal > 0 ? ((pantryTotal / grandTotal) * 100).toFixed(1) : 0;
+            html += `
+                <div class="pt-2 mt-2 border-t border-slate-200">
+                    <div class="flex justify-between text-xs font-bold text-amber-900 mb-1">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+                            Bahan Asas Dapur & Rempah (Kongsi 8 Sesi)
+                        </span>
+                        <span>RM ${pantryTotal.toFixed(2)} (${pantryPct}%) • RM ${(pantryTotal/pax).toFixed(2)}/pax</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div class="bg-amber-600 h-2 rounded-full" style="width: ${pantryPct}%"></div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            document.getElementById("analysisPerPax").innerText = `RM ${(grandTotal / pax).toFixed(2)}`;
+            document.getElementById("analysisPerMeal").innerText = `RM ${(grandTotal / (pax * 8)).toFixed(2)}`;
+        }
+
+        function switchTab(tab) {
+            const tabs = ['sessions', 'pantry', 'breakdown'];
+            tabs.forEach(t => {
+                document.getElementById(`tabContent${capitalize(t)}`).classList.add('hidden');
+                document.getElementById(`tabBtn${capitalize(t)}`).className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 hover:bg-slate-200/70";
+            });
+
+            document.getElementById(`tabContent${capitalize(tab)}`).classList.remove('hidden');
+            document.getElementById(`tabBtn${capitalize(tab)}`).className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-emerald-600 text-white shadow-sm";
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function toggleSessionCollapse(sessionId) {
+            const body = document.getElementById(`body_${sessionId}`);
+            const icon = document.getElementById(`icon_${sessionId}`);
+            const sess = sessionsData.find(s => s.id === sessionId);
+            if (body && sess) {
+                sess.isOpen = !sess.isOpen;
+                if (sess.isOpen) {
+                    body.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                } else {
+                    body.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                }
+                saveData();
+            }
+        }
+
+        function expandAllSessions(expand) {
+            sessionsData.forEach(s => s.isOpen = expand);
+            renderSessions();
+            saveData();
+        }
+
+        function updateMenuName(sessionId, newName) {
+            const sess = sessionsData.find(s => s.id === sessionId);
+            if (sess) {
+                sess.menuName = newName;
+                calculateAll();
+            }
+        }
+
+        function updateItemField(sessionId, itemIdx, field, value) {
+            const sess = sessionsData.find(s => s.id === sessionId);
+            if (sess && sess.items[itemIdx]) {
+                sess.items[itemIdx][field] = (field === 'qty' || field === 'price') ? Number(value) : value;
+                
+                // Kemaskini baris subtotal serta merta
+                const table = document.getElementById(`itemsTable_${sessionId}`);
+                if (table) {
+                    const row = table.rows[itemIdx];
+                    if (row) {
+                        const subCell = row.querySelector('.item-subtotal');
+                        const sub = (Number(sess.items[itemIdx].qty || 0) * Number(sess.items[itemIdx].price || 0)).toFixed(2);
+                        if (subCell) subCell.innerText = `RM ${sub}`;
+                    }
+                }
+                calculateAll();
+            }
+        }
+
+        function addItemToSession(sessionId) {
+            const sess = sessionsData.find(s => s.id === sessionId);
+            if (sess) {
+                sess.items.push({
+                    name: "Bahan Baru",
+                    qty: 1,
+                    unit: "kg",
+                    price: 5.00
+                });
+                renderSessions();
+                calculateAll();
+                showToast("Bahan baru ditambah ke " + sess.title);
+            }
+        }
+
+        function removeItemFromSession(sessionId, itemIdx) {
+            const sess = sessionsData.find(s => s.id === sessionId);
+            if (sess) {
+                sess.items.splice(itemIdx, 1);
+                renderSessions();
+                calculateAll();
+                showToast("Bahan telah dipadam");
+            }
+        }
+
+        function updatePantryField(idx, field, value) {
+            if (pantryData[idx]) {
+                pantryData[idx][field] = (field === 'qty' || field === 'price') ? Number(value) : value;
+                renderPantry();
+                calculateAll();
+            }
+        }
+
+        function addPantryItem() {
+            pantryData.push({
+                name: "Bahan Dapur Baru",
+                category: "Lain-lain",
+                qty: 1,
+                unit: "peket",
+                price: 5.00
+            });
+            renderPantry();
+            calculateAll();
+            showToast("Bahan asas dapur baru telah ditambah!");
+        }
+
+        function removePantryItem(idx) {
+            pantryData.splice(idx, 1);
+            renderPantry();
+            calculateAll();
+            showToast("Bahan asas dipadam");
+        }
+
+        function loadPantryPresets() {
+            pantryData = JSON.parse(JSON.stringify(DEFAULT_PANTRY));
+            renderPantry();
+            calculateAll();
+            showToast("Senarai asas bawang, cili, rempah & perasa telah dimuatkan semula!");
+        }
+
+        function exportSummaryModal() {
+            const modal = document.getElementById("checklistModal");
+            const cName = document.getElementById("courseName").value;
+            const paxInfo = getTotalPax();
+            const grand = document.getElementById("grandTotalDisplay").innerText;
+            const perHead = document.getElementById("costPerHeadDisplay").innerText;
+
+            document.getElementById("modalCourseNameDisplay").innerText = cName;
+            document.getElementById("modalPaxDisplay").innerText = `${paxInfo.total} Org (${paxInfo.peserta}P + ${paxInfo.urusetia}U + ${paxInfo.pemimpin}V)`;
+            document.getElementById("modalPerHeadDisplay").innerText = `${perHead} / org`;
+            document.getElementById("modalTotalDisplay").innerText = grand;
+
+            const contentDiv = document.getElementById("checklistContent");
+            
+            let html = `
+                <div class="bg-amber-50/70 p-3.5 rounded-xl border border-amber-200">
+                    <h4 class="font-bold text-amber-950 text-xs sm:text-sm uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        🧂 Bahagian A: Bahan Asas Dapur & Rempah (Kongsi 8 Sesi)
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        ${pantryData.map(item => `
+                            <label class="flex items-start gap-2 p-1.5 bg-white rounded border border-amber-100 hover:bg-amber-50/50 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500">
+                                <span><strong>${escapeHtml(item.name)}</strong>: ${item.qty} ${escapeHtml(item.unit)} (RM ${(Number(item.qty)*Number(item.price)).toFixed(2)})</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider">
+                        🥗 Bahagian B: Bahan Sajian Mengikut Kronologi Jadual (Day 1 - Day 3)
+                    </h4>
+                    ${sessionsData.map(s => `
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-slate-800 mb-1 flex justify-between">
+                                <span>${escapeHtml(s.title)} (${escapeHtml(s.menuName)})</span>
+                                <span class="text-emerald-700 font-extrabold">RM ${s.items.reduce((acc, it) => acc + (Number(it.qty)*Number(it.price)), 0).toFixed(2)}</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-slate-600">
+                                ${s.items.map(item => `
+                                    <label class="flex items-start gap-2 p-1 bg-white rounded border border-slate-100 hover:bg-slate-100/50 cursor-pointer">
+                                        <input type="checkbox" class="mt-0.5 rounded text-emerald-600 focus:ring-emerald-500">
+                                        <span>${escapeHtml(item.name)} - <strong>${item.qty} ${escapeHtml(item.unit)}</strong> (RM ${(Number(item.qty)*Number(item.price)).toFixed(2)})</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            contentDiv.innerHTML = html;
+            modal.classList.remove("hidden");
+        }
+
+        function copyChecklistText() {
+            const cName = document.getElementById("courseName").value;
+            const paxInfo = getTotalPax();
+            const grand = document.getElementById("grandTotalDisplay").innerText;
+            const perHead = document.getElementById("costPerHeadDisplay").innerText;
+
+            let text = `🛒 *SENARAI BELIAN KOS MAKANAN: ${cName.toUpperCase()}*\n`;
+            text += `👥 Bilangan Orang: ${paxInfo.total} Orang (Peserta: ${paxInfo.peserta}, Urus Setia: ${paxInfo.urusetia}, Pemimpin: ${paxInfo.pemimpin})\n`;
+            text += `🏷️ *KOS PER HEAD: ${perHead} / seorang*\n`;
+            text += `💰 Anggaran Bajet Keseluruhan: ${grand}\n\n`;
+
+            text += `*--- [1] BAHAN ASAS DAPUR, REMPAH & PERASA ---*\n`;
+            pantryData.forEach(p => {
+                text += `• ${p.name}: ${p.qty} ${p.unit} (RM ${(Number(p.qty)*Number(p.price)).toFixed(2)})\n`;
+            });
+
+            text += `\n*--- [2] SUSUNAN KRONOLOGI MENU (8 SESI) ---*\n`;
+            sessionsData.forEach((s) => {
+                const sub = s.items.reduce((sum, it) => sum + (Number(it.qty || 0) * Number(it.price || 0)), 0);
+                text += `\n*${s.title}* [${s.timeTag}] - _${s.menuName}_ (Subtotal: RM ${sub.toFixed(2)})\n`;
+                s.items.forEach(it => {
+                    text += `  - ${it.name} (${it.qty} ${it.unit}) = RM ${(Number(it.qty)*Number(it.price)).toFixed(2)}\n`;
+                });
+            });
+
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Senarai format WhatsApp telah disalin!");
+            } catch (err) {
+                showToast("Gagal menyalin, sila salin secara manual.");
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        // Helper Toast & Escape
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toastMsg");
+            toastMsg.innerText = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 3000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            initApp();
+        });
+    </script>
+</body>
+</html>
